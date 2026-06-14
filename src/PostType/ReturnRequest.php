@@ -1,0 +1,406 @@
+<?php
+
+declare(strict_types=1);
+
+namespace Returns\PostType;
+
+use Returns\Contract\HasHooks;
+use Returns\Support\Statuses;
+
+defined('ABSPATH') || exit;
+
+/**
+ * The private custom post type that stores submitted return (RMA) requests.
+ *
+ * Requests are not public — the CPT is registered with public => false and is
+ * surfaced only in wp-admin under the WooCommerce menu. Each post links to a
+ * WooCommerce order and stores the requested line items, the customer's reason
+ * and note, and a workflow status (requested/approved/rejected/completed).
+ *
+ * All meta writes happen through create()/updateStatus(); the admin status box
+ * is the only editable surface and is nonce- and capability-guarded.
+ */
+final class ReturnRequest implements HasHooks
+{
+    public const POST_TYPE = 'returns_rma';
+
+    public const META_ORDER_ID    = '_returns_order_id';
+    public const META_CUSTOMER_ID = '_returns_customer_id';
+    public const META_ITEMS       = '_returns_items';
+    public const META_REASON      = '_returns_reason';
+    public const META_NOTE        = '_returns_note';
+    public const META_STATUS      = '_returns_status';
+
+    private const STATUS_NONCE = 'returns_save_status';
+
+    public function registerHooks(): void
+    {
+        $this->register();
+
+        if (is_admin()) {
+            add_filter('manage_' . self::POST_TYPE . '_posts_columns', [$this, 'columns']);
+            add_action('manage_' . self::POST_TYPE . '_posts_custom_column', [$this, 'renderColumn'], 10, 2);
+            add_action('add_meta_boxes', [$this, 'addMetaBoxes']);
+            add_action('save_post_' . self::POST_TYPE, [$this, 'saveStatus'], 10, 2);
+        }
+    }
+
+    /**
+     * Register the post type. Called directly (not only via hook) so it is
+     * available immediately during boot on the init action.
+     */
+    public function register(): void
+    {
+        if (post_type_exists(self::POST_TYPE)) {
+            return;
+        }
+
+        register_post_type(
+            self::POST_TYPE,
+            [
+                'labels'              => [
+                    'name'               => __('Return Requests', 'returns'),
+                    'singular_name'      => __('Return Request', 'returns'),
+                    'menu_name'          => __('Return Requests', 'returns'),
+                    'all_items'          => __('Return Requests', 'returns'),
+                    'edit_item'          => __('Return Request', 'returns'),
+                    'view_item'          => __('Return Request', 'returns'),
+                    'search_items'       => __('Search return requests', 'returns'),
+                    'not_found'          => __('No return requests found.', 'returns'),
+                    'not_found_in_trash' => __('No return requests in Trash.', 'returns'),
+                ],
+                'public'              => false,
+                'show_ui'             => true,
+                'show_in_menu'        => 'woocommerce',
+                'show_in_rest'        => false,
+                'exclude_from_search' => true,
+                'publicly_queryable'  => false,
+                'has_archive'         => false,
+                'rewrite'             => false,
+                'query_var'           => false,
+                'hierarchical'        => false,
+                'menu_icon'           => 'dashicons-undo',
+                'supports'            => ['title'],
+                'capability_type'     => 'post',
+                'map_meta_cap'        => true,
+                'capabilities'        => [
+                    'create_posts' => 'do_not_allow',
+                ],
+            ],
+        );
+    }
+
+    /**
+     * Persist a return request. Returns the new post ID, or 0 on failure.
+     *
+     * @param array<int, array{item_id: int, name: string, qty: int}> $items
+     */
+    public function create(int $orderId, int $customerId, array $items, string $reason, string $note): int
+    {
+        $title = sprintf(
+            /* translators: 1: order number, 2: human-readable date */
+            __('Return for order #%1$s — %2$s', 'returns'),
+            (string) $orderId,
+            wp_date(get_option('date_format') . ' ' . get_option('time_format')),
+        );
+
+        $postId = wp_insert_post(
+            [
+                'post_type'   => self::POST_TYPE,
+                'post_status' => 'private',
+                'post_title'  => $title,
+            ],
+            true,
+        );
+
+        if (is_wp_error($postId) || 0 === $postId) {
+            return 0;
+        }
+
+        update_post_meta($postId, self::META_ORDER_ID, $orderId);
+        update_post_meta($postId, self::META_CUSTOMER_ID, $customerId);
+        update_post_meta($postId, self::META_ITEMS, $items);
+        update_post_meta($postId, self::META_REASON, $reason);
+        update_post_meta($postId, self::META_NOTE, $note);
+        update_post_meta($postId, self::META_STATUS, Statuses::REQUESTED);
+
+        return (int) $postId;
+    }
+
+    /**
+     * The current workflow status of a request (defaults to "requested").
+     */
+    public function status(int $postId): string
+    {
+        $status = (string) get_post_meta($postId, self::META_STATUS, true);
+
+        return Statuses::isValid($status) ? $status : Statuses::REQUESTED;
+    }
+
+    /**
+     * Whether a given order already has a return request.
+     */
+    public function existsForOrder(int $orderId): bool
+    {
+        $query = new \WP_Query([
+            'post_type'              => self::POST_TYPE,
+            'post_status'            => 'private',
+            'posts_per_page'         => 1,
+            'fields'                 => 'ids',
+            'no_found_rows'          => true,
+            'update_post_meta_cache' => false,
+            'update_post_term_cache' => false,
+            'meta_key'               => self::META_ORDER_ID,
+            'meta_value'             => (string) $orderId,
+        ]);
+
+        return [] !== $query->posts;
+    }
+
+    /**
+     * Return requests belonging to a specific customer, newest first.
+     *
+     * @return list<int> post IDs
+     */
+    public function findByCustomer(int $customerId): array
+    {
+        if ($customerId <= 0) {
+            return [];
+        }
+
+        $query = new \WP_Query([
+            'post_type'              => self::POST_TYPE,
+            'post_status'            => 'private',
+            'posts_per_page'         => 50,
+            'fields'                 => 'ids',
+            'no_found_rows'          => true,
+            'update_post_meta_cache' => false,
+            'update_post_term_cache' => false,
+            'orderby'                => 'date',
+            'order'                  => 'DESC',
+            'meta_key'               => self::META_CUSTOMER_ID,
+            'meta_value'             => (string) $customerId,
+        ]);
+
+        /** @var list<int> $ids */
+        $ids = array_map('intval', $query->posts);
+
+        return $ids;
+    }
+
+    /**
+     * @param array<string, string> $columns
+     * @return array<string, string>
+     */
+    public function columns(array $columns): array
+    {
+        $reordered = [];
+
+        foreach ($columns as $key => $label) {
+            if ('date' === $key) {
+                $reordered['returns_order']  = __('Order', 'returns');
+                $reordered['returns_status'] = __('Status', 'returns');
+                $reordered['returns_items']  = __('Items', 'returns');
+            }
+
+            $reordered[$key] = $label;
+        }
+
+        return $reordered;
+    }
+
+    public function renderColumn(string $column, int $postId): void
+    {
+        switch ($column) {
+            case 'returns_order':
+                $orderId = (int) get_post_meta($postId, self::META_ORDER_ID, true);
+                $link    = $orderId > 0 ? $this->orderEditLink($orderId) : '';
+                if ('' !== $link) {
+                    printf('<a href="%1$s">#%2$s</a>', esc_url($link), esc_html((string) $orderId));
+                } else {
+                    echo esc_html($orderId > 0 ? '#' . $orderId : '—');
+                }
+                break;
+
+            case 'returns_status':
+                $status = $this->status($postId);
+                printf(
+                    '<span class="returns-badge returns-badge--%1$s">%2$s</span>',
+                    esc_attr(Statuses::slug($status)),
+                    esc_html(Statuses::label($status)),
+                );
+                break;
+
+            case 'returns_items':
+                $items = get_post_meta($postId, self::META_ITEMS, true);
+                echo esc_html((string) (is_array($items) ? count($items) : 0));
+                break;
+        }
+    }
+
+    public function addMetaBoxes(): void
+    {
+        add_meta_box(
+            'returns_rma_details',
+            __('Return details', 'returns'),
+            [$this, 'renderDetailsBox'],
+            self::POST_TYPE,
+            'normal',
+            'high',
+        );
+
+        add_meta_box(
+            'returns_rma_status',
+            __('Status', 'returns'),
+            [$this, 'renderStatusBox'],
+            self::POST_TYPE,
+            'side',
+            'high',
+        );
+    }
+
+    public function renderDetailsBox(\WP_Post $post): void
+    {
+        $orderId  = (int) get_post_meta($post->ID, self::META_ORDER_ID, true);
+        $reason   = (string) get_post_meta($post->ID, self::META_REASON, true);
+        $note     = (string) get_post_meta($post->ID, self::META_NOTE, true);
+        $items    = get_post_meta($post->ID, self::META_ITEMS, true);
+        $items    = is_array($items) ? $items : [];
+        $orderUrl = $orderId > 0 ? $this->orderEditLink($orderId) : '';
+        ?>
+        <table class="widefat striped" style="margin-bottom:1em">
+            <tbody>
+                <tr>
+                    <th style="width:160px"><?php esc_html_e('Order', 'returns'); ?></th>
+                    <td>
+                        <?php if ('' !== $orderUrl) : ?>
+                            <a href="<?php echo esc_url($orderUrl); ?>">#<?php echo esc_html((string) $orderId); ?></a>
+                        <?php else : ?>
+                            <?php echo esc_html($orderId > 0 ? '#' . $orderId : '—'); ?>
+                        <?php endif; ?>
+                    </td>
+                </tr>
+                <tr>
+                    <th><?php esc_html_e('Reason', 'returns'); ?></th>
+                    <td><?php echo esc_html('' !== $reason ? $reason : '—'); ?></td>
+                </tr>
+                <tr>
+                    <th><?php esc_html_e('Customer note', 'returns'); ?></th>
+                    <td><?php echo '' !== $note ? esc_html($note) : '—'; ?></td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h3><?php esc_html_e('Requested items', 'returns'); ?></h3>
+        <?php if ([] === $items) : ?>
+            <p><?php esc_html_e('No items recorded.', 'returns'); ?></p>
+        <?php else : ?>
+            <table class="widefat striped">
+                <thead>
+                    <tr>
+                        <th><?php esc_html_e('Product', 'returns'); ?></th>
+                        <th style="width:120px"><?php esc_html_e('Quantity', 'returns'); ?></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php foreach ($items as $item) :
+                        $name = isset($item['name']) ? (string) $item['name'] : '';
+                        $qty  = isset($item['qty']) ? absint($item['qty']) : 1;
+                        ?>
+                        <tr>
+                            <td><?php echo esc_html($name); ?></td>
+                            <td><?php echo esc_html((string) $qty); ?></td>
+                        </tr>
+                    <?php endforeach; ?>
+                </tbody>
+            </table>
+        <?php endif; ?>
+        <?php
+    }
+
+    public function renderStatusBox(\WP_Post $post): void
+    {
+        $current = $this->status($post->ID);
+        wp_nonce_field(self::STATUS_NONCE, 'returns_status_nonce');
+        ?>
+        <p>
+            <label for="returns-status" class="screen-reader-text"><?php esc_html_e('Return status', 'returns'); ?></label>
+            <select id="returns-status" name="returns_status" style="width:100%">
+                <?php foreach (Statuses::all() as $key => $label) : ?>
+                    <option value="<?php echo esc_attr($key); ?>" <?php selected($current, $key); ?>>
+                        <?php echo esc_html($label); ?>
+                    </option>
+                <?php endforeach; ?>
+            </select>
+        </p>
+        <p class="description">
+            <?php esc_html_e('The customer sees this status in their account. Updating it here does not refund the order — process any refund in the order screen.', 'returns'); ?>
+        </p>
+        <?php
+    }
+
+    /**
+     * Persist the status when the request is saved in wp-admin.
+     */
+    public function saveStatus(int $postId, \WP_Post $post): void
+    {
+        if (defined('DOING_AUTOSAVE') && DOING_AUTOSAVE) {
+            return;
+        }
+
+        if (! current_user_can('manage_woocommerce')) {
+            return;
+        }
+
+        $nonce = isset($_POST['returns_status_nonce'])
+            ? sanitize_text_field(wp_unslash($_POST['returns_status_nonce']))
+            : '';
+
+        if (! wp_verify_nonce($nonce, self::STATUS_NONCE)) {
+            return;
+        }
+
+        $status = isset($_POST['returns_status'])
+            ? sanitize_key(wp_unslash($_POST['returns_status']))
+            : '';
+
+        if (! Statuses::isValid($status)) {
+            return;
+        }
+
+        $previous = $this->status($postId);
+
+        if ($status === $previous) {
+            return;
+        }
+
+        update_post_meta($postId, self::META_STATUS, $status);
+
+        /**
+         * Fires after a return request's status changes in wp-admin. PRO uses
+         * this to notify the customer by email.
+         *
+         * @param int    $postId   The return request post ID.
+         * @param string $status   The new status.
+         * @param string $previous The previous status.
+         */
+        do_action('returns/status_changed', $postId, $status, $previous);
+    }
+
+    /**
+     * Resolve the admin edit URL for an order across HPOS and legacy storage.
+     */
+    private function orderEditLink(int $orderId): string
+    {
+        if (function_exists('wc_get_order')) {
+            $order = wc_get_order($orderId);
+            if ($order instanceof \WC_Order && method_exists($order, 'get_edit_order_url')) {
+                return (string) $order->get_edit_order_url();
+            }
+        }
+
+        $link = get_edit_post_link($orderId, 'raw');
+
+        return is_string($link) ? $link : '';
+    }
+}

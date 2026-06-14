@@ -1,0 +1,132 @@
+/**
+ * Returns — wp-admin styles for the settings page and the RMA status badges.
+ *
+ * Dark-mode aware (honours the admin colour scheme via prefers-color-scheme),
+ * uses the native Popover API for inline help, and keeps motion subtle and
+ * reduced-motion friendly.
+ */
+
+.returns-admin {
+    --returns-card-bg: #fff;
+    --returns-card-border: #dcdcde;
+    --returns-muted: #50575e;
+    --returns-accent: #2271b1;
+}
+
+@media (prefers-color-scheme: dark) {
+    .returns-admin {
+        --returns-card-bg: #1e1e1e;
+        --returns-card-border: #3c434a;
+        --returns-muted: #a7aaad;
+    }
+}
+
+.returns-intro {
+    background: var(--returns-card-bg);
+    border: 1px solid var(--returns-card-border);
+    border-radius: 8px;
+    padding: 1em 1.25em;
+    margin: 1em 0 1.5em;
+    max-width: 820px;
+}
+
+.returns-intro h2 {
+    margin-top: 0;
+}
+
+.returns-intro p {
+    color: var(--returns-muted);
+}
+
+.returns-card {
+    background: var(--returns-card-bg);
+    border: 1px solid var(--returns-card-border);
+    border-radius: 8px;
+    padding: 0.5em 1.25em 1.25em;
+    margin: 0 0 1.5em;
+    max-width: 820px;
+}
+
+.returns-checkbox {
+    display: inline-block;
+    margin-bottom: 0.25em;
+}
+
+.returns-help {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 18px;
+    height: 18px;
+    margin-inline-start: 6px;
+    padding: 0;
+    border-radius: 50%;
+    border: 1px solid var(--returns-accent);
+    background: transparent;
+    color: var(--returns-accent);
+    font-size: 11px;
+    font-weight: 700;
+    line-height: 1;
+    cursor: help;
+    transition: background 0.15s ease, color 0.15s ease;
+}
+
+.returns-help:hover,
+.returns-help:focus-visible {
+    background: var(--returns-accent);
+    color: #fff;
+}
+
+.returns-help:focus-visible {
+    outline: 2px solid var(--returns-accent);
+    outline-offset: 2px;
+}
+
+.returns-tip {
+    max-width: 320px;
+    margin: 0;
+    padding: 0.7em 0.9em;
+    border: 1px solid var(--returns-card-border);
+    border-radius: 6px;
+    background: var(--returns-card-bg);
+    color: inherit;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.16);
+    font-size: 13px;
+    line-height: 1.5;
+}
+
+/* Status badges, reused in the CPT list table. */
+.returns-badge {
+    display: inline-block;
+    padding: 0.1em 0.6em;
+    border-radius: 999px;
+    font-size: 12px;
+    font-weight: 600;
+    line-height: 1.7;
+}
+
+.returns-badge--requested {
+    color: #8a6d00;
+    background: #fcf3cd;
+}
+
+.returns-badge--approved {
+    color: #135e96;
+    background: #d8e7f3;
+}
+
+.returns-badge--completed {
+    color: #1a7f37;
+    background: #d7eedd;
+}
+
+.returns-badge--rejected {
+    color: #b32d2e;
+    background: #f7dada;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .returns-help {
+        transition: none;
+    }
+}

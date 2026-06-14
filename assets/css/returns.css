@@ -1,0 +1,177 @@
+/**
+ * Returns — storefront styles for the My Account return flow.
+ *
+ * Uses CSS custom properties so themes can re-skin without overriding rules.
+ * Motion is guarded by prefers-reduced-motion; focus styles are visible and
+ * the status badges meet contrast in both light and dark contexts.
+ */
+
+.returns-form-wrap,
+.returns-list {
+    --returns-radius: 8px;
+    --returns-border: color-mix(in srgb, currentColor 16%, transparent);
+    --returns-muted: color-mix(in srgb, currentColor 62%, transparent);
+    --returns-accent: #2271b1;
+    --returns-ok: #1a7f37;
+    --returns-warn: #8a6d00;
+    --returns-bad: #b32d2e;
+}
+
+.returns-notice {
+    border-radius: var(--returns-radius);
+    padding: 0.9em 1.1em;
+    margin: 0 0 1.25em;
+    border: 1px solid var(--returns-border);
+    border-inline-start-width: 4px;
+}
+
+.returns-notice--success {
+    border-inline-start-color: var(--returns-ok);
+}
+
+.returns-notice--error {
+    border-inline-start-color: var(--returns-bad);
+}
+
+.returns-notice--info {
+    border-inline-start-color: var(--returns-accent);
+}
+
+.returns-form__intro {
+    color: var(--returns-muted);
+    margin-bottom: 1.25em;
+}
+
+.returns-form__order {
+    color: var(--returns-muted);
+    margin-top: -0.5em;
+}
+
+.returns-form__items {
+    border: 1px solid var(--returns-border);
+    border-radius: var(--returns-radius);
+    padding: 1em 1.1em;
+    margin: 0 0 1.25em;
+}
+
+.returns-form__items legend {
+    font-weight: 600;
+    padding-inline: 0.4em;
+}
+
+.returns-form__table,
+.returns-list__table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 0.5em;
+}
+
+.returns-form__table th,
+.returns-form__table td,
+.returns-list__table th,
+.returns-list__table td {
+    text-align: start;
+    padding: 0.55em 0.6em;
+    border-bottom: 1px solid var(--returns-border);
+    vertical-align: middle;
+}
+
+.returns-form__qty {
+    width: 5.5em;
+}
+
+.returns-form__field {
+    margin: 0 0 1em;
+}
+
+.returns-form__field label {
+    display: block;
+    font-weight: 600;
+    margin-bottom: 0.3em;
+}
+
+.returns-form__field select,
+.returns-form__field textarea {
+    width: 100%;
+    max-width: 32em;
+}
+
+.returns-form__req {
+    color: var(--returns-bad);
+}
+
+.returns-form__error {
+    display: block;
+    color: var(--returns-bad);
+    font-size: 0.9em;
+    margin-top: 0.3em;
+}
+
+.returns-form__submit {
+    display: flex;
+    align-items: center;
+    gap: 1em;
+    flex-wrap: wrap;
+}
+
+.returns-form__cancel {
+    color: var(--returns-muted);
+}
+
+.returns-form :focus-visible,
+.returns-list :focus-visible {
+    outline: 2px solid var(--returns-accent);
+    outline-offset: 2px;
+}
+
+.returns-list {
+    margin-bottom: 2em;
+}
+
+.returns-badge {
+    display: inline-block;
+    padding: 0.15em 0.6em;
+    border-radius: 999px;
+    font-size: 0.82em;
+    font-weight: 600;
+    line-height: 1.6;
+    border: 1px solid var(--returns-border);
+}
+
+.returns-badge--requested {
+    color: var(--returns-warn);
+    background: color-mix(in srgb, var(--returns-warn) 12%, transparent);
+}
+
+.returns-badge--approved {
+    color: var(--returns-accent);
+    background: color-mix(in srgb, var(--returns-accent) 12%, transparent);
+}
+
+.returns-badge--completed {
+    color: var(--returns-ok);
+    background: color-mix(in srgb, var(--returns-ok) 12%, transparent);
+}
+
+.returns-badge--rejected {
+    color: var(--returns-bad);
+    background: color-mix(in srgb, var(--returns-bad) 12%, transparent);
+}
+
+@media (max-width: 600px) {
+    .returns-form__table thead {
+        display: none;
+    }
+
+    .returns-form__table tr {
+        display: grid;
+        grid-template-columns: auto 1fr;
+        gap: 0.25em 0.75em;
+        padding: 0.6em 0;
+    }
+
+    .returns-form__table td {
+        border: 0;
+        padding: 0.2em 0;
+    }
+}
