@@ -57,20 +57,4 @@ final class Options
     {
         return max(0, (int) (self::all()['window_days'] ?? 0));
     }
-
-    public static function recipient(): string
-    {
-        $recipient = trim((string) (self::all()['recipient'] ?? ''));
-
-        if ('' !== $recipient && is_email($recipient)) {
-            return $recipient;
-        }
-
-        return (string) get_option('admin_email');
-    }
-
-    public static function formIntro(): string
-    {
-        return (string) (self::all()['form_intro'] ?? '');
-    }
 }

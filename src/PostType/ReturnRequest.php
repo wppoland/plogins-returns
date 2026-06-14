@@ -377,16 +377,6 @@ final class ReturnRequest implements HasHooks
         }
 
         update_post_meta($postId, self::META_STATUS, $status);
-
-        /**
-         * Fires after a return request's status changes in wp-admin. PRO uses
-         * this to notify the customer by email.
-         *
-         * @param int    $postId   The return request post ID.
-         * @param string $status   The new status.
-         * @param string $previous The previous status.
-         */
-        do_action('returns/status_changed', $postId, $status, $previous);
     }
 
     /**

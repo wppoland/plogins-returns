@@ -37,11 +37,6 @@
     border-inline-start-color: var(--returns-accent);
 }
 
-.returns-form__intro {
-    color: var(--returns-muted);
-    margin-bottom: 1.25em;
-}
-
 .returns-form__order {
     color: var(--returns-muted);
     margin-top: -0.5em;

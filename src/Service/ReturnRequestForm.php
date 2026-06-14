@@ -296,14 +296,8 @@ final class ReturnRequestForm implements HasHooks
 
     private function renderForm(\WC_Order $order): void
     {
-        $intro = trim(Options::formIntro());
-
         if (isset($this->errors['_form'])) {
             $this->renderNotice($this->errors['_form'], 'error');
-        }
-
-        if ('' !== $intro) {
-            echo '<div class="returns-form__intro">' . wp_kses_post(wpautop($intro)) . '</div>';
         }
         ?>
         <h2><?php esc_html_e('Request a return', 'returns'); ?></h2>
@@ -407,28 +401,19 @@ final class ReturnRequestForm implements HasHooks
     }
 
     /**
-     * Built-in return reasons. Filterable so PRO / themes can extend the list.
+     * Built-in return reasons.
      *
      * @return array<string, string>
      */
     private function reasons(): array
     {
-        $reasons = [
+        return [
             'damaged'    => __('Arrived damaged or faulty', 'returns'),
             'wrong_item' => __('Wrong item received', 'returns'),
             'not_needed' => __('No longer needed', 'returns'),
             'size_fit'   => __('Size or fit issue', 'returns'),
             'other'      => __('Other', 'returns'),
         ];
-
-        /**
-         * Filter the list of selectable return reasons.
-         *
-         * @param array<string, string> $reasons reason key => label.
-         */
-        $filtered = apply_filters('returns/reasons', $reasons);
-
-        return is_array($filtered) && [] !== $filtered ? $filtered : $reasons;
     }
 
     /**
@@ -438,7 +423,7 @@ final class ReturnRequestForm implements HasHooks
      */
     private function notifyMerchant(int $postId, \WC_Order $order, array $items, string $reason, string $note): void
     {
-        $recipient = Options::recipient();
+        $recipient = (string) get_option('admin_email');
 
         $lines   = [];
         $lines[] = sprintf(

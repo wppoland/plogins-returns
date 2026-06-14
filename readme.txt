@@ -33,10 +33,10 @@ request and its status in one place.
 * Item picker with per-item quantity, a reason dropdown and an optional note.
 * Ownership-checked: only the logged-in owner of an order can request a return for it.
 * Configurable eligible order statuses and a return window (in days).
-* Each request is saved as a private custom post type and emailed to the merchant.
+* Each request is saved as a private custom post type and emailed to the store admin.
 * Admin management screen with a status workflow: requested, approved, rejected, completed.
 * Customer-facing status list in My Account so shoppers can track their returns.
-* Accessible, mobile-friendly, dark-mode-aware markup; inline help on every setting.
+* Accessible, mobile-friendly, dark-mode-aware markup.
 * Translation ready (POT included) and clean uninstall.
 * HPOS and cart/checkout blocks compatible.
 
@@ -44,7 +44,7 @@ request and its status in one place.
 
 1. Upload the plugin to `/wp-content/plugins/returns`, or install via Plugins → Add New.
 2. Activate it. WooCommerce must be installed and active.
-3. Go to **WooCommerce → Returns** to choose eligible order statuses, the return window and the notification recipient.
+3. Go to **WooCommerce → Returns** to choose eligible order statuses and the return window.
 4. Customers can now open a return from **My Account → Orders** on any eligible order.
 
 == Frequently Asked Questions ==
@@ -67,9 +67,8 @@ you set.
 
 = Where do return requests go? =
 
-Each submission is emailed to the recipient you set (or the site admin email by
-default) and saved as a private "Return Request" record under the WooCommerce
-menu in wp-admin.
+Each submission is emailed to the store admin and saved as a private "Return
+Request" record under the WooCommerce menu in wp-admin.
 
 = Can a customer return the same order twice? =
 

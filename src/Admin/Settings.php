@@ -14,17 +14,14 @@ use Returns\Support\Options;
  * Admin settings page registered as a WooCommerce submenu.
  *
  * Stores everything in the `returns_settings` option (array): the master
- * toggle, the eligible order statuses, the return window, the notification
- * recipient and an optional form intro. All output is escaped; all input is
- * sanitised on save. The page also links to the saved Return Requests list.
+ * toggle, the eligible order statuses and the return window. All output is
+ * escaped; all input is sanitised on save. The page also links to the saved
+ * Return Requests list.
  */
 final class Settings implements HasHooks
 {
     private const PAGE  = 'returns-settings';
     private const GROUP = 'returns_settings_group';
-
-    /** Incremented to give each inline-help control a unique id/anchor. */
-    private int $helpSeq = 0;
 
     public function registerHooks(): void
     {
@@ -113,10 +110,7 @@ final class Settings implements HasHooks
                     <table class="form-table" role="presentation">
                         <tbody>
                             <tr>
-                                <th scope="row">
-                                    <?php esc_html_e('Enable returns', 'returns'); ?>
-                                    <?php $this->help(__('The master switch. When off, the "Request a return" action and form are hidden everywhere on the storefront.', 'returns')); ?>
-                                </th>
+                                <th scope="row"><?php esc_html_e('Enable returns', 'returns'); ?></th>
                                 <td>
                                     <label for="returns_enabled">
                                         <input type="checkbox" id="returns_enabled"
@@ -124,13 +118,11 @@ final class Settings implements HasHooks
                                             <?php checked((bool) ($settings['enabled'] ?? false), true); ?> />
                                         <?php esc_html_e('Allow customers to request returns from My Account.', 'returns'); ?>
                                     </label>
+                                    <p class="description"><?php esc_html_e('When off, the "Request a return" action and form are hidden everywhere on the storefront.', 'returns'); ?></p>
                                 </td>
                             </tr>
                             <tr>
-                                <th scope="row">
-                                    <?php esc_html_e('Eligible order statuses', 'returns'); ?>
-                                    <?php $this->help(__('Only orders in these statuses can be returned. "Completed" is the usual choice; add "Processing" to allow returns before fulfilment.', 'returns')); ?>
-                                </th>
+                                <th scope="row"><?php esc_html_e('Eligible order statuses', 'returns'); ?></th>
                                 <td>
                                     <fieldset>
                                         <legend class="screen-reader-text"><?php esc_html_e('Eligible order statuses', 'returns'); ?></legend>
@@ -144,50 +136,18 @@ final class Settings implements HasHooks
                                             </label><br />
                                         <?php endforeach; ?>
                                     </fieldset>
+                                    <p class="description"><?php esc_html_e('Only orders in these statuses can be returned.', 'returns'); ?></p>
                                 </td>
                             </tr>
                             <tr>
                                 <th scope="row">
                                     <label for="returns_window_days"><?php esc_html_e('Return window (days)', 'returns'); ?></label>
-                                    <?php $this->help(__('How many days after the order date a return may be requested. Set to 0 for no time limit.', 'returns')); ?>
                                 </th>
                                 <td>
                                     <input type="number" min="0" step="1" id="returns_window_days" class="small-text"
                                         name="<?php echo esc_attr(Options::OPTION); ?>[window_days]"
                                         value="<?php echo esc_attr((string) ($settings['window_days'] ?? 30)); ?>" />
-                                    <p class="description"><?php esc_html_e('0 = returns can be requested at any time.', 'returns'); ?></p>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-
-                <div class="returns-card">
-                    <h2><?php esc_html_e('Notifications', 'returns'); ?></h2>
-                    <table class="form-table" role="presentation">
-                        <tbody>
-                            <tr>
-                                <th scope="row">
-                                    <label for="returns_recipient"><?php esc_html_e('Recipient email', 'returns'); ?></label>
-                                    <?php $this->help(__('Where new return requests are emailed. Leave blank to use the site admin email.', 'returns')); ?>
-                                </th>
-                                <td>
-                                    <input type="email" id="returns_recipient" class="regular-text"
-                                        name="<?php echo esc_attr(Options::OPTION); ?>[recipient]"
-                                        value="<?php echo esc_attr((string) ($settings['recipient'] ?? '')); ?>"
-                                        placeholder="<?php echo esc_attr((string) get_option('admin_email')); ?>" />
-                                </td>
-                            </tr>
-                            <tr>
-                                <th scope="row">
-                                    <label for="returns_form_intro"><?php esc_html_e('Return form intro', 'returns'); ?></label>
-                                    <?php $this->help(__('Optional text shown above the return request form — e.g. your returns policy summary. Basic HTML is allowed.', 'returns')); ?>
-                                </th>
-                                <td>
-                                    <textarea id="returns_form_intro" class="large-text" rows="3"
-                                        name="<?php echo esc_attr(Options::OPTION); ?>[form_intro]"><?php
-                                        echo esc_textarea((string) ($settings['form_intro'] ?? ''));
-                                    ?></textarea>
+                                    <p class="description"><?php esc_html_e('How many days after the order date a return may be requested. 0 = no time limit.', 'returns'); ?></p>
                                 </td>
                             </tr>
                         </tbody>
@@ -196,23 +156,6 @@ final class Settings implements HasHooks
 
                 <?php submit_button(); ?>
             </form>
-        </div>
-        <?php
-    }
-
-    /**
-     * Render an accessible inline-help affordance using the native Popover API.
-     */
-    private function help(string $text): void
-    {
-        $id = 'returns-help-' . (++$this->helpSeq);
-        ?>
-        <button type="button" class="returns-help"
-            aria-label="<?php esc_attr_e('More information', 'returns'); ?>"
-            aria-describedby="<?php echo esc_attr($id); ?>"
-            popovertarget="<?php echo esc_attr($id); ?>">?</button>
-        <div id="<?php echo esc_attr($id); ?>" class="returns-tip" role="tooltip" popover hidden>
-            <?php echo esc_html($text); ?>
         </div>
         <?php
     }
@@ -269,14 +212,10 @@ final class Settings implements HasHooks
             $eligible = ['completed'];
         }
 
-        $recipient = isset($raw['recipient']) ? sanitize_email((string) $raw['recipient']) : '';
-
         return [
             'enabled'           => ! empty($raw['enabled']),
             'eligible_statuses' => array_values(array_unique($eligible)),
             'window_days'       => isset($raw['window_days']) ? max(0, absint($raw['window_days'])) : 30,
-            'recipient'         => is_email($recipient) ? $recipient : '',
-            'form_intro'        => isset($raw['form_intro']) ? wp_kses_post((string) $raw['form_intro']) : '',
         ];
     }
 }

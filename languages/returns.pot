@@ -9,39 +9,345 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-06-14T00:00:00+00:00\n"
+"POT-Creation-Date: 2026-06-14T22:04:40+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"X-Generator: WP-CLI\n"
+"X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: returns\n"
 
 #. Plugin Name of the plugin
+#: returns.php
 msgid "Returns - RMA and Return Requests for WooCommerce"
 msgstr ""
 
+#. Plugin URI of the plugin
+#: returns.php
+msgid "https://plogins.com/returns/"
+msgstr ""
+
 #. Description of the plugin
+#: returns.php
 msgid "Let customers request returns/refunds from their account and manage RMAs in the admin."
 msgstr ""
 
-msgid "Request a return"
+#. Author of the plugin
+#: returns.php
+msgid "WPPoland"
 msgstr ""
 
-msgid "Return Requests"
+#. Author URI of the plugin
+#: returns.php
+msgid "https://plogins.com/"
 msgstr ""
 
+#: returns.php:59
+msgid "Returns - RMA and Return Requests for WooCommerce requires WooCommerce to be active."
+msgstr ""
+
+#: src/Admin/Settings.php:57
+msgid "Returns — RMA settings"
+msgstr ""
+
+#: src/Admin/Settings.php:58
 msgid "Returns"
 msgstr ""
 
-msgid "Requested"
+#: src/Admin/Settings.php:96
+msgid "Let customers request returns from their account"
 msgstr ""
 
-msgid "Approved"
+#: src/Admin/Settings.php:98
+msgid "Customers open a return from My Account → Orders: they pick items, a quantity, a reason and an optional note. Each request is emailed to you and saved as a private record you manage here, with a status the customer can follow."
 msgstr ""
 
-msgid "Rejected"
+#: src/Admin/Settings.php:101
+msgid "View return requests"
 msgstr ""
 
+#: src/Admin/Settings.php:109
+msgid "General"
+msgstr ""
+
+#: src/Admin/Settings.php:113
+msgid "Enable returns"
+msgstr ""
+
+#: src/Admin/Settings.php:119
+msgid "Allow customers to request returns from My Account."
+msgstr ""
+
+#: src/Admin/Settings.php:121
+msgid "When off, the \"Request a return\" action and form are hidden everywhere on the storefront."
+msgstr ""
+
+#: src/Admin/Settings.php:125
+#: src/Admin/Settings.php:128
+msgid "Eligible order statuses"
+msgstr ""
+
+#: src/Admin/Settings.php:139
+msgid "Only orders in these statuses can be returned."
+msgstr ""
+
+#: src/Admin/Settings.php:144
+msgid "Return window (days)"
+msgstr ""
+
+#: src/Admin/Settings.php:150
+msgid "How many days after the order date a return may be requested. 0 = no time limit."
+msgstr ""
+
+#: src/Admin/Settings.php:179
+msgid "Processing"
+msgstr ""
+
+#: src/Admin/Settings.php:180
+#: src/Support/Statuses.php:32
 msgid "Completed"
 msgstr ""
 
+#: src/PostType/ReturnRequest.php:62
+#: src/PostType/ReturnRequest.php:64
+#: src/PostType/ReturnRequest.php:65
+msgid "Return Requests"
+msgstr ""
+
+#: src/PostType/ReturnRequest.php:63
+#: src/PostType/ReturnRequest.php:66
+#: src/PostType/ReturnRequest.php:67
+msgid "Return Request"
+msgstr ""
+
+#: src/PostType/ReturnRequest.php:68
+msgid "Search return requests"
+msgstr ""
+
+#: src/PostType/ReturnRequest.php:69
+msgid "No return requests found."
+msgstr ""
+
+#: src/PostType/ReturnRequest.php:70
+msgid "No return requests in Trash."
+msgstr ""
+
+#. translators: 1: order number, 2: human-readable date
+#: src/PostType/ReturnRequest.php:102
+#, php-format
+msgid "Return for order #%1$s — %2$s"
+msgstr ""
+
+#: src/PostType/ReturnRequest.php:203
+#: src/PostType/ReturnRequest.php:276
+#: src/Service/MyReturns.php:68
+#: src/Service/MyReturns.php:81
+msgid "Order"
+msgstr ""
+
+#: src/PostType/ReturnRequest.php:204
+#: src/PostType/ReturnRequest.php:256
+#: src/Service/MyReturns.php:70
+#: src/Service/MyReturns.php:83
+msgid "Status"
+msgstr ""
+
+#: src/PostType/ReturnRequest.php:205
+msgid "Items"
+msgstr ""
+
+#: src/PostType/ReturnRequest.php:247
+msgid "Return details"
+msgstr ""
+
+#: src/PostType/ReturnRequest.php:286
+#: src/Service/ReturnRequestForm.php:367
+msgid "Reason"
+msgstr ""
+
+#: src/PostType/ReturnRequest.php:290
+msgid "Customer note"
+msgstr ""
+
+#: src/PostType/ReturnRequest.php:296
+msgid "Requested items"
+msgstr ""
+
+#: src/PostType/ReturnRequest.php:298
+msgid "No items recorded."
+msgstr ""
+
+#: src/PostType/ReturnRequest.php:303
+#: src/Service/ReturnRequestForm.php:328
+#: src/Service/ReturnRequestForm.php:345
+msgid "Product"
+msgstr ""
+
+#: src/PostType/ReturnRequest.php:304
+#: src/Service/ReturnRequestForm.php:329
+#: src/Service/ReturnRequestForm.php:350
+msgid "Quantity"
+msgstr ""
+
+#: src/PostType/ReturnRequest.php:329
+msgid "Return status"
+msgstr ""
+
+#: src/PostType/ReturnRequest.php:339
+msgid "The customer sees this status in their account. Updating it here does not refund the order — process any refund in the order screen."
+msgstr ""
+
+#: src/Service/MyReturns.php:46
+msgid "Return requested."
+msgstr ""
+
+#: src/Service/MyReturns.php:47
+msgid "We have received your return request and will be in touch shortly."
+msgstr ""
+
+#: src/Service/MyReturns.php:63
+msgid "Your return requests"
+msgstr ""
+
+#: src/Service/MyReturns.php:67
+#: src/Service/MyReturns.php:80
+msgid "Request"
+msgstr ""
+
+#: src/Service/MyReturns.php:69
+#: src/Service/MyReturns.php:82
+msgid "Date"
+msgstr ""
+
+#: src/Service/ReturnRequestForm.php:114
+#: src/Service/ReturnRequestForm.php:141
+#: src/Service/ReturnRequestForm.php:303
+msgid "Request a return"
+msgstr ""
+
+#: src/Service/ReturnRequestForm.php:132
+#: src/Service/ReturnRequestForm.php:165
+#: src/Service/ReturnRequestForm.php:218
+msgid "A return request has already been submitted for this order."
+msgstr ""
+
+#: src/Service/ReturnRequestForm.php:158
+#: src/Service/ReturnRequestForm.php:212
+msgid "That order could not be found, or you do not have permission to return it."
+msgstr ""
+
+#: src/Service/ReturnRequestForm.php:172
+msgid "This order is not eligible for a return."
+msgstr ""
+
+#: src/Service/ReturnRequestForm.php:197
+msgid "Your session expired. Please try again."
+msgstr ""
+
+#: src/Service/ReturnRequestForm.php:203
+msgid "Please log in to request a return."
+msgstr ""
+
+#: src/Service/ReturnRequestForm.php:228
+msgid "Please select at least one item to return."
+msgstr ""
+
+#: src/Service/ReturnRequestForm.php:232
+msgid "Please choose a reason for the return."
+msgstr ""
+
+#. translators: %s: order number
+#: src/Service/ReturnRequestForm.php:308
+#, php-format
+msgid "Order #%s"
+msgstr ""
+
+#: src/Service/ReturnRequestForm.php:319
+msgid "Which items would you like to return?"
+msgstr ""
+
+#: src/Service/ReturnRequestForm.php:327
+#: src/Service/ReturnRequestForm.php:341
+msgid "Select"
+msgstr ""
+
+#: src/Service/ReturnRequestForm.php:352
+msgid "Quantity to return"
+msgstr ""
+
+#: src/Service/ReturnRequestForm.php:370
+msgid "Select a reason…"
+msgstr ""
+
+#: src/Service/ReturnRequestForm.php:381
+msgid "Additional details"
+msgstr ""
+
+#: src/Service/ReturnRequestForm.php:386
 msgid "Submit return request"
+msgstr ""
+
+#: src/Service/ReturnRequestForm.php:387
+msgid "Cancel"
+msgstr ""
+
+#: src/Service/ReturnRequestForm.php:411
+msgid "Arrived damaged or faulty"
+msgstr ""
+
+#: src/Service/ReturnRequestForm.php:412
+msgid "Wrong item received"
+msgstr ""
+
+#: src/Service/ReturnRequestForm.php:413
+msgid "No longer needed"
+msgstr ""
+
+#: src/Service/ReturnRequestForm.php:414
+msgid "Size or fit issue"
+msgstr ""
+
+#: src/Service/ReturnRequestForm.php:415
+msgid "Other"
+msgstr ""
+
+#. translators: 1: order number, 2: site name
+#: src/Service/ReturnRequestForm.php:431
+#, php-format
+msgid "A new return request was submitted for order #%1$s on %2$s."
+msgstr ""
+
+#: src/Service/ReturnRequestForm.php:436
+msgid "Customer:"
+msgstr ""
+
+#: src/Service/ReturnRequestForm.php:437
+msgid "Reason:"
+msgstr ""
+
+#: src/Service/ReturnRequestForm.php:439
+msgid "Requested items:"
+msgstr ""
+
+#: src/Service/ReturnRequestForm.php:447
+msgid "Customer note:"
+msgstr ""
+
+#: src/Service/ReturnRequestForm.php:455
+msgid "Manage in admin:"
+msgstr ""
+
+#. translators: %s: order number
+#: src/Service/ReturnRequestForm.php:460
+#, php-format
+msgid "New return request for order #%s"
+msgstr ""
+
+#: src/Support/Statuses.php:29
+msgid "Requested"
+msgstr ""
+
+#: src/Support/Statuses.php:30
+msgid "Approved"
+msgstr ""
+
+#: src/Support/Statuses.php:31
+msgid "Rejected"
 msgstr ""

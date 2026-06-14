@@ -24,10 +24,4 @@ return [
 
     // Days after the order date during which a return may be requested. 0 = no limit.
     'window_days' => 30,
-
-    // Where new return requests are emailed. Empty = site admin email.
-    'recipient' => '',
-
-    // Optional intro shown above the return request form.
-    'form_intro' => '',
 ];
