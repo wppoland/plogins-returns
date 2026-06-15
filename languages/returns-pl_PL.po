@@ -1,0 +1,355 @@
+# Copyright (C) 2026 WPPoland
+# This file is distributed under the GPL-2.0-or-later license.
+msgid ""
+msgstr ""
+"Project-Id-Version: Returns - RMA and Return Requests for WooCommerce 0.1.0\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/returns\n"
+"Last-Translator: WPPoland <hello@plogins.com>\n"
+"Language-Team: WPPoland <hello@plogins.com>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"POT-Creation-Date: 2026-06-14T22:04:40+00:00\n"
+"PO-Revision-Date: 2026-06-15 00:00+0000\n"
+"Language: pl_PL\n"
+"Plural-Forms: nplurals=3; plural=(n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<12 || n%100>14) ? 1 : 2);\n"
+"X-Generator: WP-CLI 2.12.0\n"
+"X-Domain: returns\n"
+
+#. Plugin Name of the plugin
+#: returns.php
+msgid "Returns - RMA and Return Requests for WooCommerce"
+msgstr "Returns - RMA i zgłoszenia zwrotów dla WooCommerce"
+
+#. Plugin URI of the plugin
+#: returns.php
+msgid "https://plogins.com/returns/"
+msgstr "https://plogins.com/returns/"
+
+#. Description of the plugin
+#: returns.php
+msgid "Let customers request returns/refunds from their account and manage RMAs in the admin."
+msgstr "Pozwól klientom zgłaszać zwroty i reklamacje z poziomu konta oraz zarządzaj zgłoszeniami RMA w panelu administracyjnym."
+
+#. Author of the plugin
+#: returns.php
+msgid "WPPoland"
+msgstr "WPPoland"
+
+#. Author URI of the plugin
+#: returns.php
+msgid "https://plogins.com/"
+msgstr "https://plogins.com/"
+
+#: returns.php:59
+msgid "Returns - RMA and Return Requests for WooCommerce requires WooCommerce to be active."
+msgstr "Wtyczka Returns - RMA i zgłoszenia zwrotów dla WooCommerce wymaga aktywnej wtyczki WooCommerce."
+
+#: src/Admin/Settings.php:57
+msgid "Returns — RMA settings"
+msgstr "Returns — ustawienia RMA"
+
+#: src/Admin/Settings.php:58
+msgid "Returns"
+msgstr "Zwroty"
+
+#: src/Admin/Settings.php:96
+msgid "Let customers request returns from their account"
+msgstr "Pozwól klientom zgłaszać zwroty z poziomu konta"
+
+#: src/Admin/Settings.php:98
+msgid "Customers open a return from My Account → Orders: they pick items, a quantity, a reason and an optional note. Each request is emailed to you and saved as a private record you manage here, with a status the customer can follow."
+msgstr "Klienci otwierają zwrot z poziomu Moje konto → Zamówienia: wybierają produkty, ilość, powód oraz opcjonalną notatkę. Każde zgłoszenie jest wysyłane do Ciebie e-mailem i zapisywane jako prywatny wpis, którym zarządzasz tutaj, wraz ze statusem, który klient może śledzić."
+
+#: src/Admin/Settings.php:101
+msgid "View return requests"
+msgstr "Zobacz zgłoszenia zwrotów"
+
+#: src/Admin/Settings.php:109
+msgid "General"
+msgstr "Ogólne"
+
+#: src/Admin/Settings.php:113
+msgid "Enable returns"
+msgstr "Włącz zwroty"
+
+#: src/Admin/Settings.php:119
+msgid "Allow customers to request returns from My Account."
+msgstr "Zezwól klientom na zgłaszanie zwrotów z poziomu Moje konto."
+
+#: src/Admin/Settings.php:121
+msgid "When off, the \"Request a return\" action and form are hidden everywhere on the storefront."
+msgstr "Po wyłączeniu akcja „Zgłoś zwrot” oraz formularz są ukryte w całym sklepie."
+
+#: src/Admin/Settings.php:125
+#: src/Admin/Settings.php:128
+msgid "Eligible order statuses"
+msgstr "Statusy zamówień objęte zwrotem"
+
+#: src/Admin/Settings.php:139
+msgid "Only orders in these statuses can be returned."
+msgstr "Tylko zamówienia w tych statusach mogą zostać zwrócone."
+
+#: src/Admin/Settings.php:144
+msgid "Return window (days)"
+msgstr "Okno zwrotu (dni)"
+
+#: src/Admin/Settings.php:150
+msgid "How many days after the order date a return may be requested. 0 = no time limit."
+msgstr "Ile dni po dacie zamówienia można zgłosić zwrot. 0 = brak limitu czasu."
+
+#: src/Admin/Settings.php:179
+msgid "Processing"
+msgstr "W trakcie realizacji"
+
+#: src/Admin/Settings.php:180
+#: src/Support/Statuses.php:32
+msgid "Completed"
+msgstr "Zakończone"
+
+#: src/PostType/ReturnRequest.php:62
+#: src/PostType/ReturnRequest.php:64
+#: src/PostType/ReturnRequest.php:65
+msgid "Return Requests"
+msgstr "Zgłoszenia zwrotów"
+
+#: src/PostType/ReturnRequest.php:63
+#: src/PostType/ReturnRequest.php:66
+#: src/PostType/ReturnRequest.php:67
+msgid "Return Request"
+msgstr "Zgłoszenie zwrotu"
+
+#: src/PostType/ReturnRequest.php:68
+msgid "Search return requests"
+msgstr "Szukaj zgłoszeń zwrotów"
+
+#: src/PostType/ReturnRequest.php:69
+msgid "No return requests found."
+msgstr "Nie znaleziono żadnych zgłoszeń zwrotów."
+
+#: src/PostType/ReturnRequest.php:70
+msgid "No return requests in Trash."
+msgstr "Brak zgłoszeń zwrotów w koszu."
+
+#. translators: 1: order number, 2: human-readable date
+#: src/PostType/ReturnRequest.php:102
+#, php-format
+msgid "Return for order #%1$s — %2$s"
+msgstr "Zwrot dla zamówienia #%1$s — %2$s"
+
+#: src/PostType/ReturnRequest.php:203
+#: src/PostType/ReturnRequest.php:276
+#: src/Service/MyReturns.php:68
+#: src/Service/MyReturns.php:81
+msgid "Order"
+msgstr "Zamówienie"
+
+#: src/PostType/ReturnRequest.php:204
+#: src/PostType/ReturnRequest.php:256
+#: src/Service/MyReturns.php:70
+#: src/Service/MyReturns.php:83
+msgid "Status"
+msgstr "Status"
+
+#: src/PostType/ReturnRequest.php:205
+msgid "Items"
+msgstr "Produkty"
+
+#: src/PostType/ReturnRequest.php:247
+msgid "Return details"
+msgstr "Szczegóły zwrotu"
+
+#: src/PostType/ReturnRequest.php:286
+#: src/Service/ReturnRequestForm.php:367
+msgid "Reason"
+msgstr "Powód"
+
+#: src/PostType/ReturnRequest.php:290
+msgid "Customer note"
+msgstr "Notatka klienta"
+
+#: src/PostType/ReturnRequest.php:296
+msgid "Requested items"
+msgstr "Zgłoszone produkty"
+
+#: src/PostType/ReturnRequest.php:298
+msgid "No items recorded."
+msgstr "Nie zapisano żadnych produktów."
+
+#: src/PostType/ReturnRequest.php:303
+#: src/Service/ReturnRequestForm.php:328
+#: src/Service/ReturnRequestForm.php:345
+msgid "Product"
+msgstr "Produkt"
+
+#: src/PostType/ReturnRequest.php:304
+#: src/Service/ReturnRequestForm.php:329
+#: src/Service/ReturnRequestForm.php:350
+msgid "Quantity"
+msgstr "Ilość"
+
+#: src/PostType/ReturnRequest.php:329
+msgid "Return status"
+msgstr "Status zwrotu"
+
+#: src/PostType/ReturnRequest.php:339
+msgid "The customer sees this status in their account. Updating it here does not refund the order — process any refund in the order screen."
+msgstr "Klient widzi ten status na swoim koncie. Zmiana statusu tutaj nie powoduje zwrotu pieniędzy — wszelkie zwroty realizuj na ekranie zamówienia."
+
+#: src/Service/MyReturns.php:46
+msgid "Return requested."
+msgstr "Zwrot został zgłoszony."
+
+#: src/Service/MyReturns.php:47
+msgid "We have received your return request and will be in touch shortly."
+msgstr "Otrzymaliśmy Twoje zgłoszenie zwrotu i wkrótce się z Tobą skontaktujemy."
+
+#: src/Service/MyReturns.php:63
+msgid "Your return requests"
+msgstr "Twoje zgłoszenia zwrotów"
+
+#: src/Service/MyReturns.php:67
+#: src/Service/MyReturns.php:80
+msgid "Request"
+msgstr "Zgłoszenie"
+
+#: src/Service/MyReturns.php:69
+#: src/Service/MyReturns.php:82
+msgid "Date"
+msgstr "Data"
+
+#: src/Service/ReturnRequestForm.php:114
+#: src/Service/ReturnRequestForm.php:141
+#: src/Service/ReturnRequestForm.php:303
+msgid "Request a return"
+msgstr "Zgłoś zwrot"
+
+#: src/Service/ReturnRequestForm.php:132
+#: src/Service/ReturnRequestForm.php:165
+#: src/Service/ReturnRequestForm.php:218
+msgid "A return request has already been submitted for this order."
+msgstr "Dla tego zamówienia zgłoszono już zwrot."
+
+#: src/Service/ReturnRequestForm.php:158
+#: src/Service/ReturnRequestForm.php:212
+msgid "That order could not be found, or you do not have permission to return it."
+msgstr "Nie znaleziono tego zamówienia lub nie masz uprawnień do jego zwrotu."
+
+#: src/Service/ReturnRequestForm.php:172
+msgid "This order is not eligible for a return."
+msgstr "To zamówienie nie kwalifikuje się do zwrotu."
+
+#: src/Service/ReturnRequestForm.php:197
+msgid "Your session expired. Please try again."
+msgstr "Twoja sesja wygasła. Spróbuj ponownie."
+
+#: src/Service/ReturnRequestForm.php:203
+msgid "Please log in to request a return."
+msgstr "Zaloguj się, aby zgłosić zwrot."
+
+#: src/Service/ReturnRequestForm.php:228
+msgid "Please select at least one item to return."
+msgstr "Wybierz co najmniej jeden produkt do zwrotu."
+
+#: src/Service/ReturnRequestForm.php:232
+msgid "Please choose a reason for the return."
+msgstr "Wybierz powód zwrotu."
+
+#. translators: %s: order number
+#: src/Service/ReturnRequestForm.php:308
+#, php-format
+msgid "Order #%s"
+msgstr "Zamówienie #%s"
+
+#: src/Service/ReturnRequestForm.php:319
+msgid "Which items would you like to return?"
+msgstr "Które produkty chcesz zwrócić?"
+
+#: src/Service/ReturnRequestForm.php:327
+#: src/Service/ReturnRequestForm.php:341
+msgid "Select"
+msgstr "Wybierz"
+
+#: src/Service/ReturnRequestForm.php:352
+msgid "Quantity to return"
+msgstr "Ilość do zwrotu"
+
+#: src/Service/ReturnRequestForm.php:370
+msgid "Select a reason…"
+msgstr "Wybierz powód…"
+
+#: src/Service/ReturnRequestForm.php:381
+msgid "Additional details"
+msgstr "Dodatkowe informacje"
+
+#: src/Service/ReturnRequestForm.php:386
+msgid "Submit return request"
+msgstr "Wyślij zgłoszenie zwrotu"
+
+#: src/Service/ReturnRequestForm.php:387
+msgid "Cancel"
+msgstr "Anuluj"
+
+#: src/Service/ReturnRequestForm.php:411
+msgid "Arrived damaged or faulty"
+msgstr "Dotarł uszkodzony lub wadliwy"
+
+#: src/Service/ReturnRequestForm.php:412
+msgid "Wrong item received"
+msgstr "Otrzymano niewłaściwy produkt"
+
+#: src/Service/ReturnRequestForm.php:413
+msgid "No longer needed"
+msgstr "Już niepotrzebny"
+
+#: src/Service/ReturnRequestForm.php:414
+msgid "Size or fit issue"
+msgstr "Problem z rozmiarem lub dopasowaniem"
+
+#: src/Service/ReturnRequestForm.php:415
+msgid "Other"
+msgstr "Inny"
+
+#. translators: 1: order number, 2: site name
+#: src/Service/ReturnRequestForm.php:431
+#, php-format
+msgid "A new return request was submitted for order #%1$s on %2$s."
+msgstr "Zgłoszono nowy zwrot dla zamówienia #%1$s w sklepie %2$s."
+
+#: src/Service/ReturnRequestForm.php:436
+msgid "Customer:"
+msgstr "Klient:"
+
+#: src/Service/ReturnRequestForm.php:437
+msgid "Reason:"
+msgstr "Powód:"
+
+#: src/Service/ReturnRequestForm.php:439
+msgid "Requested items:"
+msgstr "Zgłoszone produkty:"
+
+#: src/Service/ReturnRequestForm.php:447
+msgid "Customer note:"
+msgstr "Notatka klienta:"
+
+#: src/Service/ReturnRequestForm.php:455
+msgid "Manage in admin:"
+msgstr "Zarządzaj w panelu administracyjnym:"
+
+#. translators: %s: order number
+#: src/Service/ReturnRequestForm.php:460
+#, php-format
+msgid "New return request for order #%s"
+msgstr "Nowe zgłoszenie zwrotu dla zamówienia #%s"
+
+#: src/Support/Statuses.php:29
+msgid "Requested"
+msgstr "Zgłoszony"
+
+#: src/Support/Statuses.php:30
+msgid "Approved"
+msgstr "Zaakceptowany"
+
+#: src/Support/Statuses.php:31
+msgid "Rejected"
+msgstr "Odrzucony"
