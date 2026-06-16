@@ -20,6 +20,17 @@
     --returns-bad: #b32d2e;
 }
 
+/* The teal that reads at AA on a light surface (5.16:1) drops to ~3.2:1 as
+   text on a dark surface — below AA for the named current-step label. Lift the
+   same teal hue for dark schemes so the current waypoint label and accent
+   hairlines clear 4.5:1 / 3:1 while keeping the "in transit" identity. */
+@media (prefers-color-scheme: dark) {
+    .returns-form-wrap,
+    .returns-list {
+        --returns-accent: #2bb3a3;
+    }
+}
+
 .returns-notice {
     border-radius: var(--returns-radius);
     padding: 0.9em 1.1em;
