@@ -81,9 +81,6 @@ is shown instead.
 
 1. The "Request a return" action on an order in My Account.
 2. The return request form: item picker, reason and note.
-3. The customer's return-status list in My Account.
-4. Managing a return request and its status in wp-admin.
-5. The Returns settings screen under WooCommerce.
 
 == Changelog ==
 
