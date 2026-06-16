@@ -106,7 +106,8 @@ final class Settings implements HasHooks
                 <?php settings_fields(self::GROUP); ?>
 
                 <div class="returns-card">
-                    <h2><?php esc_html_e('General', 'returns'); ?></h2>
+                    <h2 class="returns-card__title"><?php esc_html_e('Availability', 'returns'); ?></h2>
+                    <p class="returns-card__lead"><?php esc_html_e('The master switch for the whole return flow.', 'returns'); ?></p>
                     <table class="form-table" role="presentation">
                         <tbody>
                             <tr>
@@ -116,11 +117,20 @@ final class Settings implements HasHooks
                                         <input type="checkbox" id="returns_enabled"
                                             name="<?php echo esc_attr(Options::OPTION); ?>[enabled]" value="1"
                                             <?php checked((bool) ($settings['enabled'] ?? false), true); ?> />
-                                        <?php esc_html_e('Allow customers to request returns from My Account.', 'returns'); ?>
+                                        <?php esc_html_e('Let customers request a return from My Account.', 'returns'); ?>
                                     </label>
-                                    <p class="description"><?php esc_html_e('When off, the "Request a return" action and form are hidden everywhere on the storefront.', 'returns'); ?></p>
+                                    <p class="description"><?php esc_html_e('On: a "Request a return" link appears next to eligible orders, and the request form is reachable. Off: the link and form disappear from the storefront — existing requests stay in your records. Ships on.', 'returns'); ?></p>
                                 </td>
                             </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="returns-card">
+                    <h2 class="returns-card__title"><?php esc_html_e('What can be returned', 'returns'); ?></h2>
+                    <p class="returns-card__lead"><?php esc_html_e('Decide which orders qualify and for how long. An order must clear both tests before its "Request a return" link shows.', 'returns'); ?></p>
+                    <table class="form-table" role="presentation">
+                        <tbody>
                             <tr>
                                 <th scope="row"><?php esc_html_e('Eligible order statuses', 'returns'); ?></th>
                                 <td>
@@ -136,7 +146,7 @@ final class Settings implements HasHooks
                                             </label><br />
                                         <?php endforeach; ?>
                                     </fieldset>
-                                    <p class="description"><?php esc_html_e('Only orders in these statuses can be returned.', 'returns'); ?></p>
+                                    <p class="description"><?php esc_html_e('Orders in any other status never show the return link. Most shops pick the statuses that mean "the customer has the goods" — usually Completed (and Processing if you fulfil before marking complete). Ships with Completed and Processing ticked; if you untick everything, Completed is kept so the feature still works.', 'returns'); ?></p>
                                 </td>
                             </tr>
                             <tr>
@@ -147,7 +157,16 @@ final class Settings implements HasHooks
                                     <input type="number" min="0" step="1" id="returns_window_days" class="small-text"
                                         name="<?php echo esc_attr(Options::OPTION); ?>[window_days]"
                                         value="<?php echo esc_attr((string) ($settings['window_days'] ?? 30)); ?>" />
-                                    <p class="description"><?php esc_html_e('How many days after the order date a return may be requested. 0 = no time limit.', 'returns'); ?></p>
+                                    <p class="description"><?php esc_html_e('Counted from the order date. After it passes, the return link no longer appears for that order. Set 0 to accept returns with no deadline. Ships at 30.', 'returns'); ?></p>
+                                    <p class="returns-example">
+                                        <?php
+                                        printf(
+                                            /* translators: %s is the number of days in the return window. */
+                                            esc_html__('Example: an order placed today can be returned until %s.', 'returns'),
+                                            '<strong>' . esc_html($this->windowExample((int) ($settings['window_days'] ?? 30))) . '</strong>'
+                                        );
+                                        ?>
+                                    </p>
                                 </td>
                             </tr>
                         </tbody>
@@ -158,6 +177,24 @@ final class Settings implements HasHooks
             </form>
         </div>
         <?php
+    }
+
+    /**
+     * Human-readable deadline for the inline window example.
+     *
+     * Presentation only: turns the saved window into "31 July 2026" using the
+     * site's date format, or a no-deadline phrase when the window is open.
+     */
+    private function windowExample(int $days): string
+    {
+        if ($days <= 0) {
+            return __('any time later — no deadline', 'returns');
+        }
+
+        $format = (string) get_option('date_format', 'F j, Y');
+        $when   = strtotime('+' . $days . ' days', current_time('timestamp'));
+
+        return (string) wp_date($format, $when ?: null);
     }
 
     /**
