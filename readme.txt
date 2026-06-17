@@ -82,6 +82,10 @@ is shown instead.
 1. The "Request a return" action on an order in My Account.
 2. The return request form: item picker, reason and note.
 
+== External Services ==
+
+Returns connects to no external services. It sends no data off your site and loads no third-party scripts, fonts or APIs. Each return request is stored locally in WordPress as a private `returns_rma` custom post type (with `_returns_*` post meta for the order, customer, items, reason, note and status), and the plugin's configuration lives in the `returns_settings` and `returns_db_version` options. The admin notification email is sent through your site's own WordPress mail (`wp_mail`), so delivery uses whatever mail setup your server or SMTP plugin already provides.
+
 == Changelog ==
 
 = 0.1.0 =
