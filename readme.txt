@@ -1,5 +1,5 @@
 === Returns - RMA and Return Requests for WooCommerce ===
-Contributors: wppoland
+Contributors: motylanogha
 Tags: woocommerce, returns, rma, refund, return request
 Requires at least: 6.5
 Tested up to: 7.0
