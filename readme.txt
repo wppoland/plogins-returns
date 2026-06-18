@@ -29,6 +29,15 @@ its status in one place.
 
 Source code and bug reports live at https://github.com/wppoland/returns.
 
+= Documentation and links =
+
+* **Documentation** - https://plogins.com/returns/docs/
+* **Plugin page** - https://plogins.com/returns/
+* **Source code** - https://github.com/wppoland/returns
+* **Bug reports and feature requests** - https://github.com/wppoland/returns/issues
+* **Discussions and questions** - https://github.com/wppoland/returns/discussions
+
+
 = Features =
 
 * "Request a return" action on eligible orders in My Account (orders list and single order view).
