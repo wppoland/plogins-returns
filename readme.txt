@@ -5,7 +5,7 @@ Requires at least: 6.5
 Tested up to: 7.0
 Requires PHP: 8.1
 Requires Plugins: woocommerce
-Stable tag: 0.1.0
+Stable tag: 0.1.1
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -96,6 +96,9 @@ is shown instead.
 Returns connects to no external services. It sends no data off your site and loads no third-party scripts, fonts or APIs. Each return request is stored locally in WordPress as a private `returns_rma` custom post type (with `_returns_*` post meta for the order, customer, items, reason, note and status), and the plugin's configuration lives in the `returns_settings` and `returns_db_version` options. The admin notification email is sent through your site's own WordPress mail (`wp_mail`), so delivery uses whatever mail setup your server or SMTP plugin already provides.
 
 == Changelog ==
+
+= 0.1.1 =
+* `Returns\Support\Reasons` with `returns/reasons` and `returns/reason_label` filters for PRO analytics and extensions.
 
 = 0.1.0 =
 * Initial release: self-service return requests from My Account, item picker with reason and note, ownership checks, configurable eligibility and window, merchant email, a private return-request record and an admin status workflow.
