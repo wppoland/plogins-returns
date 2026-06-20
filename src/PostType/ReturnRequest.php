@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Returns\PostType;
 
 use Returns\Contract\HasHooks;
+use Returns\Support\Reasons;
 use Returns\Support\Statuses;
 
 defined('ABSPATH') || exit;
@@ -284,7 +285,7 @@ final class ReturnRequest implements HasHooks
                 </tr>
                 <tr>
                     <th><?php esc_html_e('Reason', 'returns'); ?></th>
-                    <td><?php echo esc_html('' !== $reason ? $reason : '—'); ?></td>
+                    <td><?php echo esc_html('' !== $reason ? Reasons::label($reason) : '—'); ?></td>
                 </tr>
                 <tr>
                     <th><?php esc_html_e('Customer note', 'returns'); ?></th>

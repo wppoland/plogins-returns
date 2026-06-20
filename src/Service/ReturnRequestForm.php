@@ -6,6 +6,7 @@ namespace Returns\Service;
 
 use Returns\Contract\HasHooks;
 use Returns\PostType\ReturnRequest;
+use Returns\Support\Reasons;
 use Returns\Support\Options;
 
 defined('ABSPATH') || exit;
@@ -368,7 +369,7 @@ final class ReturnRequestForm implements HasHooks
                 <select id="returns-reason" name="returns_reason" required
                     <?php echo isset($this->errors['reason']) ? 'aria-invalid="true" aria-describedby="returns-reason-error"' : ''; ?>>
                     <option value=""><?php esc_html_e('Select a reason…', 'returns'); ?></option>
-                    <?php foreach ($this->reasons() as $value => $label) : ?>
+                    <?php foreach (Reasons::all() as $value => $label) : ?>
                         <option value="<?php echo esc_attr($value); ?>"><?php echo esc_html($label); ?></option>
                     <?php endforeach; ?>
                 </select>
@@ -401,22 +402,6 @@ final class ReturnRequestForm implements HasHooks
     }
 
     /**
-     * Built-in return reasons.
-     *
-     * @return array<string, string>
-     */
-    private function reasons(): array
-    {
-        return [
-            'damaged'    => __('Arrived damaged or faulty', 'returns'),
-            'wrong_item' => __('Wrong item received', 'returns'),
-            'not_needed' => __('No longer needed', 'returns'),
-            'size_fit'   => __('Size or fit issue', 'returns'),
-            'other'      => __('Other', 'returns'),
-        ];
-    }
-
-    /**
      * Email the merchant about a new return request.
      *
      * @param array<int, array{item_id: int, name: string, qty: int}> $items
@@ -434,7 +419,7 @@ final class ReturnRequestForm implements HasHooks
         );
         $lines[] = '';
         $lines[] = __('Customer:', 'returns') . ' ' . trim($order->get_formatted_billing_full_name());
-        $lines[] = __('Reason:', 'returns') . ' ' . $this->reasonLabel($reason);
+        $lines[] = __('Reason:', 'returns') . ' ' . Reasons::label($reason);
         $lines[] = '';
         $lines[] = __('Requested items:', 'returns');
 
@@ -462,13 +447,6 @@ final class ReturnRequestForm implements HasHooks
         );
 
         wp_mail($recipient, $subject, implode("\n", $lines));
-    }
-
-    private function reasonLabel(string $reason): string
-    {
-        $reasons = $this->reasons();
-
-        return $reasons[$reason] ?? $reason;
     }
 
     /**
