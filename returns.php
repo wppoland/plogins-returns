@@ -3,7 +3,7 @@
  * Plugin Name:       Returns - RMA and Return Requests for WooCommerce
  * Plugin URI:        https://plogins.com/returns/
  * Description:        Let customers request returns/refunds from their account and manage RMAs in the admin.
- * Version:           0.1.1
+ * Version:           0.1.2
  * Requires at least: 6.5
  * Requires PHP:      8.1
  * Requires Plugins:  woocommerce
@@ -24,7 +24,7 @@ namespace Returns;
 
 defined('ABSPATH') || exit;
 
-const VERSION     = '0.1.1';
+const VERSION     = '0.1.2';
 const PLUGIN_FILE = __FILE__;
 
 define('RETURNS_DIR', plugin_dir_path(__FILE__));
