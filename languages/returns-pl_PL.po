@@ -55,8 +55,8 @@ msgstr ""
 "wtyczki WooCommerce."
 
 #: src/Admin/Settings.php:57
-msgid "Returns — RMA settings"
-msgstr "Returns — ustawienia RMA"
+msgid "Returns: RMA settings"
+msgstr "Returns: ustawienia RMA"
 
 #: src/Admin/Settings.php:58
 msgid "Returns"
@@ -102,7 +102,7 @@ msgstr ""
 msgid ""
 "On: a \"Request a return\" link appears next to eligible orders, and the "
 "request form is reachable. Off: the link and form disappear from the "
-"storefront — existing requests stay in your records. Ships on."
+"storefront, existing requests stay in your records. Ships on."
 msgstr ""
 
 #: src/Admin/Settings.php:130
@@ -122,7 +122,7 @@ msgstr "Statusy zamówień objęte zwrotem"
 #: src/Admin/Settings.php:149
 msgid ""
 "Orders in any other status never show the return link. Most shops pick the "
-"statuses that mean \"the customer has the goods\" — usually Completed (and "
+"statuses that mean \"the customer has the goods\", usually Completed (and "
 "Processing if you fulfil before marking complete). Ships with Completed and "
 "Processing ticked; if you untick everything, Completed is kept so the "
 "feature still works."
@@ -146,7 +146,7 @@ msgid "Example: an order placed today can be returned until %s."
 msgstr ""
 
 #: src/Admin/Settings.php:191
-msgid "any time later — no deadline"
+msgid "any time later, no deadline"
 msgstr ""
 
 #: src/Admin/Settings.php:216
@@ -182,8 +182,8 @@ msgstr "Brak zgłoszeń zwrotów w koszu."
 #. translators: 1: order number, 2: human-readable date
 #: src/PostType/ReturnRequest.php:102
 #, php-format
-msgid "Return for order #%1$s — %2$s"
-msgstr "Zwrot dla zamówienia #%1$s — %2$s"
+msgid "Return for order #%1$s, %2$s"
+msgstr "Zwrot dla zamówienia #%1$s, %2$s"
 
 #: src/PostType/ReturnRequest.php:203 src/PostType/ReturnRequest.php:276
 #: src/Service/MyReturns.php:68 src/Service/MyReturns.php:81
@@ -236,10 +236,10 @@ msgstr "Status zwrotu"
 #: src/PostType/ReturnRequest.php:339
 msgid ""
 "The customer sees this status in their account. Updating it here does not "
-"refund the order — process any refund in the order screen."
+"refund the order, process any refund in the order screen."
 msgstr ""
 "Klient widzi ten status na swoim koncie. Zmiana statusu tutaj nie powoduje "
-"zwrotu pieniędzy — wszelkie zwroty realizuj na ekranie zamówienia."
+"zwrotu pieniędzy, wszelkie zwroty realizuj na ekranie zamówienia."
 
 #: src/Service/MyReturns.php:46
 msgid "Return requested."

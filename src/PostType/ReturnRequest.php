@@ -100,7 +100,7 @@ final class ReturnRequest implements HasHooks
     {
         $title = sprintf(
             /* translators: 1: order number, 2: human-readable date */
-            __('Return for order #%1$s — %2$s', 'returns'),
+            __('Return for order #%1$s, %2$s', 'returns'),
             (string) $orderId,
             wp_date(get_option('date_format') . ' ' . get_option('time_format')),
         );
@@ -337,7 +337,7 @@ final class ReturnRequest implements HasHooks
             </select>
         </p>
         <p class="description">
-            <?php esc_html_e('The customer sees this status in their account. Updating it here does not refund the order — process any refund in the order screen.', 'returns'); ?>
+            <?php esc_html_e('The customer sees this status in their account. Updating it here does not refund the order, process any refund in the order screen.', 'returns'); ?>
         </p>
         <?php
     }
