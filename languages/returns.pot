@@ -44,7 +44,7 @@ msgid "Returns - RMA and Return Requests for WooCommerce requires WooCommerce to
 msgstr ""
 
 #: src/Admin/Settings.php:57
-msgid "Returns — RMA settings"
+msgid "Returns: RMA settings"
 msgstr ""
 
 #: src/Admin/Settings.php:58
@@ -80,7 +80,7 @@ msgid "Let customers request a return from My Account."
 msgstr ""
 
 #: src/Admin/Settings.php:122
-msgid "On: a \"Request a return\" link appears next to eligible orders, and the request form is reachable. Off: the link and form disappear from the storefront — existing requests stay in your records. Ships on."
+msgid "On: a \"Request a return\" link appears next to eligible orders, and the request form is reachable. Off: the link and form disappear from the storefront, existing requests stay in your records. Ships on."
 msgstr ""
 
 #: src/Admin/Settings.php:130
@@ -97,7 +97,7 @@ msgid "Eligible order statuses"
 msgstr ""
 
 #: src/Admin/Settings.php:149
-msgid "Orders in any other status never show the return link. Most shops pick the statuses that mean \"the customer has the goods\" — usually Completed (and Processing if you fulfil before marking complete). Ships with Completed and Processing ticked; if you untick everything, Completed is kept so the feature still works."
+msgid "Orders in any other status never show the return link. Most shops pick the statuses that mean \"the customer has the goods\", usually Completed (and Processing if you fulfil before marking complete). Ships with Completed and Processing ticked; if you untick everything, Completed is kept so the feature still works."
 msgstr ""
 
 #: src/Admin/Settings.php:154
@@ -115,7 +115,7 @@ msgid "Example: an order placed today can be returned until %s."
 msgstr ""
 
 #: src/Admin/Settings.php:191
-msgid "any time later — no deadline"
+msgid "any time later, no deadline"
 msgstr ""
 
 #: src/Admin/Settings.php:216
@@ -154,7 +154,7 @@ msgstr ""
 #. translators: 1: order number, 2: human-readable date
 #: src/PostType/ReturnRequest.php:102
 #, php-format
-msgid "Return for order #%1$s — %2$s"
+msgid "Return for order #%1$s, %2$s"
 msgstr ""
 
 #: src/PostType/ReturnRequest.php:203
@@ -213,7 +213,7 @@ msgid "Return status"
 msgstr ""
 
 #: src/PostType/ReturnRequest.php:339
-msgid "The customer sees this status in their account. Updating it here does not refund the order — process any refund in the order screen."
+msgid "The customer sees this status in their account. Updating it here does not refund the order, process any refund in the order screen."
 msgstr ""
 
 #: src/Service/MyReturns.php:46
