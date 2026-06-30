@@ -54,8 +54,8 @@ final class Settings implements HasHooks
     {
         add_submenu_page(
             'woocommerce',
-            __('Returns: RMA settings', 'returns'),
-            __('Returns', 'returns'),
+            __('Returns: RMA settings', 'plogins-returns'),
+            __('Returns', 'plogins-returns'),
             'manage_woocommerce',
             self::PAGE,
             [$this, 'renderPage'],
@@ -93,12 +93,12 @@ final class Settings implements HasHooks
             <h1><?php echo esc_html(get_admin_page_title()); ?></h1>
 
             <div class="returns-intro">
-                <h2><?php esc_html_e('Let customers request returns from their account', 'returns'); ?></h2>
+                <h2><?php esc_html_e('Let customers request returns from their account', 'plogins-returns'); ?></h2>
                 <p>
-                    <?php esc_html_e('Customers open a return from My Account → Orders: they pick items, a quantity, a reason and an optional note. Each request is emailed to you and saved as a private record you manage here, with a status the customer can follow.', 'returns'); ?>
+                    <?php esc_html_e('Customers open a return from My Account → Orders: they pick items, a quantity, a reason and an optional note. Each request is emailed to you and saved as a private record you manage here, with a status the customer can follow.', 'plogins-returns'); ?>
                 </p>
                 <p>
-                    <a class="button" href="<?php echo esc_url($listUrl); ?>"><?php esc_html_e('View return requests', 'returns'); ?></a>
+                    <a class="button" href="<?php echo esc_url($listUrl); ?>"><?php esc_html_e('View return requests', 'plogins-returns'); ?></a>
                 </p>
             </div>
 
@@ -106,20 +106,20 @@ final class Settings implements HasHooks
                 <?php settings_fields(self::GROUP); ?>
 
                 <div class="returns-card">
-                    <h2 class="returns-card__title"><?php esc_html_e('Availability', 'returns'); ?></h2>
-                    <p class="returns-card__lead"><?php esc_html_e('The master switch for the whole return flow.', 'returns'); ?></p>
+                    <h2 class="returns-card__title"><?php esc_html_e('Availability', 'plogins-returns'); ?></h2>
+                    <p class="returns-card__lead"><?php esc_html_e('The master switch for the whole return flow.', 'plogins-returns'); ?></p>
                     <table class="form-table" role="presentation">
                         <tbody>
                             <tr>
-                                <th scope="row"><?php esc_html_e('Enable returns', 'returns'); ?></th>
+                                <th scope="row"><?php esc_html_e('Enable returns', 'plogins-returns'); ?></th>
                                 <td>
                                     <label for="returns_enabled">
                                         <input type="checkbox" id="returns_enabled"
                                             name="<?php echo esc_attr(Options::OPTION); ?>[enabled]" value="1"
                                             <?php checked((bool) ($settings['enabled'] ?? false), true); ?> />
-                                        <?php esc_html_e('Let customers request a return from My Account.', 'returns'); ?>
+                                        <?php esc_html_e('Let customers request a return from My Account.', 'plogins-returns'); ?>
                                     </label>
-                                    <p class="description"><?php esc_html_e('On: a "Request a return" link appears next to eligible orders, and the request form is reachable. Off: the link and form disappear from the storefront, existing requests stay in your records. Ships on.', 'returns'); ?></p>
+                                    <p class="description"><?php esc_html_e('On: a "Request a return" link appears next to eligible orders, and the request form is reachable. Off: the link and form disappear from the storefront, existing requests stay in your records. Ships on.', 'plogins-returns'); ?></p>
                                 </td>
                             </tr>
                         </tbody>
@@ -127,15 +127,15 @@ final class Settings implements HasHooks
                 </div>
 
                 <div class="returns-card">
-                    <h2 class="returns-card__title"><?php esc_html_e('What can be returned', 'returns'); ?></h2>
-                    <p class="returns-card__lead"><?php esc_html_e('Decide which orders qualify and for how long. An order must clear both tests before its "Request a return" link shows.', 'returns'); ?></p>
+                    <h2 class="returns-card__title"><?php esc_html_e('What can be returned', 'plogins-returns'); ?></h2>
+                    <p class="returns-card__lead"><?php esc_html_e('Decide which orders qualify and for how long. An order must clear both tests before its "Request a return" link shows.', 'plogins-returns'); ?></p>
                     <table class="form-table" role="presentation">
                         <tbody>
                             <tr>
-                                <th scope="row"><?php esc_html_e('Eligible order statuses', 'returns'); ?></th>
+                                <th scope="row"><?php esc_html_e('Eligible order statuses', 'plogins-returns'); ?></th>
                                 <td>
                                     <fieldset>
-                                        <legend class="screen-reader-text"><?php esc_html_e('Eligible order statuses', 'returns'); ?></legend>
+                                        <legend class="screen-reader-text"><?php esc_html_e('Eligible order statuses', 'plogins-returns'); ?></legend>
                                         <?php foreach ($this->orderStatuses() as $key => $label) : ?>
                                             <label class="returns-checkbox">
                                                 <input type="checkbox"
@@ -146,23 +146,23 @@ final class Settings implements HasHooks
                                             </label><br />
                                         <?php endforeach; ?>
                                     </fieldset>
-                                    <p class="description"><?php esc_html_e('Orders in any other status never show the return link. Most shops pick the statuses that mean "the customer has the goods", usually Completed (and Processing if you fulfil before marking complete). Ships with Completed and Processing ticked; if you untick everything, Completed is kept so the feature still works.', 'returns'); ?></p>
+                                    <p class="description"><?php esc_html_e('Orders in any other status never show the return link. Most shops pick the statuses that mean "the customer has the goods", usually Completed (and Processing if you fulfil before marking complete). Ships with Completed and Processing ticked; if you untick everything, Completed is kept so the feature still works.', 'plogins-returns'); ?></p>
                                 </td>
                             </tr>
                             <tr>
                                 <th scope="row">
-                                    <label for="returns_window_days"><?php esc_html_e('Return window (days)', 'returns'); ?></label>
+                                    <label for="returns_window_days"><?php esc_html_e('Return window (days)', 'plogins-returns'); ?></label>
                                 </th>
                                 <td>
                                     <input type="number" min="0" step="1" id="returns_window_days" class="small-text"
                                         name="<?php echo esc_attr(Options::OPTION); ?>[window_days]"
                                         value="<?php echo esc_attr((string) ($settings['window_days'] ?? 30)); ?>" />
-                                    <p class="description"><?php esc_html_e('Counted from the order date. After it passes, the return link no longer appears for that order. Set 0 to accept returns with no deadline. Ships at 30.', 'returns'); ?></p>
+                                    <p class="description"><?php esc_html_e('Counted from the order date. After it passes, the return link no longer appears for that order. Set 0 to accept returns with no deadline. Ships at 30.', 'plogins-returns'); ?></p>
                                     <p class="returns-example">
                                         <?php
                                         printf(
                                             /* translators: %s is the number of days in the return window. */
-                                            esc_html__('Example: an order placed today can be returned until %s.', 'returns'),
+                                            esc_html__('Example: an order placed today can be returned until %s.', 'plogins-returns'),
                                             '<strong>' . esc_html($this->windowExample((int) ($settings['window_days'] ?? 30))) . '</strong>'
                                         );
                                         ?>
@@ -188,7 +188,7 @@ final class Settings implements HasHooks
     private function windowExample(int $days): string
     {
         if ($days <= 0) {
-            return __('any time later, no deadline', 'returns');
+            return __('any time later, no deadline', 'plogins-returns');
         }
 
         $format = (string) get_option('date_format', 'F j, Y');
@@ -213,8 +213,8 @@ final class Settings implements HasHooks
 
         if ([] === $clean) {
             $clean = [
-                'processing' => __('Processing', 'returns'),
-                'completed'  => __('Completed', 'returns'),
+                'processing' => __('Processing', 'plogins-returns'),
+                'completed'  => __('Completed', 'plogins-returns'),
             ];
         }
 

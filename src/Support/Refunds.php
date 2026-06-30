@@ -43,37 +43,37 @@ final class Refunds
     public static function create(int $postId, float $amount, string $reason = '', array $args = []): int|\WP_Error
     {
         if ($postId <= 0) {
-            return new \WP_Error('returns_refund', __('Invalid return request.', 'returns'));
+            return new \WP_Error('returns_refund', __('Invalid return request.', 'plogins-returns'));
         }
 
         if ($amount <= 0) {
-            return new \WP_Error('returns_refund', __('Refund amount must be greater than zero.', 'returns'));
+            return new \WP_Error('returns_refund', __('Refund amount must be greater than zero.', 'plogins-returns'));
         }
 
         if (self::hasRefund($postId)) {
-            return new \WP_Error('returns_refund', __('This return request already has a linked order refund.', 'returns'));
+            return new \WP_Error('returns_refund', __('This return request already has a linked order refund.', 'plogins-returns'));
         }
 
         if (! function_exists('wc_create_refund') || ! function_exists('wc_get_order')) {
-            return new \WP_Error('returns_refund', __('WooCommerce is not available.', 'returns'));
+            return new \WP_Error('returns_refund', __('WooCommerce is not available.', 'plogins-returns'));
         }
 
         $orderId = self::orderId($postId);
 
         if ($orderId <= 0) {
-            return new \WP_Error('returns_refund', __('No order is linked to this return request.', 'returns'));
+            return new \WP_Error('returns_refund', __('No order is linked to this return request.', 'plogins-returns'));
         }
 
         $order = wc_get_order($orderId);
 
         if (! $order instanceof \WC_Order) {
-            return new \WP_Error('returns_refund', __('The linked order could not be loaded.', 'returns'));
+            return new \WP_Error('returns_refund', __('The linked order could not be loaded.', 'plogins-returns'));
         }
 
         $remaining = (float) $order->get_total() - (float) $order->get_total_refunded();
 
         if ($remaining <= 0) {
-            return new \WP_Error('returns_refund', __('This order has no refundable balance remaining.', 'returns'));
+            return new \WP_Error('returns_refund', __('This order has no refundable balance remaining.', 'plogins-returns'));
         }
 
         $amount = min($amount, $remaining);
@@ -98,13 +98,13 @@ final class Refunds
         }
 
         if (! $refund instanceof \WC_Order_Refund) {
-            return new \WP_Error('returns_refund', __('The refund could not be created.', 'returns'));
+            return new \WP_Error('returns_refund', __('The refund could not be created.', 'plogins-returns'));
         }
 
         $refundId = (int) $refund->get_id();
 
         if ($refundId <= 0) {
-            return new \WP_Error('returns_refund', __('The refund could not be created.', 'returns'));
+            return new \WP_Error('returns_refund', __('The refund could not be created.', 'plogins-returns'));
         }
 
         update_post_meta($postId, self::META_ORDER_REFUND_ID, $refundId);
