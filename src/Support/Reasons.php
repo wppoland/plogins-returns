@@ -17,11 +17,11 @@ final class Reasons
     public static function all(): array
     {
         $reasons = [
-            'damaged'    => __('Arrived damaged or faulty', 'returns'),
-            'wrong_item' => __('Wrong item received', 'returns'),
-            'not_needed' => __('No longer needed', 'returns'),
-            'size_fit'   => __('Size or fit issue', 'returns'),
-            'other'      => __('Other', 'returns'),
+            'damaged'    => __('Arrived damaged or faulty', 'plogins-returns'),
+            'wrong_item' => __('Wrong item received', 'plogins-returns'),
+            'not_needed' => __('No longer needed', 'plogins-returns'),
+            'size_fit'   => __('Size or fit issue', 'plogins-returns'),
+            'other'      => __('Other', 'plogins-returns'),
         ];
 
         /**

@@ -26,10 +26,10 @@ final class Statuses
     public static function all(): array
     {
         return [
-            self::REQUESTED => __('Requested', 'returns'),
-            self::APPROVED  => __('Approved', 'returns'),
-            self::REJECTED  => __('Rejected', 'returns'),
-            self::COMPLETED => __('Completed', 'returns'),
+            self::REQUESTED => __('Requested', 'plogins-returns'),
+            self::APPROVED  => __('Approved', 'plogins-returns'),
+            self::REJECTED  => __('Rejected', 'plogins-returns'),
+            self::COMPLETED => __('Completed', 'plogins-returns'),
         ];
     }
 

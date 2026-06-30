@@ -1,11 +1,11 @@
-=== Returns - RMA and Return Requests for WooCommerce ===
+=== Plogins Returns for WooCommerce ===
 Contributors: motylanogha
 Tags: woocommerce, returns, rma, refund, return request
 Requires at least: 6.5
 Tested up to: 7.0
 Requires PHP: 8.1
 Requires Plugins: woocommerce
-Stable tag: 0.1.2
+Stable tag: 0.1.3
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -27,15 +27,14 @@ This is a request-and-status plugin: it does not move money. Process any refund
 in the normal WooCommerce order screen; the return record keeps the request and
 its status in one place.
 
-Source code and bug reports live at https://github.com/wppoland/returns.
+Source code and bug reports live at https://github.com/wppoland/plogins-returns.
 
 = Documentation and links =
 
-* **Documentation** - https://plogins.com/returns/docs/
-* **Plugin page** - https://plogins.com/returns/
-* **Source code** - https://github.com/wppoland/returns
-* **Bug reports and feature requests** - https://github.com/wppoland/returns/issues
-* **Discussions and questions** - https://github.com/wppoland/returns/discussions
+* **Documentation** - https://plogins.com/plogins-returns/docs/
+* **Plugin page** - https://plogins.com/plogins-returns/
+* **Source code** - https://github.com/wppoland/plogins-returns
+* **Bug reports and feature requests** - https://github.com/wppoland/plogins-returns/issues
 
 
 = Features =
@@ -96,6 +95,9 @@ is shown instead.
 Returns connects to no external services. It sends no data off your site and loads no third-party scripts, fonts or APIs. Each return request is stored locally in WordPress as a private `returns_rma` custom post type (with `_returns_*` post meta for the order, customer, items, reason, note and status), and the plugin's configuration lives in the `returns_settings` and `returns_db_version` options. The admin notification email is sent through your site's own WordPress mail (`wp_mail`), so delivery uses whatever mail setup your server or SMTP plugin already provides.
 
 == Changelog ==
+
+= 0.1.3 =
+* Renamed to Plogins Returns for WooCommerce for a more distinctive plugin name.
 
 = 0.1.2 =
 * `Returns\Support\Refunds` helper with `returns/order_refund` action for PRO refund automation.

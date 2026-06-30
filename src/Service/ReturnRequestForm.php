@@ -112,7 +112,7 @@ final class ReturnRequestForm implements HasHooks
 
         $actions['returns_request'] = [
             'url'  => $this->endpointUrl((int) $order->get_id()),
-            'name' => __('Request a return', 'returns'),
+            'name' => __('Request a return', 'plogins-returns'),
         ];
 
         return $actions;
@@ -130,7 +130,7 @@ final class ReturnRequestForm implements HasHooks
         if ($this->requests->existsForOrder((int) $order->get_id())) {
             printf(
                 '<p class="returns-existing">%s</p>',
-                esc_html__('A return request has already been submitted for this order.', 'returns'),
+                esc_html__('A return request has already been submitted for this order.', 'plogins-returns'),
             );
 
             return;
@@ -139,7 +139,7 @@ final class ReturnRequestForm implements HasHooks
         printf(
             '<p class="returns-request-cta"><a class="button" href="%1$s">%2$s</a></p>',
             esc_url($this->endpointUrl((int) $order->get_id())),
-            esc_html__('Request a return', 'returns'),
+            esc_html__('Request a return', 'plogins-returns'),
         );
     }
 
@@ -156,21 +156,21 @@ final class ReturnRequestForm implements HasHooks
         echo '<div class="returns-form-wrap">';
 
         if (! $order instanceof \WC_Order || ! $this->ownsOrder($order)) {
-            $this->renderNotice(__('That order could not be found, or you do not have permission to return it.', 'returns'), 'error');
+            $this->renderNotice(__('That order could not be found, or you do not have permission to return it.', 'plogins-returns'), 'error');
             echo '</div>';
 
             return;
         }
 
         if ($this->requests->existsForOrder($orderId)) {
-            $this->renderNotice(__('A return request has already been submitted for this order.', 'returns'), 'info');
+            $this->renderNotice(__('A return request has already been submitted for this order.', 'plogins-returns'), 'info');
             echo '</div>';
 
             return;
         }
 
         if (! $this->isEligible($order)) {
-            $this->renderNotice(__('This order is not eligible for a return.', 'returns'), 'info');
+            $this->renderNotice(__('This order is not eligible for a return.', 'plogins-returns'), 'info');
             echo '</div>';
 
             return;
@@ -195,13 +195,13 @@ final class ReturnRequestForm implements HasHooks
             : '';
 
         if (! wp_verify_nonce($nonce, self::NONCE)) {
-            $this->errors['_form'] = __('Your session expired. Please try again.', 'returns');
+            $this->errors['_form'] = __('Your session expired. Please try again.', 'plogins-returns');
 
             return;
         }
 
         if (! is_user_logged_in()) {
-            $this->errors['_form'] = __('Please log in to request a return.', 'returns');
+            $this->errors['_form'] = __('Please log in to request a return.', 'plogins-returns');
 
             return;
         }
@@ -210,13 +210,13 @@ final class ReturnRequestForm implements HasHooks
         $order   = $orderId > 0 ? wc_get_order($orderId) : null;
 
         if (! $order instanceof \WC_Order || ! $this->ownsOrder($order) || ! $this->isEligible($order)) {
-            $this->errors['_form'] = __('That order could not be found, or you do not have permission to return it.', 'returns');
+            $this->errors['_form'] = __('That order could not be found, or you do not have permission to return it.', 'plogins-returns');
 
             return;
         }
 
         if ($this->requests->existsForOrder($orderId)) {
-            $this->errors['_form'] = __('A return request has already been submitted for this order.', 'returns');
+            $this->errors['_form'] = __('A return request has already been submitted for this order.', 'plogins-returns');
 
             return;
         }
@@ -226,11 +226,11 @@ final class ReturnRequestForm implements HasHooks
         $note   = isset($_POST['returns_note']) ? sanitize_textarea_field(wp_unslash($_POST['returns_note'])) : '';
 
         if ([] === $items) {
-            $this->errors['items'] = __('Please select at least one item to return.', 'returns');
+            $this->errors['items'] = __('Please select at least one item to return.', 'plogins-returns');
         }
 
         if ('' === $reason) {
-            $this->errors['reason'] = __('Please choose a reason for the return.', 'returns');
+            $this->errors['reason'] = __('Please choose a reason for the return.', 'plogins-returns');
         }
 
         if ([] !== $this->errors) {
@@ -301,12 +301,12 @@ final class ReturnRequestForm implements HasHooks
             $this->renderNotice($this->errors['_form'], 'error');
         }
         ?>
-        <h2><?php esc_html_e('Request a return', 'returns'); ?></h2>
+        <h2><?php esc_html_e('Request a return', 'plogins-returns'); ?></h2>
         <p class="returns-form__order">
             <?php
             printf(
                 /* translators: %s: order number */
-                esc_html__('Order #%s', 'returns'),
+                esc_html__('Order #%s', 'plogins-returns'),
                 esc_html((string) $order->get_order_number()),
             );
             ?>
@@ -317,7 +317,7 @@ final class ReturnRequestForm implements HasHooks
             <input type="hidden" name="returns_order_id" value="<?php echo esc_attr((string) $order->get_id()); ?>" />
 
             <fieldset class="returns-form__items">
-                <legend><?php esc_html_e('Which items would you like to return?', 'returns'); ?></legend>
+                <legend><?php esc_html_e('Which items would you like to return?', 'plogins-returns'); ?></legend>
                 <?php if (isset($this->errors['items'])) : ?>
                     <span class="returns-form__error" role="alert"><?php echo esc_html($this->errors['items']); ?></span>
                 <?php endif; ?>
@@ -325,9 +325,9 @@ final class ReturnRequestForm implements HasHooks
                 <table class="returns-form__table">
                     <thead>
                         <tr>
-                            <th scope="col"><span class="screen-reader-text"><?php esc_html_e('Select', 'returns'); ?></span></th>
-                            <th scope="col"><?php esc_html_e('Product', 'returns'); ?></th>
-                            <th scope="col"><?php esc_html_e('Quantity', 'returns'); ?></th>
+                            <th scope="col"><span class="screen-reader-text"><?php esc_html_e('Select', 'plogins-returns'); ?></span></th>
+                            <th scope="col"><?php esc_html_e('Product', 'plogins-returns'); ?></th>
+                            <th scope="col"><?php esc_html_e('Quantity', 'plogins-returns'); ?></th>
                         </tr>
                     </thead>
                     <tbody>
@@ -339,18 +339,18 @@ final class ReturnRequestForm implements HasHooks
                             $maxQty = max(1, (int) $item->get_quantity());
                             ?>
                             <tr>
-                                <td data-label="<?php esc_attr_e('Select', 'returns'); ?>">
+                                <td data-label="<?php esc_attr_e('Select', 'plogins-returns'); ?>">
                                     <input type="checkbox" id="returns-item-<?php echo esc_attr((string) $itemId); ?>"
                                         name="returns_items[]" value="<?php echo esc_attr((string) $itemId); ?>" />
                                 </td>
-                                <td data-label="<?php esc_attr_e('Product', 'returns'); ?>">
+                                <td data-label="<?php esc_attr_e('Product', 'plogins-returns'); ?>">
                                     <label for="returns-item-<?php echo esc_attr((string) $itemId); ?>">
                                         <?php echo esc_html($item->get_name()); ?>
                                     </label>
                                 </td>
-                                <td data-label="<?php esc_attr_e('Quantity', 'returns'); ?>">
+                                <td data-label="<?php esc_attr_e('Quantity', 'plogins-returns'); ?>">
                                     <label class="screen-reader-text" for="returns-qty-<?php echo esc_attr((string) $itemId); ?>">
-                                        <?php esc_html_e('Quantity to return', 'returns'); ?>
+                                        <?php esc_html_e('Quantity to return', 'plogins-returns'); ?>
                                     </label>
                                     <input type="number" min="1" step="1" max="<?php echo esc_attr((string) $maxQty); ?>"
                                         id="returns-qty-<?php echo esc_attr((string) $itemId); ?>"
@@ -365,10 +365,10 @@ final class ReturnRequestForm implements HasHooks
             </fieldset>
 
             <p class="returns-form__field">
-                <label for="returns-reason"><?php esc_html_e('Reason', 'returns'); ?> <span class="returns-form__req" aria-hidden="true">*</span></label>
+                <label for="returns-reason"><?php esc_html_e('Reason', 'plogins-returns'); ?> <span class="returns-form__req" aria-hidden="true">*</span></label>
                 <select id="returns-reason" name="returns_reason" required
                     <?php echo isset($this->errors['reason']) ? 'aria-invalid="true" aria-describedby="returns-reason-error"' : ''; ?>>
-                    <option value=""><?php esc_html_e('Select a reason…', 'returns'); ?></option>
+                    <option value=""><?php esc_html_e('Select a reason…', 'plogins-returns'); ?></option>
                     <?php foreach (Reasons::all() as $value => $label) : ?>
                         <option value="<?php echo esc_attr($value); ?>"><?php echo esc_html($label); ?></option>
                     <?php endforeach; ?>
@@ -379,13 +379,13 @@ final class ReturnRequestForm implements HasHooks
             </p>
 
             <p class="returns-form__field">
-                <label for="returns-note"><?php esc_html_e('Additional details', 'returns'); ?></label>
+                <label for="returns-note"><?php esc_html_e('Additional details', 'plogins-returns'); ?></label>
                 <textarea id="returns-note" name="returns_note" rows="4"></textarea>
             </p>
 
             <p class="returns-form__submit">
-                <button type="submit" name="returns_submit" value="1" class="button alt"><?php esc_html_e('Submit return request', 'returns'); ?></button>
-                <a class="returns-form__cancel" href="<?php echo esc_url(wc_get_account_endpoint_url('orders')); ?>"><?php esc_html_e('Cancel', 'returns'); ?></a>
+                <button type="submit" name="returns_submit" value="1" class="button alt"><?php esc_html_e('Submit return request', 'plogins-returns'); ?></button>
+                <a class="returns-form__cancel" href="<?php echo esc_url(wc_get_account_endpoint_url('orders')); ?>"><?php esc_html_e('Cancel', 'plogins-returns'); ?></a>
             </p>
         </form>
         <?php
@@ -413,15 +413,15 @@ final class ReturnRequestForm implements HasHooks
         $lines   = [];
         $lines[] = sprintf(
             /* translators: 1: order number, 2: site name */
-            __('A new return request was submitted for order #%1$s on %2$s.', 'returns'),
+            __('A new return request was submitted for order #%1$s on %2$s.', 'plogins-returns'),
             (string) $order->get_order_number(),
             wp_specialchars_decode((string) get_bloginfo('name'), ENT_QUOTES),
         );
         $lines[] = '';
-        $lines[] = __('Customer:', 'returns') . ' ' . trim($order->get_formatted_billing_full_name());
-        $lines[] = __('Reason:', 'returns') . ' ' . Reasons::label($reason);
+        $lines[] = __('Customer:', 'plogins-returns') . ' ' . trim($order->get_formatted_billing_full_name());
+        $lines[] = __('Reason:', 'plogins-returns') . ' ' . Reasons::label($reason);
         $lines[] = '';
-        $lines[] = __('Requested items:', 'returns');
+        $lines[] = __('Requested items:', 'plogins-returns');
 
         foreach ($items as $item) {
             $lines[] = sprintf('- %1$s x %2$d', $item['name'], $item['qty']);
@@ -429,7 +429,7 @@ final class ReturnRequestForm implements HasHooks
 
         if ('' !== $note) {
             $lines[] = '';
-            $lines[] = __('Customer note:', 'returns');
+            $lines[] = __('Customer note:', 'plogins-returns');
             $lines[] = $note;
         }
 
@@ -437,12 +437,12 @@ final class ReturnRequestForm implements HasHooks
 
         if (is_string($editLink) && '' !== $editLink) {
             $lines[] = '';
-            $lines[] = __('Manage in admin:', 'returns') . ' ' . $editLink;
+            $lines[] = __('Manage in admin:', 'plogins-returns') . ' ' . $editLink;
         }
 
         $subject = sprintf(
             /* translators: %s: order number */
-            __('New return request for order #%s', 'returns'),
+            __('New return request for order #%s', 'plogins-returns'),
             (string) $order->get_order_number(),
         );
 

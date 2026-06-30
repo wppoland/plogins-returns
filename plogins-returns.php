@@ -1,9 +1,9 @@
 <?php
 /**
- * Plugin Name:       Returns - RMA and Return Requests for WooCommerce
- * Plugin URI:        https://plogins.com/returns/
+ * Plugin Name:       Plogins Returns for WooCommerce
+ * Plugin URI:        https://plogins.com/plogins-returns/
  * Description:        Let customers request returns/refunds from their account and manage RMAs in the admin.
- * Version:           0.1.2
+ * Version:           0.1.3
  * Requires at least: 6.5
  * Requires PHP:      8.1
  * Requires Plugins:  woocommerce
@@ -11,7 +11,7 @@
  * Author URI:        https://wppoland.com
  * License:           GPL-2.0-or-later
  * License URI:       https://www.gnu.org/licenses/gpl-2.0.html
- * Text Domain:       returns
+ * Text Domain:       plogins-returns
  * Domain Path:       /languages
  * WC requires at least: 8.0
  *
@@ -24,7 +24,7 @@ namespace Returns;
 
 defined('ABSPATH') || exit;
 
-const VERSION     = '0.1.2';
+const VERSION     = '0.1.3';
 const PLUGIN_FILE = __FILE__;
 
 define('RETURNS_DIR', plugin_dir_path(__FILE__));
@@ -56,7 +56,7 @@ add_action('plugins_loaded', static function (): void {
     if (! class_exists('WooCommerce')) {
         add_action('admin_notices', static function (): void {
             echo '<div class="notice notice-error"><p>';
-            echo esc_html__('Returns - RMA and Return Requests for WooCommerce requires WooCommerce to be active.', 'returns');
+            echo esc_html__('Returns - RMA and Return Requests for WooCommerce requires WooCommerce to be active.', 'plogins-returns');
             echo '</p></div>';
         });
         return;
