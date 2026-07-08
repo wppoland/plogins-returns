@@ -1,0 +1,76 @@
+# wp.org Stable Readme translation (es_ES)
+msgid ""
+msgstr ""
+"Project-Id-Version: returns Stable Readme\n"
+"Language: es\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: plogins-i18n\n"
+
+msgid "Requires Plugins: woocommerce"
+msgstr "Requiere complementos: woocommerce"
+
+msgid "Let customers request returns/refunds from their account and manage RMAs in the admin."
+msgstr "Permita que los clientes soliciten devoluciones/reembolsos desde su cuenta y administren RMA en el administrador."
+
+msgid "Returns adds a simple, self-service return (RMA) flow to WooCommerce. From <strong>My Account → Orders</strong>, a customer opens a return request on an eligible order: they\npick the items, set a quantity, choose a reason and add an optional note. The\nrequest is saved as a private record, emailed to you, and given a status the\ncustomer can follow from their account."
+msgstr "Returns añade un flujo de devolución de autoservicio (RMA) simple a WooCommerce. Desde <strong>Mi cuenta → Pedidos</strong>, un cliente abre una solicitud de devolución en un pedido elegible:\nseleccione los artículos, establezca una cantidad, elija un motivo y añade una nota opcional. el\nLa solicitud se guarda como un registro privado, se le envía por correo electrónico y se le asigna un estado que el\nel cliente puede seguir desde su cuenta."
+
+msgid "You review and manage every request in wp-admin under <strong>WooCommerce → Return Requests</strong>, moving each one through requested, approved, rejected or completed.\nWhatever status you set is the status the customer sees in their account."
+msgstr "Usted revisa y administra cada solicitud en wp-admin en <strong>WooCommerce → Solicitudes de devolución</strong>, moviendo cada una entre solicitada, aprobada, rechazada o completada.\nCualquiera que sea el estado que establezca, es el estado que el cliente ve en su cuenta."
+
+msgid "This is a request-and-status plugin: it does not move money. Process any refund\nin the normal WooCommerce order screen; the return record keeps the request and\nits status in one place."
+msgstr "Este es un complemento de solicitud y estado: no mueve dinero. Procesar cualquier reembolso\nen la pantalla de pedido normal de WooCommerce; el registro de devolución mantiene la solicitud y\nsu estado en un solo lugar."
+
+msgid "Source code and bug reports live at https://github.com/wppoland/plogins-returns."
+msgstr "El código fuente y los informes de errores están disponibles en https://github.com/wppoland/plogins-returns."
+
+msgid "* <strong>Documentation</strong> - https://plogins.com/plogins-returns/docs/\n* <strong>Plugin page</strong> - https://plogins.com/plogins-returns/\n* <strong>Source code</strong> - https://github.com/wppoland/plogins-returns\n* <strong>Bug reports and feature requests</strong> - https://github.com/wppoland/plogins-returns/issues"
+msgstr "* <strong>Documentación</strong> - https://plogins.com/es/plogins-returns/docs/\n* <strong>Página de complementos</strong> - https://plogins.com/es/plogins-returns/\n* <strong>Código fuente</strong> - https://github.com/wppoland/plogins-returns\n* <strong>Informes de errores y solicitudes de funciones</strong> - https://github.com/wppoland/plogins-returns/issues"
+
+msgid "* \"Request a return\" action on eligible orders in My Account (orders list and single order view).\n* Item picker with per-item quantity, a reason dropdown and an optional note.\n* Ownership-checked: only the logged-in owner of an order can request a return for it.\n* Configurable eligible order statuses and a return window (in days).\n* Each request is saved as a private custom post type and emailed to the store admin.\n* Admin management screen with a status workflow: requested, approved, rejected, completed.\n* Customer-facing status list in My Account so shoppers can track their returns.\n* Accessible markup with a responsive layout; storefront styles inherit your theme's colours, so they sit in light or dark themes without extra work.\n* Translation ready (POT included) and clean uninstall.\n* HPOS and cart/checkout blocks compatible."
+msgstr "* Acción \"Solicitar una devolución\" en pedidos elegibles en Mi cuenta (lista de pedidos y vista de pedido único).\n* Selector de artículos con cantidad por artículo, un menú desplegable de motivos y una nota opcional.\n* Propiedad verificada: solo el propietario de un pedido que haya iniciado sesión puede solicitar su devolución.\n* Estados de pedidos elegibles configurables y una ventana de devolución (en días).\n* Cada solicitud se guarda como un tipo de publicación personalizada privada y se envía por correo electrónico al administrador de la tienda.\n* Pantalla de gestión de administración con un flujo de trabajo de estado: solicitado, aprobado, rechazado, completado.\n* Lista de estado de atención al cliente en Mi cuenta para que los compradores puedan realizar un seguimiento de sus devoluciones.\n* Marcado accesible con un diseño responsivo; Los estilos de escaparate heredan los colores de su tema, por lo que se ubican en temas claros u oscuros sin trabajo adicional.\n* Traducción lista (POT incluida) y desinstalación limpia.\n* Compatible con HPOS y bloques de carrito/pago."
+
+msgid "1. Upload the plugin to `/wp-content/plugins/returns`, or install via Plugins → Add New.\n2. Activate it. WooCommerce must be installed and active.\n3. Go to <strong>WooCommerce → Returns<strong> to choose eligible order statuses and the return window. 4. Customers can now open a return from </strong>My Account → Orders</strong> on any eligible order."
+msgstr "1. Cargue el complemento en `/wp-content/plugins/returns`, o instálelo a través de Complementos → Añadir nuevo.\n2. Actívalo. WooCommerce debe estar instalado y activo.\n3. Vaya a <strong>WooCommerce → Devoluciones<strong> para elegir los estados de pedido elegibles y la ventana de devolución. 4. Los clientes ahora pueden abrir una devolución desde </strong>Mi cuenta → Pedidos</strong> en cualquier pedido elegible."
+
+msgid "Yes. WooCommerce must be installed and active."
+msgstr "Sí. WooCommerce debe estar instalado y activo."
+
+msgid "Orders in the statuses you choose under WooCommerce → Returns (Completed and\nProcessing by default), within the return window you set. Set the window to 0 to\nremove the time limit."
+msgstr "Pedidos en los estados que elija en WooCommerce → Devoluciones (completadas y\nProcesando por defecto), dentro de la ventana de devolución que establezcas. Establezca la ventana en 0 para\neliminar el límite de tiempo."
+
+msgid "No. This MVP records the request and tracks its status. Process any refund in the\nnormal WooCommerce order screen; the return record stays in sync with the status\nyou set."
+msgstr "No. Este MVP registra la solicitud y realiza un seguimiento de su estado. Procesar cualquier reembolso en el\npantalla de pedido normal de WooCommerce; el registro de devolución permanece sincronizado con el estado\ntú estableces."
+
+msgid "Each submission is emailed to the store admin and saved as a private \"Return\nRequest\" record under the WooCommerce menu in wp-admin."
+msgstr "Cada envío se envía por correo electrónico al administrador de la tienda y se guarda como un \"Devolución\" privado.\nSolicitar\" registro en el menú WooCommerce en wp-admin."
+
+msgid "No. Once a return request exists for an order, the action is hidden and a notice\nis shown instead."
+msgstr "No. Una vez que existe una solicitud de devolución para un pedido, la acción se oculta y aparece un aviso.\nen su lugar se muestra."
+
+msgid "Yes. This plugin is compatible with WordPress Multisite. Network activate it or activate it on individual sites; each site keeps its own settings and data."
+msgstr "Sí. Este complemento es compatible con WordPress Multisite. Activarlo en red o activarlo en sitios individuales; Cada sitio mantiene su propia configuración y datos."
+
+msgid "1. The \"Request a return\" action on an order in My Account.\n2. The return request form: item picker, reason and note."
+msgstr "1. La acción \"Solicitar una devolución\" en un pedido en Mi Cuenta.\n2. El formulario de solicitud de devolución: selector de artículo, motivo y nota."
+
+msgid "Returns connects to no external services. It sends no data off your site and loads no third-party scripts, fonts or APIs. Each return request is stored locally in WordPress as a private `returns_rma` custom post type (with `_returns_*` post meta for the order, customer, items, reason, note and status), and the plugin's configuration lives in the `returns_settings` and `returns_db_version` options. The admin notification email is sent through your site's own WordPress mail (`wp_mail`), so delivery uses whatever mail setup your server or SMTP plugin already provides."
+msgstr "Las devoluciones no se conectan a ningún servicio externo. No envía datos fuera de tu sitio y no carga scripts, fuentes o API de terceros. Cada solicitud de devolución se almacena localmente en WordPress como un tipo de publicación personalizada privada `returns_rma` (con meta de publicación `_returns_*` para el pedido, cliente, artículos, motivo, nota y estado), y la configuración del complemento se encuentra en las opciones `returns_settings` y `returns_db_version`. El correo electrónico de notificación del administrador se envía a través del propio correo de WordPress de tu sitio (`wp_mail`), por lo que la entrega utiliza cualquier configuración de correo que su servidor o complemento SMTP ya proporcione."
+
+msgid "* First stable release."
+msgstr "* Primera versión estable."
+
+msgid "* Renamed to Plogins Returns for WooCommerce for a more distinctive plugin name."
+msgstr "* Renombrado a Plogins Returns para WooCommerce para obtener un nombre de complemento más distintivo."
+
+msgid "* `Returns\\Support\\Refunds` helper with `returns/order_refund` action for PRO refund automation."
+msgstr "* Ayudante `Devoluciones\\Support\\Refunds` con acción `devoluciones/order_refund` para la automatización de reembolsos PRO."
+
+msgid "* `Returns\\Support\\Reasons` with `returns/reasons` and `returns/reason_label` filters for PRO analytics and extensions."
+msgstr "* `Returns\\Support\\Reasons` con filtros `returns/reasons` y `returns/reason_label` para análisis y extensiones PRO."
+
+msgid "* Initial release: self-service return requests from My Account, item picker with reason and note, ownership checks, configurable eligibility and window, merchant email, a private return-request record and an admin status workflow."
+msgstr "* Versión inicial: solicitudes de devolución de autoservicio desde Mi cuenta, selector de artículos con motivo y nota, comprobaciones de propiedad, elegibilidad y ventana configurables, correo electrónico del comerciante, un registro privado de solicitud de devolución y un flujo de trabajo de estado de administrador."
+

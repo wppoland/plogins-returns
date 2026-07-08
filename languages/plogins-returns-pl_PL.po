@@ -12,10 +12,9 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<12 "
-"|| n%100>14) ? 1 : 2);\n"
-"X-Generator: WP-CLI 2.12.0\n"
+"Plural-Forms: nplurals=3; plural=(n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<12 || n%100>14) ? 1 : 2);\n"
 "X-Domain: plogins-returns\n"
+"X-Generator: WP-CLI 2.12.0\n"
 
 #. Plugin Name of the plugin
 #: returns.php
@@ -48,8 +47,8 @@ msgstr "https://plogins.com/"
 
 #: returns.php:59
 msgid ""
-"Returns - RMA and Return Requests for WooCommerce requires WooCommerce to be "
-"active."
+"Returns - RMA and Return Requests for WooCommerce requires WooCommerce to be"
+" active."
 msgstr ""
 "Wtyczka Returns - RMA i zgłoszenia zwrotów dla WooCommerce wymaga aktywnej "
 "wtyczki WooCommerce."
@@ -84,11 +83,11 @@ msgstr "Zobacz zgłoszenia zwrotów"
 
 #: src/Admin/Settings.php:109
 msgid "Availability"
-msgstr ""
+msgstr "Dostępność"
 
 #: src/Admin/Settings.php:110
 msgid "The master switch for the whole return flow."
-msgstr ""
+msgstr "Wyłącznik główny całego przepływu powrotnego."
 
 #: src/Admin/Settings.php:114
 msgid "Enable returns"
@@ -96,7 +95,7 @@ msgstr "Włącz zwroty"
 
 #: src/Admin/Settings.php:120
 msgid "Let customers request a return from My Account."
-msgstr ""
+msgstr "Pozwól klientom poprosić o zwrot z poziomu Mojego konta."
 
 #: src/Admin/Settings.php:122
 msgid ""
@@ -104,16 +103,22 @@ msgid ""
 "request form is reachable. Off: the link and form disappear from the "
 "storefront, existing requests stay in your records. Ships on."
 msgstr ""
+"Włączone: obok kwalifikujących się zamówień pojawia się link „Poproś o "
+"zwrot”, a formularz wniosku jest dostępny. Wyłączone: link i formularz "
+"znikają ze sklepu, istniejące zapytania pozostają w Twoich rejestrach. "
+"Domyślnie włączone."
 
 #: src/Admin/Settings.php:130
 msgid "What can be returned"
-msgstr ""
+msgstr "Co można zwrócić"
 
 #: src/Admin/Settings.php:131
 msgid ""
-"Decide which orders qualify and for how long. An order must clear both tests "
-"before its \"Request a return\" link shows."
+"Decide which orders qualify and for how long. An order must clear both tests"
+" before its \"Request a return\" link shows."
 msgstr ""
+"Zdecyduj, które zamówienia się kwalifikują i na jak długo. Zamówienie musi "
+"przejść oba testy, zanim pojawi się link „Poproś o zwrot”."
 
 #: src/Admin/Settings.php:135 src/Admin/Settings.php:138
 msgid "Eligible order statuses"
@@ -127,6 +132,12 @@ msgid ""
 "Processing ticked; if you untick everything, Completed is kept so the "
 "feature still works."
 msgstr ""
+"Zamówienia o innym statusie nigdy nie wyświetlają linku zwrotnego. Większość"
+" sklepów wybiera statusy oznaczające „klient ma towar”, zazwyczaj Zakończony"
+" (i Przetwarzanie, jeśli realizujesz przed oznaczeniem jako ukończone). "
+"Domyślnie zaznaczone są Zakończone i Przetwarzanie; jeśli wszystko "
+"odznaczysz, opcja Zakończone pozostanie zachowana, więc funkcja nadal będzie "
+"działać."
 
 #: src/Admin/Settings.php:154
 msgid "Return window (days)"
@@ -138,16 +149,19 @@ msgid ""
 "appears for that order. Set 0 to accept returns with no deadline. Ships at "
 "30."
 msgstr ""
+"Liczone od daty zamówienia. Po jego upływie link zwrotny nie będzie już "
+"wyświetlany dla tego zamówienia. Ustaw 0, aby akceptować zwroty bez terminu."
+" Domyślnie 30."
 
 #. translators: %s is the number of days in the return window.
 #: src/Admin/Settings.php:165
 #, php-format
 msgid "Example: an order placed today can be returned until %s."
-msgstr ""
+msgstr "Przykład: zamówienie złożone dzisiaj można zwrócić do %s."
 
 #: src/Admin/Settings.php:191
 msgid "any time later, no deadline"
-msgstr ""
+msgstr "w dowolnym momencie, bez terminu"
 
 #: src/Admin/Settings.php:216
 msgid "Processing"
@@ -266,7 +280,7 @@ msgstr "Data"
 #: src/Service/MyReturns.php:113
 #, php-format
 msgid "Return status: %s"
-msgstr ""
+msgstr "Status zwrotu: %s"
 
 #: src/Service/ReturnRequestForm.php:114 src/Service/ReturnRequestForm.php:141
 #: src/Service/ReturnRequestForm.php:303
@@ -408,11 +422,10 @@ msgstr "Odrzucony"
 #~ msgstr "Zezwól klientom na zgłaszanie zwrotów z poziomu Moje konto."
 
 #~ msgid ""
-#~ "When off, the \"Request a return\" action and form are hidden everywhere "
-#~ "on the storefront."
+#~ "When off, the \"Request a return\" action and form are hidden everywhere on "
+#~ "the storefront."
 #~ msgstr ""
-#~ "Po wyłączeniu akcja „Zgłoś zwrot” oraz formularz są ukryte w całym "
-#~ "sklepie."
+#~ "Po wyłączeniu akcja „Zgłoś zwrot” oraz formularz są ukryte w całym sklepie."
 
 #~ msgid "Only orders in these statuses can be returned."
 #~ msgstr "Tylko zamówienia w tych statusach mogą zostać zwrócone."
