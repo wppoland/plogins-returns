@@ -13,17 +13,6 @@
        above 3:1 as the heading accent rule — both clear WCAG AA. */
     --returns-accent: #0f7b6c;
 }
-
-@media (prefers-color-scheme: dark) {
-    .returns-admin {
-        --returns-card-bg: #1e1e1e;
-        --returns-card-border: #3c434a;
-        --returns-muted: #a7aaad;
-        /* Lifted teal for dark cards: 6.41:1 on #1e1e1e — AA at any size. */
-        --returns-accent: #2bb3a3;
-    }
-}
-
 .returns-intro {
     background: var(--returns-card-bg);
     border: 1px solid var(--returns-card-border);
