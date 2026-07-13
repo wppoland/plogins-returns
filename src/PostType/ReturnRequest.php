@@ -274,7 +274,7 @@ final class ReturnRequest implements HasHooks
         <table class="widefat striped" style="margin-bottom:1em">
             <tbody>
                 <tr>
-                    <th style="width:160px"><?php esc_html_e('Order', 'plogins-returns'); ?></th>
+                    <th scope="row" style="width:160px"><?php esc_html_e('Order', 'plogins-returns'); ?></th>
                     <td>
                         <?php if ('' !== $orderUrl) : ?>
                             <a href="<?php echo esc_url($orderUrl); ?>">#<?php echo esc_html((string) $orderId); ?></a>
@@ -284,11 +284,11 @@ final class ReturnRequest implements HasHooks
                     </td>
                 </tr>
                 <tr>
-                    <th><?php esc_html_e('Reason', 'plogins-returns'); ?></th>
+                    <th scope="row"><?php esc_html_e('Reason', 'plogins-returns'); ?></th>
                     <td><?php echo esc_html('' !== $reason ? Reasons::label($reason) : '—'); ?></td>
                 </tr>
                 <tr>
-                    <th><?php esc_html_e('Customer note', 'plogins-returns'); ?></th>
+                    <th scope="row"><?php esc_html_e('Customer note', 'plogins-returns'); ?></th>
                     <td><?php echo '' !== $note ? esc_html($note) : '—'; ?></td>
                 </tr>
             </tbody>
@@ -301,8 +301,8 @@ final class ReturnRequest implements HasHooks
             <table class="widefat striped">
                 <thead>
                     <tr>
-                        <th><?php esc_html_e('Product', 'plogins-returns'); ?></th>
-                        <th style="width:120px"><?php esc_html_e('Quantity', 'plogins-returns'); ?></th>
+                        <th scope="col"><?php esc_html_e('Product', 'plogins-returns'); ?></th>
+                        <th scope="col" style="width:120px"><?php esc_html_e('Quantity', 'plogins-returns'); ?></th>
                     </tr>
                 </thead>
                 <tbody>
