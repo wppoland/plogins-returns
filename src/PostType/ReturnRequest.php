@@ -7,6 +7,7 @@ namespace Returns\PostType;
 use Returns\Contract\HasHooks;
 use Returns\Support\Reasons;
 use Returns\Support\Statuses;
+use Returns\Support\Types;
 
 defined('ABSPATH') || exit;
 
@@ -31,6 +32,8 @@ final class ReturnRequest implements HasHooks
     public const META_REASON      = '_returns_reason';
     public const META_NOTE        = '_returns_note';
     public const META_STATUS      = '_returns_status';
+    public const META_TYPE        = '_returns_type';
+    public const META_REMEDY      = '_returns_remedy';
 
     private const STATUS_NONCE = 'returns_save_status';
 
@@ -43,6 +46,8 @@ final class ReturnRequest implements HasHooks
             add_action('manage_' . self::POST_TYPE . '_posts_custom_column', [$this, 'renderColumn'], 10, 2);
             add_action('add_meta_boxes', [$this, 'addMetaBoxes']);
             add_action('save_post_' . self::POST_TYPE, [$this, 'saveStatus'], 10, 2);
+            add_action('restrict_manage_posts', [$this, 'renderTypeFilter']);
+            add_action('parse_query', [$this, 'filterByType']);
         }
     }
 
@@ -92,15 +97,26 @@ final class ReturnRequest implements HasHooks
     }
 
     /**
-     * Persist a return request. Returns the new post ID, or 0 on failure.
+     * Persist a request. Returns the new post ID, or 0 on failure.
+     *
+     * The request type defaults to RETURN when an unknown value is passed, so
+     * older callers that omit it keep the original behaviour. A preferred remedy
+     * is only stored for complaint and repair requests; it is dropped otherwise.
      *
      * @param array<int, array{item_id: int, name: string, qty: int}> $items
      */
-    public function create(int $orderId, int $customerId, array $items, string $reason, string $note): int
+    public function create(int $orderId, int $customerId, array $items, string $reason, string $note, string $type = Types::RETURN, string $remedy = ''): int
     {
+        $type = Types::isValid($type) ? $type : Types::RETURN;
+
+        if (! Types::hasRemedy($type) || ! Types::isValidRemedy($remedy)) {
+            $remedy = '';
+        }
+
         $title = sprintf(
-            /* translators: 1: order number, 2: human-readable date */
-            __('Return for order #%1$s, %2$s', 'plogins-returns'),
+            /* translators: 1: request type label, 2: order number, 3: human-readable date */
+            __('%1$s for order #%2$s, %3$s', 'plogins-returns'),
+            Types::label($type),
             (string) $orderId,
             wp_date(get_option('date_format') . ' ' . get_option('time_format')),
         );
@@ -124,8 +140,39 @@ final class ReturnRequest implements HasHooks
         update_post_meta($postId, self::META_REASON, $reason);
         update_post_meta($postId, self::META_NOTE, $note);
         update_post_meta($postId, self::META_STATUS, Statuses::REQUESTED);
+        update_post_meta($postId, self::META_TYPE, $type);
+        update_post_meta($postId, self::META_REMEDY, $remedy);
+
+        /**
+         * Fires after a new request is stored. Add-ons (e.g. Returns Pro) listen
+         * here to run type-specific automation, such as Right to Repair intake.
+         *
+         * @param int    $postId The new request post ID.
+         * @param string $type   The request type (a valid Types constant).
+         */
+        do_action('returns/request_created', (int) $postId, $type);
 
         return (int) $postId;
+    }
+
+    /**
+     * The request type of a record (defaults to RETURN for pre-typing records).
+     */
+    public function type(int $postId): string
+    {
+        $type = (string) get_post_meta($postId, self::META_TYPE, true);
+
+        return Types::isValid($type) ? $type : Types::RETURN;
+    }
+
+    /**
+     * The stored preferred remedy, or an empty string when none applies.
+     */
+    public function remedy(int $postId): string
+    {
+        $remedy = (string) get_post_meta($postId, self::META_REMEDY, true);
+
+        return Types::isValidRemedy($remedy) ? $remedy : '';
     }
 
     /**
@@ -139,7 +186,7 @@ final class ReturnRequest implements HasHooks
     }
 
     /**
-     * Whether a given order already has a return request.
+     * Whether a given order already has a request of any type.
      */
     public function existsForOrder(int $orderId): bool
     {
@@ -154,6 +201,46 @@ final class ReturnRequest implements HasHooks
             // Bounded lookup (1 row) on an indexed meta key — acceptable here.
             'meta_key'               => self::META_ORDER_ID, // phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_key
             'meta_value'             => (string) $orderId, // phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_value
+        ]);
+
+        return [] !== $query->posts;
+    }
+
+    /**
+     * Whether a given order already has a request of a specific type. A record
+     * with no stored type counts as RETURN (back-compat), so a second return can
+     * still be blocked while a complaint or repair remains available.
+     */
+    public function existsForOrderType(int $orderId, string $type): bool
+    {
+        $type = Types::isValid($type) ? $type : Types::RETURN;
+
+        // Match the type meta exactly; for RETURN also match legacy records that
+        // predate typing and carry no type meta at all.
+        $typeClause = Types::RETURN === $type
+            ? [
+                'relation' => 'OR',
+                ['key' => self::META_TYPE, 'value' => $type],
+                ['key' => self::META_TYPE, 'compare' => 'NOT EXISTS'],
+            ]
+            : [
+                ['key' => self::META_TYPE, 'value' => $type],
+            ];
+
+        $query = new \WP_Query([
+            'post_type'              => self::POST_TYPE,
+            'post_status'            => 'private',
+            'posts_per_page'         => 1,
+            'fields'                 => 'ids',
+            'no_found_rows'          => true,
+            'update_post_meta_cache' => false,
+            'update_post_term_cache' => false,
+            // Bounded lookup (1 row) keyed on the order, then narrowed by type.
+            'meta_query'             => [ // phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_query
+                'relation' => 'AND',
+                ['key' => self::META_ORDER_ID, 'value' => (string) $orderId],
+                $typeClause,
+            ],
         ]);
 
         return [] !== $query->posts;
@@ -202,6 +289,7 @@ final class ReturnRequest implements HasHooks
         foreach ($columns as $key => $label) {
             if ('date' === $key) {
                 $reordered['returns_order']  = __('Order', 'plogins-returns');
+                $reordered['returns_type']   = __('Type', 'plogins-returns');
                 $reordered['returns_status'] = __('Status', 'plogins-returns');
                 $reordered['returns_items']  = __('Items', 'plogins-returns');
             }
@@ -223,6 +311,15 @@ final class ReturnRequest implements HasHooks
                 } else {
                     echo esc_html($orderId > 0 ? '#' . $orderId : '—');
                 }
+                break;
+
+            case 'returns_type':
+                $type = $this->type($postId);
+                printf(
+                    '<span class="returns-type-badge returns-type-badge--%1$s">%2$s</span>',
+                    esc_attr(Types::slug($type)),
+                    esc_html(Types::label($type)),
+                );
                 break;
 
             case 'returns_status':
@@ -267,6 +364,8 @@ final class ReturnRequest implements HasHooks
         $orderId  = (int) get_post_meta($post->ID, self::META_ORDER_ID, true);
         $reason   = (string) get_post_meta($post->ID, self::META_REASON, true);
         $note     = (string) get_post_meta($post->ID, self::META_NOTE, true);
+        $type     = $this->type($post->ID);
+        $remedy   = $this->remedy($post->ID);
         $items    = get_post_meta($post->ID, self::META_ITEMS, true);
         $items    = is_array($items) ? $items : [];
         $orderUrl = $orderId > 0 ? $this->orderEditLink($orderId) : '';
@@ -283,6 +382,20 @@ final class ReturnRequest implements HasHooks
                         <?php endif; ?>
                     </td>
                 </tr>
+                <tr>
+                    <th scope="row"><?php esc_html_e('Type', 'plogins-returns'); ?></th>
+                    <td>
+                        <span class="returns-type-badge returns-type-badge--<?php echo esc_attr(Types::slug($type)); ?>">
+                            <?php echo esc_html(Types::label($type)); ?>
+                        </span>
+                    </td>
+                </tr>
+                <?php if (Types::hasRemedy($type)) : ?>
+                    <tr>
+                        <th scope="row"><?php esc_html_e('Preferred remedy', 'plogins-returns'); ?></th>
+                        <td><?php echo esc_html('' !== $remedy ? Types::remedyLabel($remedy) : '—'); ?></td>
+                    </tr>
+                <?php endif; ?>
                 <tr>
                     <th scope="row"><?php esc_html_e('Reason', 'plogins-returns'); ?></th>
                     <td><?php echo esc_html('' !== $reason ? Reasons::label($reason) : '—'); ?></td>
@@ -390,6 +503,75 @@ final class ReturnRequest implements HasHooks
          * @param string $previous The previous status.
          */
         do_action('returns/status_changed', $postId, $status, $previous);
+    }
+
+    /**
+     * Render a "filter by type" dropdown above the request list table.
+     */
+    public function renderTypeFilter(string $postType): void
+    {
+        if (self::POST_TYPE !== $postType || ! current_user_can('manage_woocommerce')) {
+            return;
+        }
+
+        // Read-only list filter; no state change occurs here.
+        $current = isset($_GET[self::META_TYPE]) // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+            ? sanitize_key(wp_unslash($_GET[self::META_TYPE])) // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+            : '';
+        ?>
+        <label for="returns-filter-type" class="screen-reader-text"><?php esc_html_e('Filter by type', 'plogins-returns'); ?></label>
+        <select id="returns-filter-type" name="<?php echo esc_attr(self::META_TYPE); ?>">
+            <option value=""><?php esc_html_e('All types', 'plogins-returns'); ?></option>
+            <?php foreach (Types::all() as $key => $label) : ?>
+                <option value="<?php echo esc_attr($key); ?>" <?php selected($current, $key); ?>>
+                    <?php echo esc_html($label); ?>
+                </option>
+            <?php endforeach; ?>
+        </select>
+        <?php
+    }
+
+    /**
+     * Narrow the admin list query to a single request type when the filter is
+     * set. RETURN also matches legacy records with no stored type.
+     */
+    public function filterByType(\WP_Query $query): void
+    {
+        if (! is_admin() || ! $query->is_main_query()) {
+            return;
+        }
+
+        $screen = function_exists('get_current_screen') ? get_current_screen() : null;
+
+        if (! $screen instanceof \WP_Screen || self::POST_TYPE !== $screen->post_type || 'edit' !== $screen->base) {
+            return;
+        }
+
+        if (! current_user_can('manage_woocommerce')) {
+            return;
+        }
+
+        // Read-only list filter; no state change occurs here.
+        $type = isset($_GET[self::META_TYPE]) // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+            ? sanitize_key(wp_unslash($_GET[self::META_TYPE])) // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+            : '';
+
+        if (! Types::isValid($type)) {
+            return;
+        }
+
+        $query->set(
+            'meta_query',
+            Types::RETURN === $type
+                ? [
+                    'relation' => 'OR',
+                    ['key' => self::META_TYPE, 'value' => $type],
+                    ['key' => self::META_TYPE, 'compare' => 'NOT EXISTS'],
+                ]
+                : [
+                    ['key' => self::META_TYPE, 'value' => $type],
+                ],
+        );
     }
 
     /**
