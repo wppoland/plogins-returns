@@ -109,3 +109,28 @@
     color: #b32d2e;
     background: #f7dada;
 }
+
+/* Request-type badges, reused in the CPT list table and details box. */
+.returns-type-badge {
+    display: inline-block;
+    padding: 0.1em 0.6em;
+    border-radius: 999px;
+    font-size: 12px;
+    font-weight: 600;
+    line-height: 1.7;
+}
+
+.returns-type-badge--return {
+    color: #135e96;
+    background: #d8e7f3;
+}
+
+.returns-type-badge--complaint {
+    color: #8a6d00;
+    background: #fcf3cd;
+}
+
+.returns-type-badge--repair {
+    color: #0f7b6c;
+    background: #d7edea;
+}

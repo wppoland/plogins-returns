@@ -8,6 +8,7 @@ use Returns\Contract\HasHooks;
 use Returns\PostType\ReturnRequest;
 use Returns\Support\Reasons;
 use Returns\Support\Options;
+use Returns\Support\Types;
 
 defined('ABSPATH') || exit;
 
@@ -28,6 +29,9 @@ final class ReturnRequestForm implements HasHooks
 
     /** @var array<string, string> Validation errors keyed by field. */
     private array $errors = [];
+
+    /** @var array<string, string> Submitted values retained for the error re-render. */
+    private array $submitted = [];
 
     public function __construct(private readonly ReturnRequest $requests)
     {
@@ -70,6 +74,16 @@ final class ReturnRequestForm implements HasHooks
             RETURNS_URL . 'assets/css/returns.css',
             [],
             \Returns\VERSION,
+        );
+
+        // Progressive enhancement only: the form works with this script absent,
+        // the server validates the reason against the chosen type regardless.
+        wp_enqueue_script(
+            'returns',
+            RETURNS_URL . 'assets/js/returns.js',
+            [],
+            \Returns\VERSION,
+            true,
         );
     }
 
@@ -127,10 +141,10 @@ final class ReturnRequestForm implements HasHooks
             return;
         }
 
-        if ($this->requests->existsForOrder((int) $order->get_id())) {
+        if ($this->allTypesSubmitted((int) $order->get_id())) {
             printf(
                 '<p class="returns-existing">%s</p>',
-                esc_html__('A return request has already been submitted for this order.', 'plogins-returns'),
+                esc_html__('A request of every type has already been submitted for this order.', 'plogins-returns'),
             );
 
             return;
@@ -141,6 +155,22 @@ final class ReturnRequestForm implements HasHooks
             esc_url($this->endpointUrl((int) $order->get_id())),
             esc_html__('Request a return', 'plogins-returns'),
         );
+    }
+
+    /**
+     * Whether every request type has already been used for an order, so there
+     * is nothing left to file. Kept per-type: a return no longer blocks a later
+     * complaint or repair for the same order.
+     */
+    private function allTypesSubmitted(int $orderId): bool
+    {
+        foreach (array_keys(Types::all()) as $type) {
+            if (! $this->requests->existsForOrderType($orderId, (string) $type)) {
+                return false;
+            }
+        }
+
+        return true;
     }
 
     /**
@@ -162,8 +192,8 @@ final class ReturnRequestForm implements HasHooks
             return;
         }
 
-        if ($this->requests->existsForOrder($orderId)) {
-            $this->renderNotice(__('A return request has already been submitted for this order.', 'plogins-returns'), 'info');
+        if ($this->allTypesSubmitted($orderId)) {
+            $this->renderNotice(__('A request of every type has already been submitted for this order.', 'plogins-returns'), 'info');
             echo '</div>';
 
             return;
@@ -215,32 +245,59 @@ final class ReturnRequestForm implements HasHooks
             return;
         }
 
-        if ($this->requests->existsForOrder($orderId)) {
-            $this->errors['_form'] = __('A return request has already been submitted for this order.', 'plogins-returns');
-
-            return;
-        }
-
+        $type   = isset($_POST['returns_type']) ? sanitize_key(wp_unslash($_POST['returns_type'])) : '';
         $items  = $this->collectItems($order);
         $reason = isset($_POST['returns_reason']) ? sanitize_text_field(wp_unslash($_POST['returns_reason'])) : '';
         $note   = isset($_POST['returns_note']) ? sanitize_textarea_field(wp_unslash($_POST['returns_note'])) : '';
+        $remedy = isset($_POST['returns_remedy']) ? sanitize_key(wp_unslash($_POST['returns_remedy'])) : '';
+
+        // Retain the choices so a validation re-render keeps what was entered.
+        $this->submitted = [
+            'type'   => $type,
+            'reason' => $reason,
+            'remedy' => $remedy,
+            'note'   => $note,
+        ];
+
+        if (! Types::isValid($type)) {
+            $this->errors['type'] = __('Please choose the kind of request you want to make.', 'plogins-returns');
+        }
 
         if ([] === $items) {
-            $this->errors['items'] = __('Please select at least one item to return.', 'plogins-returns');
+            $this->errors['items'] = __('Please select at least one item.', 'plogins-returns');
         }
 
         if ('' === $reason) {
-            $this->errors['reason'] = __('Please choose a reason for the return.', 'plogins-returns');
+            $this->errors['reason'] = __('Please choose a reason.', 'plogins-returns');
+        } elseif (Types::isValid($type) && ! Reasons::isValidForType($reason, $type)) {
+            $this->errors['reason'] = __('That reason does not match the chosen request type.', 'plogins-returns');
+        }
+
+        // A preferred remedy is required for complaint and repair requests only.
+        if (Types::isValid($type) && Types::hasRemedy($type)) {
+            if (! Types::isValidRemedy($remedy)) {
+                $this->errors['remedy'] = __('Please choose a preferred remedy.', 'plogins-returns');
+            }
+        } else {
+            $remedy = '';
+        }
+
+        if (Types::isValid($type) && $this->requests->existsForOrderType($orderId, $type)) {
+            $this->errors['_form'] = sprintf(
+                /* translators: %s: request type label, e.g. "Return", "Complaint" or "Repair". */
+                __('A %s request has already been submitted for this order.', 'plogins-returns'),
+                Types::label($type),
+            );
         }
 
         if ([] !== $this->errors) {
             return;
         }
 
-        $postId = $this->requests->create((int) $order->get_id(), get_current_user_id(), $items, $reason, $note);
+        $postId = $this->requests->create((int) $order->get_id(), get_current_user_id(), $items, $reason, $note, $type, $remedy);
 
         if ($postId > 0) {
-            $this->notifyMerchant($postId, $order, $items, $reason, $note);
+            $this->notifyMerchant($postId, $order, $items, $reason, $note, $type, $remedy);
         }
 
         wp_safe_redirect(add_query_arg('returns_sent', '1', wc_get_account_endpoint_url('orders')));
@@ -313,8 +370,35 @@ final class ReturnRequestForm implements HasHooks
         </p>
 
         <form method="post" class="returns-form" novalidate>
-            <?php wp_nonce_field(self::NONCE, 'returns_nonce'); ?>
+            <?php
+            wp_nonce_field(self::NONCE, 'returns_nonce');
+            $chosenType   = $this->submitted['type'] ?? Types::RETURN;
+            $chosenType   = Types::isValid($chosenType) ? $chosenType : Types::RETURN;
+            $chosenReason = $this->submitted['reason'] ?? '';
+            $chosenRemedy = $this->submitted['remedy'] ?? '';
+            $chosenNote   = $this->submitted['note'] ?? '';
+            ?>
             <input type="hidden" name="returns_order_id" value="<?php echo esc_attr((string) $order->get_id()); ?>" />
+
+            <fieldset class="returns-form__type">
+                <legend><?php esc_html_e('What would you like to do?', 'plogins-returns'); ?> <span class="returns-form__req" aria-hidden="true">*</span></legend>
+                <?php if (isset($this->errors['type'])) : ?>
+                    <span class="returns-form__error" role="alert"><?php echo esc_html($this->errors['type']); ?></span>
+                <?php endif; ?>
+                <?php foreach (Types::all() as $typeKey => $typeLabel) :
+                    $descId = 'returns-type-desc-' . $typeKey;
+                    ?>
+                    <label class="returns-type">
+                        <input type="radio" name="returns_type" value="<?php echo esc_attr((string) $typeKey); ?>"
+                            <?php checked($chosenType, $typeKey); ?> required
+                            aria-describedby="<?php echo esc_attr($descId); ?>" />
+                        <span class="returns-type__body">
+                            <span class="returns-type__label"><?php echo esc_html($typeLabel); ?></span>
+                            <span class="returns-type__desc" id="<?php echo esc_attr($descId); ?>"><?php echo esc_html(Types::description((string) $typeKey)); ?></span>
+                        </span>
+                    </label>
+                <?php endforeach; ?>
+            </fieldset>
 
             <fieldset class="returns-form__items">
                 <legend><?php esc_html_e('Which items would you like to return?', 'plogins-returns'); ?></legend>
@@ -369,8 +453,15 @@ final class ReturnRequestForm implements HasHooks
                 <select id="returns-reason" name="returns_reason" required
                     <?php echo isset($this->errors['reason']) ? 'aria-invalid="true" aria-describedby="returns-reason-error"' : ''; ?>>
                     <option value=""><?php esc_html_e('Select a reason…', 'plogins-returns'); ?></option>
-                    <?php foreach (Reasons::all() as $value => $label) : ?>
-                        <option value="<?php echo esc_attr($value); ?>"><?php echo esc_html($label); ?></option>
+                    <?php foreach (Types::all() as $typeKey => $typeLabel) : ?>
+                        <optgroup label="<?php echo esc_attr($typeLabel); ?>" data-type="<?php echo esc_attr((string) $typeKey); ?>">
+                            <?php foreach (Reasons::forType((string) $typeKey) as $value => $label) : ?>
+                                <option value="<?php echo esc_attr($value); ?>" data-type="<?php echo esc_attr((string) $typeKey); ?>"
+                                    <?php selected($chosenReason === $value && $chosenType === $typeKey); ?>>
+                                    <?php echo esc_html($label); ?>
+                                </option>
+                            <?php endforeach; ?>
+                        </optgroup>
                     <?php endforeach; ?>
                 </select>
                 <?php if (isset($this->errors['reason'])) : ?>
@@ -378,9 +469,24 @@ final class ReturnRequestForm implements HasHooks
                 <?php endif; ?>
             </p>
 
+            <p class="returns-form__field returns-remedy" data-returns-remedy>
+                <label for="returns-remedy"><?php esc_html_e('Preferred remedy', 'plogins-returns'); ?> <span class="returns-form__req" aria-hidden="true">*</span></label>
+                <select id="returns-remedy" name="returns_remedy"
+                    <?php echo isset($this->errors['remedy']) ? 'aria-invalid="true" aria-describedby="returns-remedy-error"' : ''; ?>>
+                    <option value=""><?php esc_html_e('Select a remedy…', 'plogins-returns'); ?></option>
+                    <?php foreach (Types::remedies() as $value => $label) : ?>
+                        <option value="<?php echo esc_attr($value); ?>" <?php selected($chosenRemedy, $value); ?>><?php echo esc_html($label); ?></option>
+                    <?php endforeach; ?>
+                </select>
+                <span class="returns-form__hint"><?php esc_html_e('Applies to complaint and repair requests. Under EU rules you can ask for a repair of a faulty item.', 'plogins-returns'); ?></span>
+                <?php if (isset($this->errors['remedy'])) : ?>
+                    <span class="returns-form__error" id="returns-remedy-error" role="alert"><?php echo esc_html($this->errors['remedy']); ?></span>
+                <?php endif; ?>
+            </p>
+
             <p class="returns-form__field">
                 <label for="returns-note"><?php esc_html_e('Additional details', 'plogins-returns'); ?></label>
-                <textarea id="returns-note" name="returns_note" rows="4"></textarea>
+                <textarea id="returns-note" name="returns_note" rows="4"><?php echo esc_textarea($chosenNote); ?></textarea>
             </p>
 
             <p class="returns-form__submit">
@@ -406,20 +512,27 @@ final class ReturnRequestForm implements HasHooks
      *
      * @param array<int, array{item_id: int, name: string, qty: int}> $items
      */
-    private function notifyMerchant(int $postId, \WC_Order $order, array $items, string $reason, string $note): void
+    private function notifyMerchant(int $postId, \WC_Order $order, array $items, string $reason, string $note, string $type, string $remedy): void
     {
         $recipient = (string) get_option('admin_email');
 
         $lines   = [];
         $lines[] = sprintf(
-            /* translators: 1: order number, 2: site name */
-            __('A new return request was submitted for order #%1$s on %2$s.', 'plogins-returns'),
+            /* translators: 1: request type label, 2: order number, 3: site name */
+            __('A new %1$s request was submitted for order #%2$s on %3$s.', 'plogins-returns'),
+            Types::label($type),
             (string) $order->get_order_number(),
             wp_specialchars_decode((string) get_bloginfo('name'), ENT_QUOTES),
         );
         $lines[] = '';
         $lines[] = __('Customer:', 'plogins-returns') . ' ' . trim($order->get_formatted_billing_full_name());
+        $lines[] = __('Type:', 'plogins-returns') . ' ' . Types::label($type);
         $lines[] = __('Reason:', 'plogins-returns') . ' ' . Reasons::label($reason);
+
+        if ('' !== $remedy) {
+            $lines[] = __('Preferred remedy:', 'plogins-returns') . ' ' . Types::remedyLabel($remedy);
+        }
+
         $lines[] = '';
         $lines[] = __('Requested items:', 'plogins-returns');
 
@@ -441,8 +554,9 @@ final class ReturnRequestForm implements HasHooks
         }
 
         $subject = sprintf(
-            /* translators: %s: order number */
-            __('New return request for order #%s', 'plogins-returns'),
+            /* translators: 1: request type label, 2: order number */
+            __('New %1$s request for order #%2$s', 'plogins-returns'),
+            Types::label($type),
             (string) $order->get_order_number(),
         );
 
