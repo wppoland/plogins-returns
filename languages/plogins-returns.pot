@@ -2,14 +2,14 @@
 # This file is distributed under the GPL-2.0-or-later.
 msgid ""
 msgstr ""
-"Project-Id-Version: Returns - Returns and RMA for WooCommerce 1.1.0\n"
+"Project-Id-Version: Returns - Returns and RMA for WooCommerce 1.1.1\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/plogins-returns\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-07-27T13:05:52+00:00\n"
+"POT-Creation-Date: 2026-07-27T14:51:19+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: plogins-returns\n"
@@ -40,89 +40,149 @@ msgid "https://wppoland.com"
 msgstr ""
 
 #: plogins-returns.php:60
-msgid "Returns - RMA and Return Requests for WooCommerce requires WooCommerce to be active."
+msgid "Returns - Returns and RMA for WooCommerce requires WooCommerce to be active."
 msgstr ""
 
-#: src/Admin/Settings.php:57
+#: src/Admin/ProUpsell.php:78
+msgid "Wkrótce"
+msgstr ""
+
+#: src/Admin/ProUpsell.php:78
+msgid "Coming soon"
+msgstr ""
+
+#. translators: %d: yearly price in PLN
+#: src/Admin/ProUpsell.php:83
+#, php-format
+msgid "od %d zł/rok"
+msgstr ""
+
+#. translators: 1: currency symbol, 2: yearly price
+#: src/Admin/ProUpsell.php:88
+#, php-format
+msgid "from %1$s%2$d/yr"
+msgstr ""
+
+#: src/Admin/ProUpsell.php:97
+msgid "Upgrade to PRO"
+msgstr ""
+
+#: src/Admin/ProUpsell.php:98
+msgid "Powiadom mnie"
+msgstr ""
+
+#: src/Admin/ProUpsell.php:98
+msgid "Get notified"
+msgstr ""
+
+#: src/Admin/ProUpsell.php:128
+msgid "Permission denied."
+msgstr ""
+
+#. translators: %s: PRO edition name
+#: src/Admin/ProUpsell.php:158
+#, php-format
+msgid "Do more with %s"
+msgstr ""
+
+#: src/Admin/ProUpsell.php:165
+msgid "Dismiss this notice"
+msgstr ""
+
+#: src/Admin/ProUpsell.php:182
+msgid "Unlock every PRO feature"
+msgstr ""
+
+#: src/Admin/ProUpsell.php:195
+msgid "one licence, every PRO feature"
+msgstr ""
+
+#. translators: %s: PRO edition name
+#: src/Admin/ProUpsell.php:214
+#, php-format
+msgid "What %s adds"
+msgstr ""
+
+#: src/Admin/Settings.php:65
 msgid "Returns: RMA settings"
 msgstr ""
 
-#: src/Admin/Settings.php:58
+#: src/Admin/Settings.php:66
 msgid "Returns"
 msgstr ""
 
-#: src/Admin/Settings.php:96
+#: src/Admin/Settings.php:106
 msgid "Let customers request returns from their account"
 msgstr ""
 
-#: src/Admin/Settings.php:98
+#: src/Admin/Settings.php:108
 msgid "Customers open a return from My Account → Orders: they pick items, a quantity, a reason and an optional note. Each request is emailed to you and saved as a private record you manage here, with a status the customer can follow."
 msgstr ""
 
-#: src/Admin/Settings.php:101
+#: src/Admin/Settings.php:111
 msgid "View return requests"
 msgstr ""
 
-#: src/Admin/Settings.php:109
+#: src/Admin/Settings.php:120
 msgid "Availability"
 msgstr ""
 
-#: src/Admin/Settings.php:110
+#: src/Admin/Settings.php:121
 msgid "The master switch for the whole return flow."
 msgstr ""
 
-#: src/Admin/Settings.php:114
+#: src/Admin/Settings.php:125
 msgid "Enable returns"
 msgstr ""
 
-#: src/Admin/Settings.php:120
+#: src/Admin/Settings.php:131
 msgid "Let customers request a return from My Account."
 msgstr ""
 
-#: src/Admin/Settings.php:122
+#: src/Admin/Settings.php:133
 msgid "On: a \"Request a return\" link appears next to eligible orders, and the request form is reachable. Off: the link and form disappear from the storefront, existing requests stay in your records. Ships on."
 msgstr ""
 
-#: src/Admin/Settings.php:130
+#: src/Admin/Settings.php:141
 msgid "What can be returned"
 msgstr ""
 
-#: src/Admin/Settings.php:131
+#: src/Admin/Settings.php:142
 msgid "Decide which orders qualify and for how long. An order must clear both tests before its \"Request a return\" link shows."
 msgstr ""
 
-#: src/Admin/Settings.php:135
-#: src/Admin/Settings.php:138
+#: src/Admin/Settings.php:146
+#: src/Admin/Settings.php:149
 msgid "Eligible order statuses"
 msgstr ""
 
-#: src/Admin/Settings.php:149
+#: src/Admin/Settings.php:160
 msgid "Orders in any other status never show the return link. Most shops pick the statuses that mean \"the customer has the goods\", usually Completed (and Processing if you fulfil before marking complete). Ships with Completed and Processing ticked; if you untick everything, Completed is kept so the feature still works."
 msgstr ""
 
-#: src/Admin/Settings.php:154
+#: src/Admin/Settings.php:165
 msgid "Return window (days)"
 msgstr ""
 
-#: src/Admin/Settings.php:160
+#: src/Admin/Settings.php:171
 msgid "Counted from the order date. After it passes, the return link no longer appears for that order. Set 0 to accept returns with no deadline. Ships at 30."
 msgstr ""
 
 #. translators: %s is the number of days in the return window.
-#: src/Admin/Settings.php:165
+#: src/Admin/Settings.php:176
 #, php-format
 msgid "Example: an order placed today can be returned until %s."
 msgstr ""
 
-#: src/Admin/Settings.php:191
+#: src/Admin/Settings.php:207
 msgid "any time later, no deadline"
 msgstr ""
 
-#: src/Admin/Settings.php:216
+#: src/Admin/Settings.php:232
 msgid "Processing"
 msgstr ""
 
-#: src/Admin/Settings.php:217
+#: src/Admin/Settings.php:233
 #: src/Support/Statuses.php:32
 msgid "Completed"
 msgstr ""

@@ -5,7 +5,7 @@ Requires at least: 6.5
 Tested up to: 7.0
 Requires PHP: 8.1
 Requires Plugins: woocommerce
-Stable tag: 1.1.0
+Stable tag: 1.1.1
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -121,6 +121,10 @@ Returns connects to no external services. It sends no data off your site and loa
 Plogins Returns includes Polish, German and Spanish translations for the plugin interface. The text domain is `plogins-returns`, so WordPress.org language packs can also override or extend these bundled translations.
 
 == Changelog ==
+
+= 1.1.1 =
+* Polish, German and Spanish translations completed for the typed request strings.
+* The "WooCommerce required" notice now uses the current plugin name.
 
 = 1.1.0 =
 * Typed requests: every request is now a Return, a Complaint or a Repair. Return stays the default, so existing records keep working unchanged.
