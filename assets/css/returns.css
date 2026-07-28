@@ -1,5 +1,5 @@
 /**
- * Returns — storefront styles for the My Account return flow.
+ * Returns, storefront styles for the My Account return flow.
  *
  * Uses CSS custom properties so themes can re-skin without overriding rules.
  * Motion is guarded by prefers-reduced-motion; focus styles are visible and
@@ -11,7 +11,7 @@
     --returns-radius: 8px;
     --returns-border: color-mix(in srgb, currentColor 16%, transparent);
     --returns-muted: color-mix(in srgb, currentColor 62%, transparent);
-    /* "On its way back" teal — the colour of a parcel in transit home,
+    /* "On its way back" teal, the colour of a parcel in transit home,
        deliberately not WordPress admin blue. */
     --returns-accent: #0f7b6c;
     --returns-track: color-mix(in srgb, var(--returns-accent) 34%, transparent);
@@ -21,7 +21,7 @@
 }
 
 /* The teal that reads at AA on a light surface (5.16:1) drops to ~3.2:1 as
-   text on a dark surface — below AA for the named current-step label. Lift the
+   text on a dark surface, below AA for the named current-step label. Lift the
    same teal hue for dark schemes so the current waypoint label and accent
    hairlines clear 4.5:1 / 3:1 while keeping the "in transit" identity. */
 @media (prefers-color-scheme: dark) {
@@ -56,11 +56,84 @@
     margin-top: -0.5em;
 }
 
-.returns-form__items {
+.returns-form__items,
+.returns-form__type {
     border: 1px solid var(--returns-border);
     border-radius: var(--returns-radius);
     padding: 1em 1.1em;
     margin: 0 0 1.25em;
+}
+
+.returns-form__type legend {
+    font-weight: 600;
+    padding-inline: 0.4em;
+}
+
+/* The request-type chooser: one selectable card per type, with a short helper
+   line so the shopper knows which path fits their situation. */
+.returns-type {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.6em;
+    padding: 0.7em 0.8em;
+    margin-top: 0.6em;
+    border: 1px solid var(--returns-border);
+    border-radius: var(--returns-radius);
+    cursor: pointer;
+}
+
+.returns-type:first-of-type {
+    margin-top: 0.35em;
+}
+
+.returns-type:has(input:checked) {
+    border-color: var(--returns-accent);
+    background: color-mix(in srgb, var(--returns-accent) 7%, transparent);
+}
+
+.returns-type input {
+    margin-top: 0.2em;
+    flex: 0 0 auto;
+}
+
+.returns-type__body {
+    display: block;
+}
+
+.returns-type__label {
+    display: block;
+    font-weight: 600;
+}
+
+.returns-type__desc {
+    display: block;
+    font-size: 0.88em;
+    color: var(--returns-muted);
+}
+
+.returns-form__hint {
+    display: block;
+    font-size: 0.85em;
+    color: var(--returns-muted);
+    margin-top: 0.3em;
+}
+
+/* Small type badge, reused in the customer's request list. */
+.returns-type-badge {
+    display: inline-block;
+    padding: 0.1em 0.6em;
+    border-radius: 999px;
+    font-size: 0.78em;
+    font-weight: 600;
+    line-height: 1.7;
+    color: var(--returns-accent);
+    background: color-mix(in srgb, var(--returns-accent) 12%, transparent);
+}
+
+.returns-list__remedy {
+    display: block;
+    color: var(--returns-muted);
+    font-size: 0.85em;
 }
 
 .returns-form__items legend {
@@ -138,13 +211,13 @@
 }
 
 /* -------------------------------------------------------------------------
-   The return journey — the one moment that matters.
+   The return journey, the one moment that matters.
 
    A return is a trip: the parcel retraces its steps back to the shop. Each
    status is a waypoint on a dashed return path (the tracking line on a
    shipping label). Steps already passed are filled; the current step is a
    larger filled marker; a rejected return forks off the path. The active
-   marker gives a single soft "arrival" pulse on load — the package settling.
+   marker gives a single soft "arrival" pulse on load, the package settling.
    ------------------------------------------------------------------------- */
 
 .returns-journey {
@@ -229,7 +302,7 @@
     font-weight: 700;
 }
 
-/* A rejected return forks off the path — red marker, no onward dots. */
+/* A rejected return forks off the path, red marker, no onward dots. */
 .returns-journey.is-rejected .returns-journey__step.is-current {
     --returns-accent: var(--returns-bad);
 }
