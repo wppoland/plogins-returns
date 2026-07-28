@@ -8,6 +8,7 @@ use Returns\Contract\HasHooks;
 use Returns\PostType\ReturnRequest;
 use Returns\Support\Options;
 use Returns\Support\Statuses;
+use Returns\Support\Types;
 
 defined('ABSPATH') || exit;
 
@@ -65,6 +66,7 @@ final class MyReturns implements HasHooks
                 <thead>
                     <tr>
                         <th scope="col"><?php esc_html_e('Request', 'plogins-returns'); ?></th>
+                        <th scope="col"><?php esc_html_e('Type', 'plogins-returns'); ?></th>
                         <th scope="col"><?php esc_html_e('Order', 'plogins-returns'); ?></th>
                         <th scope="col"><?php esc_html_e('Date', 'plogins-returns'); ?></th>
                         <th scope="col"><?php esc_html_e('Status', 'plogins-returns'); ?></th>
@@ -74,11 +76,19 @@ final class MyReturns implements HasHooks
                     <?php foreach ($ids as $postId) :
                         $orderId = (int) get_post_meta($postId, ReturnRequest::META_ORDER_ID, true);
                         $status  = $this->requests->status($postId);
+                        $type    = $this->requests->type($postId);
+                        $remedy  = $this->requests->remedy($postId);
                         $date    = get_the_date('', $postId);
                         ?>
                         <tr>
                             <td data-title="<?php esc_attr_e('Request', 'plogins-returns'); ?>">#<?php echo esc_html((string) $postId); ?></td>
-                            <td data-title="<?php esc_attr_e('Order', 'plogins-returns'); ?>"><?php echo esc_html($orderId > 0 ? '#' . $orderId : '—'); ?></td>
+                            <td data-title="<?php esc_attr_e('Type', 'plogins-returns'); ?>">
+                                <span class="returns-type-badge returns-type-badge--<?php echo esc_attr(Types::slug($type)); ?>"><?php echo esc_html(Types::label($type)); ?></span>
+                                <?php if ('' !== $remedy) : ?>
+                                    <small class="returns-list__remedy"><?php echo esc_html(Types::remedyLabel($remedy)); ?></small>
+                                <?php endif; ?>
+                            </td>
+                            <td data-title="<?php esc_attr_e('Order', 'plogins-returns'); ?>"><?php echo esc_html($orderId > 0 ? '#' . $orderId : '-'); ?></td>
                             <td data-title="<?php esc_attr_e('Date', 'plogins-returns'); ?>"><?php echo esc_html(is_string($date) ? $date : ''); ?></td>
                             <td data-title="<?php esc_attr_e('Status', 'plogins-returns'); ?>">
                                 <?php $this->renderJourney($status); ?>
@@ -92,7 +102,7 @@ final class MyReturns implements HasHooks
     }
 
     /**
-     * Render a return's progress as a journey track — the parcel retracing its
+     * Render a return's progress as a journey track, the parcel retracing its
      * steps back to the shop. The current waypoint names the live status; the
      * full ordered path is exposed to assistive tech as a single sentence.
      */
