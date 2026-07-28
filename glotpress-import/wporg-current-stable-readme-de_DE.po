@@ -38,7 +38,7 @@ msgstr ""
 "Du prüfst und verwaltest jede Anfrage in wp-admin unter <strong>WooCommerce "
 "→ Rückgabeanfragen</strong> und bewegst jede einzelne durch die Stufen "
 "„Angefordert“, „Genehmigt“, „Abgelehnt“ oder „Abgeschlossen“. Welchen Status"
-" du auch festlegst – genau diesen Status sieht der Kunde in seinem Konto."
+" du auch festlegst, genau diesen Status sieht der Kunde in seinem Konto."
 
 msgid ""
 "This is a request-and-status plugin: it does not move money. Process any refund\n"

@@ -88,7 +88,7 @@ final class MyReturns implements HasHooks
                                     <small class="returns-list__remedy"><?php echo esc_html(Types::remedyLabel($remedy)); ?></small>
                                 <?php endif; ?>
                             </td>
-                            <td data-title="<?php esc_attr_e('Order', 'plogins-returns'); ?>"><?php echo esc_html($orderId > 0 ? '#' . $orderId : '—'); ?></td>
+                            <td data-title="<?php esc_attr_e('Order', 'plogins-returns'); ?>"><?php echo esc_html($orderId > 0 ? '#' . $orderId : '-'); ?></td>
                             <td data-title="<?php esc_attr_e('Date', 'plogins-returns'); ?>"><?php echo esc_html(is_string($date) ? $date : ''); ?></td>
                             <td data-title="<?php esc_attr_e('Status', 'plogins-returns'); ?>">
                                 <?php $this->renderJourney($status); ?>
@@ -102,7 +102,7 @@ final class MyReturns implements HasHooks
     }
 
     /**
-     * Render a return's progress as a journey track — the parcel retracing its
+     * Render a return's progress as a journey track, the parcel retracing its
      * steps back to the shop. The current waypoint names the live status; the
      * full ordered path is exposed to assistive tech as a single sentence.
      */

@@ -99,7 +99,7 @@ final class ReturnRequestForm implements HasHooks
     }
 
     /**
-     * Keep the endpoint out of the account navigation — it is reached only via
+     * Keep the endpoint out of the account navigation, it is reached only via
      * the per-order "Request a return" action.
      *
      * @param array<string, string> $items

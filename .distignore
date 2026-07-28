@@ -1,5 +1,5 @@
 # Files excluded from the wp.org build. This plugin is self-contained and has no
-# runtime Composer dependencies, so /vendor (a bare autoloader) is excluded — the
+# runtime Composer dependencies, so /vendor (a bare autoloader) is excluded, the
 # autoload.php PSR-4 fallback loads src/ when vendor/ is absent.
 /.git
 /.github
