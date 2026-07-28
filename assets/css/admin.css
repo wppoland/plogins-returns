@@ -1,5 +1,5 @@
 /**
- * Returns — wp-admin styles for the settings page and the RMA status badges.
+ * Returns, wp-admin styles for the settings page and the RMA status badges.
  *
  * Dark-mode aware (honours the admin colour scheme via prefers-color-scheme).
  */
@@ -10,7 +10,7 @@
     --returns-muted: #50575e;
     /* Same "on its way back" teal as the storefront flow (family
        consistency). On the white card it reads 5.16:1 as text and well
-       above 3:1 as the heading accent rule — both clear WCAG AA. */
+       above 3:1 as the heading accent rule, both clear WCAG AA. */
     --returns-accent: #0f7b6c;
 }
 .returns-intro {
@@ -136,7 +136,7 @@
 }
 
 /* ------------------------------------------------------------------ *
- * PRO upsell — dismissible banner, sidebar promo, "what PRO adds"
+ * PRO upsell, dismissible banner, sidebar promo, "what PRO adds"
  * locked cards. Pure advertising (no disabled inputs), scoped entirely
  * to .returns-admin so nothing leaks into the rest of wp-admin.
  * ------------------------------------------------------------------ */

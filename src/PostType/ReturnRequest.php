@@ -14,7 +14,7 @@ defined('ABSPATH') || exit;
 /**
  * The private custom post type that stores submitted return (RMA) requests.
  *
- * Requests are not public — the CPT is registered with public => false and is
+ * Requests are not public, the CPT is registered with public => false and is
  * surfaced only in wp-admin under the WooCommerce menu. Each post links to a
  * WooCommerce order and stores the requested line items, the customer's reason
  * and note, and a workflow status (requested/approved/rejected/completed).
@@ -198,7 +198,7 @@ final class ReturnRequest implements HasHooks
             'no_found_rows'          => true,
             'update_post_meta_cache' => false,
             'update_post_term_cache' => false,
-            // Bounded lookup (1 row) on an indexed meta key — acceptable here.
+            // Bounded lookup (1 row) on an indexed meta key, acceptable here.
             'meta_key'               => self::META_ORDER_ID, // phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_key
             'meta_value'             => (string) $orderId, // phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_value
         ]);
@@ -309,7 +309,7 @@ final class ReturnRequest implements HasHooks
                 if ('' !== $link) {
                     printf('<a href="%1$s">#%2$s</a>', esc_url($link), esc_html((string) $orderId));
                 } else {
-                    echo esc_html($orderId > 0 ? '#' . $orderId : '—');
+                    echo esc_html($orderId > 0 ? '#' . $orderId : '-');
                 }
                 break;
 
@@ -378,7 +378,7 @@ final class ReturnRequest implements HasHooks
                         <?php if ('' !== $orderUrl) : ?>
                             <a href="<?php echo esc_url($orderUrl); ?>">#<?php echo esc_html((string) $orderId); ?></a>
                         <?php else : ?>
-                            <?php echo esc_html($orderId > 0 ? '#' . $orderId : '—'); ?>
+                            <?php echo esc_html($orderId > 0 ? '#' . $orderId : '-'); ?>
                         <?php endif; ?>
                     </td>
                 </tr>
@@ -393,16 +393,16 @@ final class ReturnRequest implements HasHooks
                 <?php if (Types::hasRemedy($type)) : ?>
                     <tr>
                         <th scope="row"><?php esc_html_e('Preferred remedy', 'plogins-returns'); ?></th>
-                        <td><?php echo esc_html('' !== $remedy ? Types::remedyLabel($remedy) : '—'); ?></td>
+                        <td><?php echo esc_html('' !== $remedy ? Types::remedyLabel($remedy) : '-'); ?></td>
                     </tr>
                 <?php endif; ?>
                 <tr>
                     <th scope="row"><?php esc_html_e('Reason', 'plogins-returns'); ?></th>
-                    <td><?php echo esc_html('' !== $reason ? Reasons::label($reason) : '—'); ?></td>
+                    <td><?php echo esc_html('' !== $reason ? Reasons::label($reason) : '-'); ?></td>
                 </tr>
                 <tr>
                     <th scope="row"><?php esc_html_e('Customer note', 'plogins-returns'); ?></th>
-                    <td><?php echo '' !== $note ? esc_html($note) : '—'; ?></td>
+                    <td><?php echo '' !== $note ? esc_html($note) : '-'; ?></td>
                 </tr>
             </tbody>
         </table>

@@ -15,7 +15,7 @@ Lass deine Kundschaft Rücksendungen und Rückerstattungen über ihr Konto anfor
 
 Returns fügt WooCommerce einen einfachen Self-Service-Rückgabeablauf (RMA) hinzu. Über <strong>Mein Konto → Bestellungen</strong> öffnet ein Kunde eine Rückgabeanfrage für eine berechtigte Bestellung: Er wählt die Artikel aus, legt eine Menge fest, wählt einen Grund und fügt optional eine Notiz hinzu. Die Anfrage wird als privater Datensatz gespeichert, dir per E-Mail zugeschickt und erhält einen Status, den der Kunde von seinem Konto aus verfolgen kann.
 
-Du prüfst und verwaltest jede Anfrage in wp-admin unter <strong>WooCommerce → Rückgabeanfragen</strong> und bewegst jede einzelne durch die Stufen „Angefordert“, „Genehmigt“, „Abgelehnt“ oder „Abgeschlossen“. Welchen Status du auch festlegst – genau diesen Status sieht der Kunde in seinem Konto.
+Du prüfst und verwaltest jede Anfrage in wp-admin unter <strong>WooCommerce → Rückgabeanfragen</strong> und bewegst jede einzelne durch die Stufen „Angefordert“, „Genehmigt“, „Abgelehnt“ oder „Abgeschlossen“. Welchen Status du auch festlegst, genau diesen Status sieht der Kunde in seinem Konto.
 
 Dies ist ein Anfrage- und Status-Plugin: Es bewegt kein Geld. Wickle jede Rückerstattung im normalen WooCommerce-Bestellbildschirm ab; der Rückgabedatensatz hält die Anfrage und ihren Status an einem Ort.
 
