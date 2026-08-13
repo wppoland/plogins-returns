@@ -34,16 +34,16 @@ return [
             'pl' => ['title' => 'Kredyt sklepowy w e-mailu', 'desc' => 'Dołącz kod i kwotę kredytu sklepowego w wiadomości o zakończeniu (wdrożone).'],
         ],
         [
-            'en' => ['title' => 'Return shipping labels', 'desc' => 'Generate return shipping labels for approved requests (ShippingLabels, shipped).'],
-            'pl' => ['title' => 'Etykiety zwrotnej wysyłki', 'desc' => 'Generuj etykiety zwrotne dla zatwierdzonych zgłoszeń (ShippingLabels, wdrożone).'],
+            'en' => ['title' => 'Return shipping labels', 'desc' => 'Generate return shipping labels for approved requests (shipped).'],
+            'pl' => ['title' => 'Etykiety zwrotnej wysyłki', 'desc' => 'Generuj etykiety zwrotne dla zatwierdzonych zgłoszeń (wdrożone).'],
         ],
         [
-            'en' => ['title' => 'Automatic store credit', 'desc' => 'Issue store credit automatically when a return is completed (AutoStoreCredit, shipped).'],
-            'pl' => ['title' => 'Automatyczny kredyt sklepowy', 'desc' => 'Wystaw kredyt sklepowy automatycznie po zakończeniu zwrotu (AutoStoreCredit, wdrożone).'],
+            'en' => ['title' => 'Automatic store credit', 'desc' => 'Issue store credit automatically when a return is completed (shipped).'],
+            'pl' => ['title' => 'Automatyczny kredyt sklepowy', 'desc' => 'Wystaw kredyt sklepowy automatycznie po zakończeniu zwrotu (wdrożone).'],
         ],
         [
-            'en' => ['title' => 'Return-reason analytics', 'desc' => 'A dashboard of return reasons, rates and trends to spot the products and causes driving returns (ReturnReasonAnalytics, shipped).'],
-            'pl' => ['title' => 'Analityka powodów', 'desc' => 'Pulpit powodów, trendów i linii produktowych napędzających zwroty (ReturnReasonAnalytics, wdrożone).'],
+            'en' => ['title' => 'Return-reason analytics', 'desc' => 'A dashboard of return reasons, rates and trends to spot the products and causes driving returns (shipped).'],
+            'pl' => ['title' => 'Analityka powodów', 'desc' => 'Pulpit powodów, trendów i linii produktowych napędzających zwroty (wdrożone).'],
         ],
         [
             'en' => ['title' => 'Refund actions', 'desc' => 'Process WooCommerce refunds from the return request screen (RefundActions, shipped in 0.6.0).'],
