@@ -33,14 +33,14 @@ This is a request-and-status plugin: it does not move money. Process any refund
 in the normal WooCommerce order screen; the return record keeps the request and
 its status in one place.
 
-Source code and bug reports live at https://github.com/wppoland/plogins-returns.
+Source code and bug reports live at [github.com/wppoland/plogins-returns](https://github.com/wppoland/plogins-returns).
 
 = Documentation and links =
 
-* **Documentation** - https://plogins.com/plogins-returns/docs/
-* **Plugin page** - https://plogins.com/plogins-returns/
-* **Source code** - https://github.com/wppoland/plogins-returns
-* **Bug reports and feature requests** - https://github.com/wppoland/plogins-returns/issues
+* **Documentation**: [plogins.com/plogins-returns/docs/](https://plogins.com/plogins-returns/docs/)
+* **Plugin page**: [plogins.com/plogins-returns/](https://plogins.com/plogins-returns/)
+* **Source code**: [github.com/wppoland/plogins-returns](https://github.com/wppoland/plogins-returns)
+* **Bug reports and feature requests**: [github.com/wppoland/plogins-returns/issues](https://github.com/wppoland/plogins-returns/issues)
 
 
 = Features =
