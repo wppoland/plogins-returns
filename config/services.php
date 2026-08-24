@@ -34,6 +34,8 @@ return static function (Container $c): void {
         $c->get(ReturnRequest::class),
     ));
 
+    $c->singleton(\Returns\Service\ReturnPrivacyService::class, static fn (): \Returns\Service\ReturnPrivacyService => new \Returns\Service\ReturnPrivacyService());
+
     // Admin (only needed in wp-admin context).
     if (is_admin()) {
         $c->singleton(Settings::class, static fn (): Settings => new Settings());
