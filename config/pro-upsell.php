@@ -15,7 +15,6 @@ return [
     'sellable'   => true,
     'price_from' => 29,
     'currency'   => 'EUR',
-    'price_pln'  => 129,
     'lead'       => [
         'en' => 'Status emails, return shipping labels, automatic store credit, return-reason analytics and refund actions ship in version 0.6.0. Feature-complete PRO.',
         'pl' => 'Wydanie 0.6.0 dostarcza e-maile statusu, etykiety zwrotne, automatyczny kredyt sklepowy, analitykę powodów i akcje zwrotu środków. Feature-complete PRO.',
