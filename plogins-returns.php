@@ -3,7 +3,7 @@
  * Plugin Name:       Returns - Returns and RMA for WooCommerce
  * Plugin URI:        https://plogins.com/plogins-returns/
  * Description:       Let customers request returns, complaints and repairs (Right to Repair) from their account and manage RMAs in the admin.
- * Version:           1.1.2
+ * Version:           1.1.3
  * Requires at least: 6.5
  * Requires PHP:      8.1
  * Requires Plugins:  woocommerce
