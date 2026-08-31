@@ -25,7 +25,7 @@ namespace Returns;
 
 defined('ABSPATH') || exit;
 
-const VERSION     = '1.1.2';
+const VERSION     = '1.1.3';
 const PLUGIN_FILE = __FILE__;
 
 define('RETURNS_DIR', plugin_dir_path(__FILE__));
