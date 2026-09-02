@@ -92,8 +92,9 @@ Request" record under the WooCommerce menu in wp-admin.
 = Can a customer return the same order twice? =
 
 Not with the same request type. Each order accepts one Return, one Complaint and
-one Repair request. Once all three types have been used for an order, the action
-is hidden and a notice is shown instead.
+one Repair request. Once all three types have been used, the order's detail page
+and the request endpoint both show a notice instead of the form. The link in the
+My Account orders list still appears; opening it leads to that same notice.
 
 = What is the Repair request type for? =
 
