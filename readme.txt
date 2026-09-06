@@ -5,7 +5,7 @@ Requires at least: 6.5
 Tested up to: 7.1
 Requires PHP: 8.1
 Requires Plugins: woocommerce
-Stable tag: 1.1.4
+Stable tag: 1.1.5
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -122,6 +122,9 @@ Returns connects to no external services. It sends no data off your site and loa
 Plogins Returns is fully translatable and ships the `plogins-returns.pot` template. Translations are delivered by WordPress.org language packs from translate.wordpress.org, which is where Polish, German and Spanish are being contributed; the package itself carries no compiled translation files.
 
 == Changelog ==
+
+= 1.1.5 =
+* Fixed: the "Request a return" link appeared on the order confirmation screen, straight after checkout. WooCommerce 10.9 began rendering My Account order actions there as well; the link belongs on My Account, where the documentation puts it.
 
 = 1.1.4 =
 * Tested against WordPress 7.1. Verified by activating this build on a clean 7.1 install with WooCommerce 11.1, not by editing the header.
