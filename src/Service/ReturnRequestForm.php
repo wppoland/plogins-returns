@@ -120,6 +120,13 @@ final class ReturnRequestForm implements HasHooks
      */
     public function orderActions(array $actions, \WC_Order $order): array
     {
+        // WooCommerce 10.9 started feeding this filter into order-details.php,
+        // which also renders the order-received screen. A return link belongs on
+        // My Account, not on the page a shopper lands on straight after paying.
+        if (function_exists('is_order_received_page') && is_order_received_page()) {
+            return $actions;
+        }
+
         if (! $this->isEligible($order)) {
             return $actions;
         }
