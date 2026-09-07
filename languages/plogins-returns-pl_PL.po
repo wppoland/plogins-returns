@@ -19,8 +19,8 @@ msgstr ""
 
 #. Plugin Name of the plugin
 #: plogins-returns.php
-msgid "Returns - Returns and RMA for WooCommerce"
-msgstr "Returns - zwroty i RMA dla WooCommerce"
+msgid "Plogins Returns - Returns and RMA for WooCommerce"
+msgstr "Plogins Returns - zwroty i RMA dla WooCommerce"
 
 #. Plugin URI of the plugin
 #: plogins-returns.php
@@ -48,10 +48,11 @@ msgstr "https://wppoland.com"
 
 #: plogins-returns.php:60
 msgid ""
-"Returns - Returns and RMA for WooCommerce requires WooCommerce to be active."
+"Plogins Returns - Returns and RMA for WooCommerce requires WooCommerce to be "
+"active."
 msgstr ""
-"Wtyczka Returns - Returns and RMA for WooCommerce wymaga aktywnej wtyczki "
-"WooCommerce."
+"Wtyczka Plogins Returns - Returns and RMA for WooCommerce wymaga aktywnej "
+"wtyczki WooCommerce."
 
 #: src/Admin/ProUpsell.php:78
 msgid "Wkrótce"
