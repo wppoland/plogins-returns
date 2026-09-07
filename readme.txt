@@ -1,11 +1,11 @@
-=== Returns - Returns and RMA for WooCommerce ===
+=== Plogins Returns - Returns and RMA for WooCommerce ===
 Contributors: motylanogha
 Tags: woocommerce, returns, rma, complaint, right to repair
 Requires at least: 6.5
 Tested up to: 7.1
 Requires PHP: 8.1
 Requires Plugins: woocommerce
-Stable tag: 1.1.5
+Stable tag: 1.1.6
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -122,6 +122,9 @@ Returns connects to no external services. It sends no data off your site and loa
 Plogins Returns is fully translatable and ships the `plogins-returns.pot` template. Translations are delivered by WordPress.org language packs from translate.wordpress.org, which is where Polish, German and Spanish are being contributed; the package itself carries no compiled translation files.
 
 == Changelog ==
+
+= 1.1.6 =
+* Renamed to Plogins Returns - Returns and RMA for WooCommerce so the name leads with the brand rather than a generic word, which is what the WordPress.org plugin review team asks for. The plugin slug is unchanged.
 
 = 1.1.5 =
 * Fixed: the "Request a return" link appeared on the order confirmation screen, straight after checkout. WooCommerce 10.9 began rendering My Account order actions there as well; the link belongs on My Account, where the documentation puts it.
