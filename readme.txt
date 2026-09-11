@@ -5,7 +5,7 @@ Requires at least: 6.5
 Tested up to: 7.1
 Requires PHP: 8.1
 Requires Plugins: woocommerce
-Stable tag: 1.1.8
+Stable tag: 1.1.9
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -13,7 +13,7 @@ Let customers request returns, complaints and repairs from their account and man
 
 == Description ==
 
-Returns adds a simple, self-service RMA flow to WooCommerce. From **My Account →
+Returns adds a simple, self-service RMA flow to WooCommerce. From **My Account >
 Orders**, a customer opens a request on an eligible order and chooses what they
 need: a **Return** (send an item back for a refund or exchange), a **Complaint**
 (report a fault or warranty issue), or a **Repair** (ask you to repair a faulty
@@ -25,7 +25,7 @@ emailed to you, and given a status the customer can follow from their account.
 Each order can have one request of each type, so a customer who has already
 returned an order can still raise a separate complaint or repair for it later.
 
-You review and manage every request in wp-admin under **WooCommerce → Return
+You review and manage every request in wp-admin under **WooCommerce > Return
 Requests**, moving each one through requested, approved, rejected or completed.
 Whatever status you set is the status the customer sees in their account.
 
@@ -61,10 +61,10 @@ Source code and bug reports live at [github.com/wppoland/plogins-returns](https:
 
 == Installation ==
 
-1. Upload the plugin to `/wp-content/plugins/returns`, or install via Plugins → Add New.
+1. Upload the plugin to `/wp-content/plugins/returns`, or install via Plugins > Add New.
 2. Activate it. WooCommerce must be installed and active.
-3. Go to **WooCommerce → Returns** to choose eligible order statuses and the return window.
-4. Customers can now open a return from **My Account → Orders** on any eligible order.
+3. Go to **WooCommerce > Returns** to choose eligible order statuses and the return window.
+4. Customers can now open a return from **My Account > Orders** on any eligible order.
 
 == Frequently Asked Questions ==
 
@@ -74,7 +74,7 @@ Yes. WooCommerce must be installed and active.
 
 = Which orders can be returned? =
 
-Orders in the statuses you choose under WooCommerce → Returns (Completed and
+Orders in the statuses you choose under WooCommerce > Returns (Completed and
 Processing by default), within the return window you set. Set the window to 0 to
 remove the time limit.
 
@@ -122,6 +122,10 @@ Returns connects to no external services. It sends no data off your site and loa
 Plogins Returns is fully translatable and ships the `plogins-returns.pot` template. Translations are delivered by WordPress.org language packs from translate.wordpress.org, which is where Polish, German and Spanish are being contributed; the package itself carries no compiled translation files.
 
 == Changelog ==
+
+= 1.1.9 =
+* Fixed: the PRO upgrade promo kept selling to people who had already bought the paid edition. Only the banner could be dismissed, so the sidebar promo and the locked feature cards followed a paying customer around for good. The promo now checks whether the paid edition is active and steps aside when it is.
+* Fixed: arrow glyphs in the admin menu paths, and in the strings handed to translators. An arrow inside a translatable string makes the glyph every translator's problem and changes the layout in any locale that drops it.
 
 = 1.1.8 =
 * Fixed: deleting the plugin left the per-user "dismiss" flag from the PRO notice in the database. Uninstall now removes it for every user, not just the one who dismissed it.
