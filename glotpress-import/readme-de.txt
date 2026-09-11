@@ -13,9 +13,9 @@ Lass deine Kundschaft Rücksendungen und Rückerstattungen über ihr Konto anfor
 
 == Description ==
 
-Returns fügt WooCommerce einen einfachen Self-Service-Rückgabeablauf (RMA) hinzu. Über <strong>Mein Konto → Bestellungen</strong> öffnet ein Kunde eine Rückgabeanfrage für eine berechtigte Bestellung: Er wählt die Artikel aus, legt eine Menge fest, wählt einen Grund und fügt optional eine Notiz hinzu. Die Anfrage wird als privater Datensatz gespeichert, dir per E-Mail zugeschickt und erhält einen Status, den der Kunde von seinem Konto aus verfolgen kann.
+Returns fügt WooCommerce einen einfachen Self-Service-Rückgabeablauf (RMA) hinzu. Über <strong>Mein Konto > Bestellungen</strong> öffnet ein Kunde eine Rückgabeanfrage für eine berechtigte Bestellung: Er wählt die Artikel aus, legt eine Menge fest, wählt einen Grund und fügt optional eine Notiz hinzu. Die Anfrage wird als privater Datensatz gespeichert, dir per E-Mail zugeschickt und erhält einen Status, den der Kunde von seinem Konto aus verfolgen kann.
 
-Du prüfst und verwaltest jede Anfrage in wp-admin unter <strong>WooCommerce → Rückgabeanfragen</strong> und bewegst jede einzelne durch die Stufen „Angefordert“, „Genehmigt“, „Abgelehnt“ oder „Abgeschlossen“. Welchen Status du auch festlegst, genau diesen Status sieht der Kunde in seinem Konto.
+Du prüfst und verwaltest jede Anfrage in wp-admin unter <strong>WooCommerce > Rückgabeanfragen</strong> und bewegst jede einzelne durch die Stufen „Angefordert“, „Genehmigt“, „Abgelehnt“ oder „Abgeschlossen“. Welchen Status du auch festlegst, genau diesen Status sieht der Kunde in seinem Konto.
 
 Dies ist ein Anfrage- und Status-Plugin: Es bewegt kein Geld. Wickle jede Rückerstattung im normalen WooCommerce-Bestellbildschirm ab; der Rückgabedatensatz hält die Anfrage und ihren Status an einem Ort.
 
@@ -44,10 +44,10 @@ Quellcode und Fehlerberichte findest du unter https://github.com/wppoland/plogin
 
 == Installation ==
 
-1. Lade das Plugin nach `/wp-content/plugins/returns` hoch oder installiere es über Plugins → Installieren.
+1. Lade das Plugin nach `/wp-content/plugins/returns` hoch oder installiere es über Plugins > Installieren.
 2. Aktiviere es. WooCommerce muss installiert und aktiv sein.
-3. Gehe zu <strong>WooCommerce → Retouren</strong>, um die berechtigten Bestellstatus und das Rückgabefenster auszuwählen.
-4. Kunden können jetzt über <strong>Mein Konto → Bestellungen</strong> für jede berechtigte Bestellung eine Rücksendung öffnen.
+3. Gehe zu <strong>WooCommerce > Retouren</strong>, um die berechtigten Bestellstatus und das Rückgabefenster auszuwählen.
+4. Kunden können jetzt über <strong>Mein Konto > Bestellungen</strong> für jede berechtigte Bestellung eine Rücksendung öffnen.
 
 == Frequently Asked Questions ==
 
@@ -57,7 +57,7 @@ Ja. WooCommerce muss installiert und aktiv sein.
 
 = Which orders can be returned? =
 
-Bestellungen in den Status, die du unter WooCommerce → Retouren auswählst (standardmäßig „Abgeschlossen“ und „In Bearbeitung“), innerhalb des von dir festgelegten Rückgabefensters. Setze das Fenster auf 0, um die Frist aufzuheben.
+Bestellungen in den Status, die du unter WooCommerce > Retouren auswählst (standardmäßig „Abgeschlossen“ und „In Bearbeitung“), innerhalb des von dir festgelegten Rückgabefensters. Setze das Fenster auf 0, um die Frist aufzuheben.
 
 = Does it issue refunds automatically? =
 

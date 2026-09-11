@@ -110,7 +110,7 @@ msgid "Let customers request returns from their account"
 msgstr ""
 
 #: src/Admin/Settings.php:108
-msgid "Customers open a return from My Account → Orders: they pick items, a quantity, a reason and an optional note. Each request is emailed to you and saved as a private record you manage here, with a status the customer can follow."
+msgid "Customers open a return from My Account > Orders: they pick items, a quantity, a reason and an optional note. Each request is emailed to you and saved as a private record you manage here, with a status the customer can follow."
 msgstr ""
 
 #: src/Admin/Settings.php:111

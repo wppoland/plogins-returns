@@ -105,7 +105,7 @@ final class Settings implements HasHooks
             <div class="returns-intro">
                 <h2><?php esc_html_e('Let customers request returns from their account', 'plogins-returns'); ?></h2>
                 <p>
-                    <?php esc_html_e('Customers open a return from My Account → Orders: they pick items, a quantity, a reason and an optional note. Each request is emailed to you and saved as a private record you manage here, with a status the customer can follow.', 'plogins-returns'); ?>
+                    <?php esc_html_e('Customers open a return from My Account > Orders: they pick items, a quantity, a reason and an optional note. Each request is emailed to you and saved as a private record you manage here, with a status the customer can follow.', 'plogins-returns'); ?>
                 </p>
                 <p>
                     <a class="button" href="<?php echo esc_url($listUrl); ?>"><?php esc_html_e('View return requests', 'plogins-returns'); ?></a>

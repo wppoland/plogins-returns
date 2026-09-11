@@ -13,9 +13,9 @@ Pozwól klientom zgłaszać zwroty i zwroty pieniędzy z poziomu konta oraz zarz
 
 == Description ==
 
-Returns dodaje do WooCommerce prosty, samoobsługowy proces zwrotu (RMA). W sekcji <strong>Moje konto → Zamówienia</strong> klient otwiera żądanie zwrotu dla kwalifikującego się zamówienia: wybiera produkty, ustawia ilość, wskazuje powód i dodaje opcjonalną notatkę. Żądanie jest zapisywane jako prywatny rekord, wysyłane do Ciebie e-mailem i otrzymuje status, który klient może śledzić na swoim koncie.
+Returns dodaje do WooCommerce prosty, samoobsługowy proces zwrotu (RMA). W sekcji <strong>Moje konto > Zamówienia</strong> klient otwiera żądanie zwrotu dla kwalifikującego się zamówienia: wybiera produkty, ustawia ilość, wskazuje powód i dodaje opcjonalną notatkę. Żądanie jest zapisywane jako prywatny rekord, wysyłane do Ciebie e-mailem i otrzymuje status, który klient może śledzić na swoim koncie.
 
-Każde żądanie sprawdzasz i obsługujesz w wp-admin, w sekcji <strong>WooCommerce → Żądania zwrotu</strong>, przenosząc je kolejno przez statusy: zażądano, zatwierdzono, odrzucono lub ukończono. Status, który ustawisz, jest statusem widocznym dla klienta na jego koncie.
+Każde żądanie sprawdzasz i obsługujesz w wp-admin, w sekcji <strong>WooCommerce > Żądania zwrotu</strong>, przenosząc je kolejno przez statusy: zażądano, zatwierdzono, odrzucono lub ukończono. Status, który ustawisz, jest statusem widocznym dla klienta na jego koncie.
 
 To wtyczka do obsługi żądań i statusów: nie przenosi pieniędzy. Zwroty pieniędzy realizuj na zwykłym ekranie zamówienia WooCommerce; rekord zwrotu przechowuje żądanie i jego status w jednym miejscu.
 
@@ -44,10 +44,10 @@ Kod źródłowy i zgłoszenia błędów znajdziesz na https://github.com/wppolan
 
 == Installation ==
 
-1. Wgraj wtyczkę do `/wp-content/plugins/returns` lub zainstaluj przez Wtyczki → Dodaj nową.
+1. Wgraj wtyczkę do `/wp-content/plugins/returns` lub zainstaluj przez Wtyczki > Dodaj nową.
 2. Włącz ją. WooCommerce musi być zainstalowane i aktywne.
-3. Przejdź do <strong>WooCommerce → Zwroty</strong>, aby wybrać kwalifikujące się statusy zamówień oraz okno zwrotu.
-4. Klienci mogą teraz otworzyć zwrot z poziomu <strong>Moje konto → Zamówienia</strong> dla dowolnego kwalifikującego się zamówienia.
+3. Przejdź do <strong>WooCommerce > Zwroty</strong>, aby wybrać kwalifikujące się statusy zamówień oraz okno zwrotu.
+4. Klienci mogą teraz otworzyć zwrot z poziomu <strong>Moje konto > Zamówienia</strong> dla dowolnego kwalifikującego się zamówienia.
 
 == Frequently Asked Questions ==
 
@@ -57,7 +57,7 @@ Tak. WooCommerce musi być zainstalowane i aktywne.
 
 = Which orders can be returned? =
 
-Zamówienia w statusach wybranych w WooCommerce → Zwroty (domyślnie Zrealizowane i W trakcie realizacji), w ustawionym przez Ciebie oknie zwrotu. Ustaw okno na 0, aby usunąć limit czasu.
+Zamówienia w statusach wybranych w WooCommerce > Zwroty (domyślnie Zrealizowane i W trakcie realizacji), w ustawionym przez Ciebie oknie zwrotu. Ustaw okno na 0, aby usunąć limit czasu.
 
 = Does it issue refunds automatically? =
 
