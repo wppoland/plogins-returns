@@ -144,7 +144,7 @@ final class ReturnRequest implements HasHooks
         update_post_meta($postId, self::META_REMEDY, $remedy);
 
         /**
-         * Fires after a new request is stored. Add-ons (e.g. Returns Pro) listen
+         * Fires after a new request is stored. Add-ons (e.g. Redono Pro) listen
          * here to run type-specific automation, such as Right to Repair intake.
          *
          * @param int    $postId The new request post ID.
@@ -495,7 +495,7 @@ final class ReturnRequest implements HasHooks
         /**
          * Fires after a return request's workflow status changes in wp-admin.
          *
-         * Add-ons (e.g. Returns Pro) listen here to notify the customer. Only
+         * Add-ons (e.g. Redono Pro) listen here to notify the customer. Only
          * fired when the status actually changes to a new, valid value.
          *
          * @param int    $postId   The return request post ID.

@@ -45,7 +45,7 @@ final class Types
         /**
          * Filters the list of request types shown on the customer form.
          *
-         * Add-ons (e.g. Returns Pro) can extend this to offer more request
+         * Add-ons (e.g. Redono Pro) can extend this to offer more request
          * kinds. Keep RETURN first so it stays the default.
          *
          * @param array<string, string> $types Type key => label.

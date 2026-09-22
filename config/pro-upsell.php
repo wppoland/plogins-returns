@@ -10,7 +10,7 @@
 defined('ABSPATH') || exit;
 
 return [
-    'name'       => 'Returns Pro',
+    'name'       => 'Redono Pro',
     'url'        => 'https://plogins.com/plogins-returns-pro/pricing/',
     'sellable'   => true,
     'price_from' => 29,
