@@ -169,6 +169,12 @@ final class ReturnPrivacyService implements HasHooks
             'posts_per_page' => self::PAGE_SIZE,
             'paged'          => $page,
             'fields'         => 'ids',
+            // phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_query -- A
+            // personal-data export or erasure has no other way in: a request is a
+            // post and its owner is post meta. This runs only when WordPress
+            // processes a privacy request for one person, never on a front-end or
+            // admin page load, it is paged at PAGE_SIZE, it asks for ids alone,
+            // and both keys are ordinary indexed post meta.
             'meta_query'     => array_merge(['relation' => 'OR'], $metaQueries),
         ];
 
