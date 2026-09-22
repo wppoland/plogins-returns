@@ -62,8 +62,8 @@ final class Settings implements HasHooks
     {
         add_submenu_page(
             'woocommerce',
-            __('Returns: RMA settings', 'redono'),
-            __('Returns', 'redono'),
+            __('Redono: returns and RMA', 'redono'),
+            __('Redono', 'redono'),
             'manage_woocommerce',
             self::PAGE,
             [$this, 'renderPage'],

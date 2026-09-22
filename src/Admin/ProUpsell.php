@@ -146,7 +146,7 @@ final class ProUpsell
         if (! $this->enabled() || $this->bannerDismissed()) {
             return;
         }
-        $name     = (string) ($this->data()['name'] ?? 'Returns Pro');
+        $name     = (string) ($this->data()['name'] ?? 'Redono Pro');
         $price    = $this->priceLabel();
         $subtitle = implode(', ', array_slice(array_map(
             static fn (array $f): string => $f['title'],
@@ -176,7 +176,7 @@ final class ProUpsell
         if (! $this->enabled()) {
             return;
         }
-        $name     = (string) ($this->data()['name'] ?? 'Returns Pro');
+        $name     = (string) ($this->data()['name'] ?? 'Redono Pro');
         $price    = $this->priceLabel();
         $features = $this->features();
         ?>
@@ -208,7 +208,7 @@ final class ProUpsell
             return;
         }
         $features = $this->features();
-        $name     = (string) ($this->data()['name'] ?? 'Returns Pro');
+        $name     = (string) ($this->data()['name'] ?? 'Redono Pro');
         ?>
         <section class="returns-pro-cards" aria-labelledby="returns-pro-cards-h">
             <h2 id="returns-pro-cards-h" class="returns-pro-cards__title">

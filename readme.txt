@@ -5,7 +5,7 @@ Requires at least: 6.5
 Tested up to: 7.1
 Requires PHP: 8.1
 Requires Plugins: woocommerce
-Stable tag: 1.2.1
+Stable tag: 1.2.2
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -106,8 +106,8 @@ Yes. This plugin is compatible with WordPress Multisite. Network activate it or 
 
 == Screenshots ==
 
-1. The "Request a return" action on an order in My Account.
-2. The return request form: item picker, reason and note.
+1. The request form in My Account: the customer picks return, complaint or repair, then the items and quantities.
+2. The settings screen: who may request, from which order statuses, and for how long after the order.
 
 == External Services ==
 
@@ -118,6 +118,9 @@ Redono connects to no external services. It sends no data off your site and load
 Redono is fully translatable and ships the `redono.pot` template. Translations are delivered by WordPress.org language packs from translate.wordpress.org, which is where Polish, German and Spanish are being contributed; the package itself carries no compiled translation files.
 
 == Changelog ==
+
+= 1.2.2 =
+* The admin screen carries the new name. The rename reached the plugin header and the text domain but not the strings a shop owner actually reads: the WooCommerce submenu still said Returns, the settings heading said "Returns: RMA settings", and the upgrade promo sold "Returns Pro".
 
 = 1.2.1 =
 * The personal-data export and erasure query is annotated for Plugin Check. It reported the meta_query as a possible slow query; it runs only while WordPress processes a privacy request for one person, is paged, asks for post ids alone and uses two indexed meta keys, so the note explains it rather than contorting the query around a heuristic.

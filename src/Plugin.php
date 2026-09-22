@@ -52,7 +52,7 @@ final class Plugin
 
         /**
          * Fires after the plugin has fully booted and all services have
-         * registered their hooks. Add-ons (e.g. Returns Pro) listen here to
+         * registered their hooks. Add-ons (e.g. Redono Pro) listen here to
          * extend the shared container and register their own hooks.
          *
          * @param Plugin $plugin The booted plugin instance.
