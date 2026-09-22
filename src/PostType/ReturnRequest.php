@@ -65,15 +65,15 @@ final class ReturnRequest implements HasHooks
             self::POST_TYPE,
             [
                 'labels'              => [
-                    'name'               => __('Return Requests', 'plogins-returns'),
-                    'singular_name'      => __('Return Request', 'plogins-returns'),
-                    'menu_name'          => __('Return Requests', 'plogins-returns'),
-                    'all_items'          => __('Return Requests', 'plogins-returns'),
-                    'edit_item'          => __('Return Request', 'plogins-returns'),
-                    'view_item'          => __('Return Request', 'plogins-returns'),
-                    'search_items'       => __('Search return requests', 'plogins-returns'),
-                    'not_found'          => __('No return requests found.', 'plogins-returns'),
-                    'not_found_in_trash' => __('No return requests in Trash.', 'plogins-returns'),
+                    'name'               => __('Return Requests', 'redono'),
+                    'singular_name'      => __('Return Request', 'redono'),
+                    'menu_name'          => __('Return Requests', 'redono'),
+                    'all_items'          => __('Return Requests', 'redono'),
+                    'edit_item'          => __('Return Request', 'redono'),
+                    'view_item'          => __('Return Request', 'redono'),
+                    'search_items'       => __('Search return requests', 'redono'),
+                    'not_found'          => __('No return requests found.', 'redono'),
+                    'not_found_in_trash' => __('No return requests in Trash.', 'redono'),
                 ],
                 'public'              => false,
                 'show_ui'             => true,
@@ -115,7 +115,7 @@ final class ReturnRequest implements HasHooks
 
         $title = sprintf(
             /* translators: 1: request type label, 2: order number, 3: human-readable date */
-            __('%1$s for order #%2$s, %3$s', 'plogins-returns'),
+            __('%1$s for order #%2$s, %3$s', 'redono'),
             Types::label($type),
             (string) $orderId,
             wp_date(get_option('date_format') . ' ' . get_option('time_format')),
@@ -288,10 +288,10 @@ final class ReturnRequest implements HasHooks
 
         foreach ($columns as $key => $label) {
             if ('date' === $key) {
-                $reordered['returns_order']  = __('Order', 'plogins-returns');
-                $reordered['returns_type']   = __('Type', 'plogins-returns');
-                $reordered['returns_status'] = __('Status', 'plogins-returns');
-                $reordered['returns_items']  = __('Items', 'plogins-returns');
+                $reordered['returns_order']  = __('Order', 'redono');
+                $reordered['returns_type']   = __('Type', 'redono');
+                $reordered['returns_status'] = __('Status', 'redono');
+                $reordered['returns_items']  = __('Items', 'redono');
             }
 
             $reordered[$key] = $label;
@@ -342,7 +342,7 @@ final class ReturnRequest implements HasHooks
     {
         add_meta_box(
             'returns_rma_details',
-            __('Return details', 'plogins-returns'),
+            __('Return details', 'redono'),
             [$this, 'renderDetailsBox'],
             self::POST_TYPE,
             'normal',
@@ -351,7 +351,7 @@ final class ReturnRequest implements HasHooks
 
         add_meta_box(
             'returns_rma_status',
-            __('Status', 'plogins-returns'),
+            __('Status', 'redono'),
             [$this, 'renderStatusBox'],
             self::POST_TYPE,
             'side',
@@ -373,7 +373,7 @@ final class ReturnRequest implements HasHooks
         <table class="widefat striped" style="margin-bottom:1em">
             <tbody>
                 <tr>
-                    <th scope="row" style="width:160px"><?php esc_html_e('Order', 'plogins-returns'); ?></th>
+                    <th scope="row" style="width:160px"><?php esc_html_e('Order', 'redono'); ?></th>
                     <td>
                         <?php if ('' !== $orderUrl) : ?>
                             <a href="<?php echo esc_url($orderUrl); ?>">#<?php echo esc_html((string) $orderId); ?></a>
@@ -383,7 +383,7 @@ final class ReturnRequest implements HasHooks
                     </td>
                 </tr>
                 <tr>
-                    <th scope="row"><?php esc_html_e('Type', 'plogins-returns'); ?></th>
+                    <th scope="row"><?php esc_html_e('Type', 'redono'); ?></th>
                     <td>
                         <span class="returns-type-badge returns-type-badge--<?php echo esc_attr(Types::slug($type)); ?>">
                             <?php echo esc_html(Types::label($type)); ?>
@@ -392,30 +392,30 @@ final class ReturnRequest implements HasHooks
                 </tr>
                 <?php if (Types::hasRemedy($type)) : ?>
                     <tr>
-                        <th scope="row"><?php esc_html_e('Preferred remedy', 'plogins-returns'); ?></th>
+                        <th scope="row"><?php esc_html_e('Preferred remedy', 'redono'); ?></th>
                         <td><?php echo esc_html('' !== $remedy ? Types::remedyLabel($remedy) : '-'); ?></td>
                     </tr>
                 <?php endif; ?>
                 <tr>
-                    <th scope="row"><?php esc_html_e('Reason', 'plogins-returns'); ?></th>
+                    <th scope="row"><?php esc_html_e('Reason', 'redono'); ?></th>
                     <td><?php echo esc_html('' !== $reason ? Reasons::label($reason) : '-'); ?></td>
                 </tr>
                 <tr>
-                    <th scope="row"><?php esc_html_e('Customer note', 'plogins-returns'); ?></th>
+                    <th scope="row"><?php esc_html_e('Customer note', 'redono'); ?></th>
                     <td><?php echo '' !== $note ? esc_html($note) : '-'; ?></td>
                 </tr>
             </tbody>
         </table>
 
-        <h3><?php esc_html_e('Requested items', 'plogins-returns'); ?></h3>
+        <h3><?php esc_html_e('Requested items', 'redono'); ?></h3>
         <?php if ([] === $items) : ?>
-            <p><?php esc_html_e('No items recorded.', 'plogins-returns'); ?></p>
+            <p><?php esc_html_e('No items recorded.', 'redono'); ?></p>
         <?php else : ?>
             <table class="widefat striped">
                 <thead>
                     <tr>
-                        <th scope="col"><?php esc_html_e('Product', 'plogins-returns'); ?></th>
-                        <th scope="col" style="width:120px"><?php esc_html_e('Quantity', 'plogins-returns'); ?></th>
+                        <th scope="col"><?php esc_html_e('Product', 'redono'); ?></th>
+                        <th scope="col" style="width:120px"><?php esc_html_e('Quantity', 'redono'); ?></th>
                     </tr>
                 </thead>
                 <tbody>
@@ -440,7 +440,7 @@ final class ReturnRequest implements HasHooks
         wp_nonce_field(self::STATUS_NONCE, 'returns_status_nonce');
         ?>
         <p>
-            <label for="returns-status" class="screen-reader-text"><?php esc_html_e('Return status', 'plogins-returns'); ?></label>
+            <label for="returns-status" class="screen-reader-text"><?php esc_html_e('Return status', 'redono'); ?></label>
             <select id="returns-status" name="returns_status" style="width:100%">
                 <?php foreach (Statuses::all() as $key => $label) : ?>
                     <option value="<?php echo esc_attr($key); ?>" <?php selected($current, $key); ?>>
@@ -450,7 +450,7 @@ final class ReturnRequest implements HasHooks
             </select>
         </p>
         <p class="description">
-            <?php esc_html_e('The customer sees this status in their account. Updating it here does not refund the order, process any refund in the order screen.', 'plogins-returns'); ?>
+            <?php esc_html_e('The customer sees this status in their account. Updating it here does not refund the order, process any refund in the order screen.', 'redono'); ?>
         </p>
         <?php
     }
@@ -519,9 +519,9 @@ final class ReturnRequest implements HasHooks
             ? sanitize_key(wp_unslash($_GET[self::META_TYPE])) // phpcs:ignore WordPress.Security.NonceVerification.Recommended
             : '';
         ?>
-        <label for="returns-filter-type" class="screen-reader-text"><?php esc_html_e('Filter by type', 'plogins-returns'); ?></label>
+        <label for="returns-filter-type" class="screen-reader-text"><?php esc_html_e('Filter by type', 'redono'); ?></label>
         <select id="returns-filter-type" name="<?php echo esc_attr(self::META_TYPE); ?>">
-            <option value=""><?php esc_html_e('All types', 'plogins-returns'); ?></option>
+            <option value=""><?php esc_html_e('All types', 'redono'); ?></option>
             <?php foreach (Types::all() as $key => $label) : ?>
                 <option value="<?php echo esc_attr($key); ?>" <?php selected($current, $key); ?>>
                     <?php echo esc_html($label); ?>

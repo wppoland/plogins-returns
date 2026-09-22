@@ -3,7 +3,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Plogins Returns - Returns and RMA for WooCommerce 1.1.7\n"
-"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/plogins-returns\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/redono\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -12,34 +12,34 @@ msgstr ""
 "POT-Creation-Date: 2026-09-09T14:38:00+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.12.0\n"
-"X-Domain: plogins-returns\n"
+"X-Domain: redono\n"
 
 #. Plugin Name of the plugin
-#: plogins-returns.php
+#: redono.php
 msgid "Plogins Returns - Returns and RMA for WooCommerce"
 msgstr ""
 
 #. Plugin URI of the plugin
-#: plogins-returns.php
-msgid "https://plogins.com/plogins-returns/"
+#: redono.php
+msgid "https://plogins.com/redono/"
 msgstr ""
 
 #. Description of the plugin
-#: plogins-returns.php
+#: redono.php
 msgid "Let customers request returns, complaints and repairs (Right to Repair) from their account and manage RMAs in the admin."
 msgstr ""
 
 #. Author of the plugin
-#: plogins-returns.php
+#: redono.php
 msgid "WPPoland.com"
 msgstr ""
 
 #. Author URI of the plugin
-#: plogins-returns.php
+#: redono.php
 msgid "https://wppoland.com"
 msgstr ""
 
-#: plogins-returns.php:60
+#: redono.php:60
 msgid "Plogins Returns - Returns and RMA for WooCommerce requires WooCommerce to be active."
 msgstr ""
 
