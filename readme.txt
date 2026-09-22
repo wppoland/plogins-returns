@@ -5,7 +5,7 @@ Requires at least: 6.5
 Tested up to: 7.1
 Requires PHP: 8.1
 Requires Plugins: woocommerce
-Stable tag: 1.2.0
+Stable tag: 1.2.1
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -118,6 +118,9 @@ Redono connects to no external services. It sends no data off your site and load
 Redono is fully translatable and ships the `redono.pot` template. Translations are delivered by WordPress.org language packs from translate.wordpress.org, which is where Polish, German and Spanish are being contributed; the package itself carries no compiled translation files.
 
 == Changelog ==
+
+= 1.2.1 =
+* The personal-data export and erasure query is annotated for Plugin Check. It reported the meta_query as a possible slow query; it runs only while WordPress processes a privacy request for one person, is paged, asks for post ids alone and uses two indexed meta keys, so the note explains it rather than contorting the query around a heuristic.
 
 = 1.2.0 =
 * Renamed to Redono. The WordPress.org review team asks a plugin name to lead with a distinctive, coined identifier rather than a generic descriptive word, and "Returns" is as generic as it gets. Redono is Esperanto for a giving back, which is what all three request types are. The text domain follows the new name; the settings, the stored requests and every hook are unchanged.
