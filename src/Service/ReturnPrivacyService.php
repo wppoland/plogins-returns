@@ -34,7 +34,7 @@ final class ReturnPrivacyService implements HasHooks
     public function registerExporters(array $exporters): array
     {
         $exporters['returns-requests'] = [
-            'exporter_friendly_name' => __('Return & RMA Requests', 'plogins-returns'),
+            'exporter_friendly_name' => __('Return & RMA Requests', 'redono'),
             'callback'               => [$this, 'exportRequests'],
         ];
 
@@ -48,7 +48,7 @@ final class ReturnPrivacyService implements HasHooks
     public function registerErasers(array $erasers): array
     {
         $erasers['returns-requests'] = [
-            'eraser_friendly_name' => __('Return & RMA Requests', 'plogins-returns'),
+            'eraser_friendly_name' => __('Return & RMA Requests', 'redono'),
             'callback'             => [$this, 'eraseRequests'],
         ];
 
@@ -78,16 +78,16 @@ final class ReturnPrivacyService implements HasHooks
 
             $items[] = [
                 'group_id'    => 'returns-requests',
-                'group_label' => __('Return & RMA Requests', 'plogins-returns'),
+                'group_label' => __('Return & RMA Requests', 'redono'),
                 'item_id'     => 'returns-rma-' . $postId,
                 'data'        => [
-                    ['name' => __('Request ID', 'plogins-returns'), 'value' => (string) $postId],
-                    ['name' => __('Order ID', 'plogins-returns'), 'value' => (string) $orderId],
-                    ['name' => __('Type', 'plogins-returns'), 'value' => $type],
-                    ['name' => __('Reason', 'plogins-returns'), 'value' => $reason],
-                    ['name' => __('Customer Note', 'plogins-returns'), 'value' => $note],
-                    ['name' => __('Status', 'plogins-returns'), 'value' => $status],
-                    ['name' => __('Date', 'plogins-returns'), 'value' => $postDate],
+                    ['name' => __('Request ID', 'redono'), 'value' => (string) $postId],
+                    ['name' => __('Order ID', 'redono'), 'value' => (string) $orderId],
+                    ['name' => __('Type', 'redono'), 'value' => $type],
+                    ['name' => __('Reason', 'redono'), 'value' => $reason],
+                    ['name' => __('Customer Note', 'redono'), 'value' => $note],
+                    ['name' => __('Status', 'redono'), 'value' => $status],
+                    ['name' => __('Date', 'redono'), 'value' => $postDate],
                 ],
             ];
         }
@@ -117,7 +117,7 @@ final class ReturnPrivacyService implements HasHooks
             'items_removed'  => $anonymized,
             'items_retained' => $anonymized, // Retained for accounting/statutory warranty requirements
             'messages'       => $anonymized > 0
-                ? [__('Customer personal notes and IDs removed from RMA requests; return records retained for statutory bookkeeping.', 'plogins-returns')]
+                ? [__('Customer personal notes and IDs removed from RMA requests; return records retained for statutory bookkeeping.', 'redono')]
                 : [],
             'done'           => count($postIds) < self::PAGE_SIZE,
         ];

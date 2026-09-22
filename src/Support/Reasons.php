@@ -24,25 +24,25 @@ final class Reasons
     {
         return [
             Types::RETURN => [
-                'damaged'    => __('Arrived damaged or faulty', 'plogins-returns'),
-                'wrong_item' => __('Wrong item received', 'plogins-returns'),
-                'not_needed' => __('No longer needed', 'plogins-returns'),
-                'size_fit'   => __('Size or fit issue', 'plogins-returns'),
-                'other'      => __('Other', 'plogins-returns'),
+                'damaged'    => __('Arrived damaged or faulty', 'redono'),
+                'wrong_item' => __('Wrong item received', 'redono'),
+                'not_needed' => __('No longer needed', 'redono'),
+                'size_fit'   => __('Size or fit issue', 'redono'),
+                'other'      => __('Other', 'redono'),
             ],
             Types::COMPLAINT => [
-                'defective'          => __('Defective or not working', 'plogins-returns'),
-                'not_as_described'   => __('Not as described', 'plogins-returns'),
-                'damaged_in_transit' => __('Damaged in transit', 'plogins-returns'),
-                'missing_parts'      => __('Missing parts or accessories', 'plogins-returns'),
-                'other'              => __('Other', 'plogins-returns'),
+                'defective'          => __('Defective or not working', 'redono'),
+                'not_as_described'   => __('Not as described', 'redono'),
+                'damaged_in_transit' => __('Damaged in transit', 'redono'),
+                'missing_parts'      => __('Missing parts or accessories', 'redono'),
+                'other'              => __('Other', 'redono'),
             ],
             Types::REPAIR => [
-                'stopped_working'    => __('Stopped working', 'plogins-returns'),
-                'intermittent_fault' => __('Intermittent fault', 'plogins-returns'),
-                'physical_damage'    => __('Physical damage', 'plogins-returns'),
-                'wont_power_on'      => __('Will not power on', 'plogins-returns'),
-                'other'              => __('Other', 'plogins-returns'),
+                'stopped_working'    => __('Stopped working', 'redono'),
+                'intermittent_fault' => __('Intermittent fault', 'redono'),
+                'physical_damage'    => __('Physical damage', 'redono'),
+                'wont_power_on'      => __('Will not power on', 'redono'),
+                'other'              => __('Other', 'redono'),
             ],
         ];
     }

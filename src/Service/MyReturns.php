@@ -44,8 +44,8 @@ final class MyReturns implements HasHooks
         if ($sent) {
             printf(
                 '<div class="returns-notice returns-notice--success" role="status"><strong>%1$s</strong> %2$s</div>',
-                esc_html__('Return requested.', 'plogins-returns'),
-                esc_html__('We have received your return request and will be in touch shortly.', 'plogins-returns'),
+                esc_html__('Return requested.', 'redono'),
+                esc_html__('We have received your return request and will be in touch shortly.', 'redono'),
             );
         }
 
@@ -61,15 +61,15 @@ final class MyReturns implements HasHooks
         }
         ?>
         <section class="returns-list" aria-labelledby="returns-list-heading">
-            <h2 id="returns-list-heading"><?php esc_html_e('Your return requests', 'plogins-returns'); ?></h2>
+            <h2 id="returns-list-heading"><?php esc_html_e('Your return requests', 'redono'); ?></h2>
             <table class="returns-list__table shop_table">
                 <thead>
                     <tr>
-                        <th scope="col"><?php esc_html_e('Request', 'plogins-returns'); ?></th>
-                        <th scope="col"><?php esc_html_e('Type', 'plogins-returns'); ?></th>
-                        <th scope="col"><?php esc_html_e('Order', 'plogins-returns'); ?></th>
-                        <th scope="col"><?php esc_html_e('Date', 'plogins-returns'); ?></th>
-                        <th scope="col"><?php esc_html_e('Status', 'plogins-returns'); ?></th>
+                        <th scope="col"><?php esc_html_e('Request', 'redono'); ?></th>
+                        <th scope="col"><?php esc_html_e('Type', 'redono'); ?></th>
+                        <th scope="col"><?php esc_html_e('Order', 'redono'); ?></th>
+                        <th scope="col"><?php esc_html_e('Date', 'redono'); ?></th>
+                        <th scope="col"><?php esc_html_e('Status', 'redono'); ?></th>
                     </tr>
                 </thead>
                 <tbody>
@@ -81,16 +81,16 @@ final class MyReturns implements HasHooks
                         $date    = get_the_date('', $postId);
                         ?>
                         <tr>
-                            <td data-title="<?php esc_attr_e('Request', 'plogins-returns'); ?>">#<?php echo esc_html((string) $postId); ?></td>
-                            <td data-title="<?php esc_attr_e('Type', 'plogins-returns'); ?>">
+                            <td data-title="<?php esc_attr_e('Request', 'redono'); ?>">#<?php echo esc_html((string) $postId); ?></td>
+                            <td data-title="<?php esc_attr_e('Type', 'redono'); ?>">
                                 <span class="returns-type-badge returns-type-badge--<?php echo esc_attr(Types::slug($type)); ?>"><?php echo esc_html(Types::label($type)); ?></span>
                                 <?php if ('' !== $remedy) : ?>
                                     <small class="returns-list__remedy"><?php echo esc_html(Types::remedyLabel($remedy)); ?></small>
                                 <?php endif; ?>
                             </td>
-                            <td data-title="<?php esc_attr_e('Order', 'plogins-returns'); ?>"><?php echo esc_html($orderId > 0 ? '#' . $orderId : '-'); ?></td>
-                            <td data-title="<?php esc_attr_e('Date', 'plogins-returns'); ?>"><?php echo esc_html(is_string($date) ? $date : ''); ?></td>
-                            <td data-title="<?php esc_attr_e('Status', 'plogins-returns'); ?>">
+                            <td data-title="<?php esc_attr_e('Order', 'redono'); ?>"><?php echo esc_html($orderId > 0 ? '#' . $orderId : '-'); ?></td>
+                            <td data-title="<?php esc_attr_e('Date', 'redono'); ?>"><?php echo esc_html(is_string($date) ? $date : ''); ?></td>
+                            <td data-title="<?php esc_attr_e('Status', 'redono'); ?>">
                                 <?php $this->renderJourney($status); ?>
                             </td>
                         </tr>
@@ -120,7 +120,7 @@ final class MyReturns implements HasHooks
 
         $summary = sprintf(
             /* translators: %s: current return status, e.g. "Approved" */
-            __('Return status: %s', 'plogins-returns'),
+            __('Return status: %s', 'redono'),
             Statuses::label($currentKey),
         );
         ?>

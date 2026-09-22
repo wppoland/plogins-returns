@@ -1,9 +1,9 @@
 <?php
 /**
- * Plugin Name:       Plogins Returns - Returns and RMA for WooCommerce
+ * Plugin Name:       Redono - Returns and RMA for WooCommerce
  * Plugin URI:        https://plogins.com/plogins-returns/
  * Description:       Let customers request returns, complaints and repairs (Right to Repair) from their account and manage RMAs in the admin.
- * Version:           1.1.9
+ * Version:           1.2.0
  * Requires at least: 6.5
  * Requires PHP:      8.1
  * Requires Plugins:  woocommerce
@@ -11,7 +11,7 @@
  * Author URI:        https://wppoland.com
  * License:           GPL-2.0-or-later
  * License URI:       https://www.gnu.org/licenses/gpl-2.0.html
- * Text Domain:       plogins-returns
+ * Text Domain:       redono
  * Domain Path:       /languages
  * WC requires at least: 8.0
  * WC tested up to: 11.0
@@ -25,7 +25,7 @@ namespace Returns;
 
 defined('ABSPATH') || exit;
 
-const VERSION     = '1.1.9';
+const VERSION     = '1.2.0';
 const PLUGIN_FILE = __FILE__;
 
 define('RETURNS_DIR', plugin_dir_path(__FILE__));
@@ -57,7 +57,7 @@ add_action('plugins_loaded', static function (): void {
     if (! class_exists('WooCommerce')) {
         add_action('admin_notices', static function (): void {
             echo '<div class="notice notice-error"><p>';
-            echo esc_html__('Plogins Returns - Returns and RMA for WooCommerce requires WooCommerce to be active.', 'plogins-returns');
+            echo esc_html__('Plogins Returns - Returns and RMA for WooCommerce requires WooCommerce to be active.', 'redono');
             echo '</p></div>';
         });
         return;
