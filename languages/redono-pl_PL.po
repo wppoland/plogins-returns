@@ -362,25 +362,25 @@ msgstr "Status zwrotu: %s"
 #: src/Service/ReturnPrivacyService.php:51
 #: src/Service/ReturnPrivacyService.php:81
 msgid "Return & RMA Requests"
-msgstr ""
+msgstr "Zgłoszenia zwrotów i RMA"
 
 #: src/Service/ReturnPrivacyService.php:84
 msgid "Request ID"
-msgstr ""
+msgstr "Identyfikator zgłoszenia"
 
 #: src/Service/ReturnPrivacyService.php:85
 msgid "Order ID"
-msgstr ""
+msgstr "Identyfikator zamówienia"
 
 #: src/Service/ReturnPrivacyService.php:88
 msgid "Customer Note"
-msgstr ""
+msgstr "Notatka klienta"
 
 #: src/Service/ReturnPrivacyService.php:120
 msgid ""
 "Customer personal notes and IDs removed from RMA requests; return records "
 "retained for statutory bookkeeping."
-msgstr ""
+msgstr "Osobiste notatki klienta i identyfikatory usunięte ze zgłoszeń RMA; rekordy zwrotów zachowane na potrzeby ustawowej księgowości."
 
 #: src/Service/ReturnRequestForm.php:136 src/Service/ReturnRequestForm.php:163
 #: src/Service/ReturnRequestForm.php:368
