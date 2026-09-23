@@ -134,7 +134,7 @@ msgid ""
 "follow."
 msgstr ""
 "Los clientes abren una devolución desde Mi Cuenta > Pedidos: eligen "
-"artículos, una cantidad, un motivo y una nota opcional. Cada solicitud se le "
+"artículos, una cantidad, un motivo y una nota opcional. Cada solicitud se te "
 "envía por correo electrónico y se guarda como un registro privado que "
 "administras aquí, con un estado que el cliente puede seguir."
 
@@ -156,7 +156,7 @@ msgstr "Habilitar devoluciones"
 
 #: src/Admin/Settings.php:131
 msgid "Let customers request a return from My Account."
-msgstr "Permita que los clientes soliciten una devolución desde Mi Cuenta."
+msgstr "Permite que los clientes soliciten una devolución desde Mi Cuenta."
 
 #: src/Admin/Settings.php:133
 msgid ""
@@ -167,7 +167,7 @@ msgstr ""
 "Activado: aparece un enlace \"Solicitar una devolución\" junto a los pedidos "
 "elegibles y se puede acceder al formulario de solicitud. Desactivado: el "
 "enlace y el formulario desaparecen del escaparate, las solicitudes "
-"existentes permanecen en sus registros. Activado por defecto."
+"existentes permanecen en tus registros. Activado por defecto."
 
 #: src/Admin/Settings.php:141
 msgid "What can be returned"
@@ -178,7 +178,7 @@ msgid ""
 "Decide which orders qualify and for how long. An order must clear both tests "
 "before its \"Request a return\" link shows."
 msgstr ""
-"Decida qué pedidos califican y por cuánto tiempo. Un pedido debe superar "
+"Decide qué pedidos califican y por cuánto tiempo. Un pedido debe superar "
 "ambas pruebas antes de que se muestre el enlace \"Solicitar una devolución\"."
 
 #: src/Admin/Settings.php:146 src/Admin/Settings.php:149
@@ -195,9 +195,9 @@ msgid ""
 msgstr ""
 "Los pedidos en cualquier otro estado nunca muestran el enlace de devolución. "
 "La mayoría de las tiendas eligen estados que significan \"el cliente tiene "
-"la mercancía\", generalmente Completado (y Procesando si cumple antes de "
+"la mercancía\", generalmente Completado (y Procesando si cumples antes de "
 "marcar como completo). Por defecto vienen marcados Completado y Procesando; "
-"si desmarca todo, se mantiene Completado para que la función siga "
+"si desmarcas todo, se mantiene Completado para que la función siga "
 "funcionando."
 
 #: src/Admin/Settings.php:165
@@ -211,7 +211,7 @@ msgid ""
 "30."
 msgstr ""
 "Contado a partir de la fecha del pedido. Una vez transcurrido, el enlace de "
-"devolución ya no aparece para ese pedido. Establezca 0 para aceptar "
+"devolución ya no aparece para ese pedido. Establece 0 para aceptar "
 "devoluciones sin fecha límite. Por defecto, 30."
 
 #. translators: %s is the number of days in the return window.
@@ -340,7 +340,7 @@ msgstr "Devolución solicitada."
 #: src/Service/MyReturns.php:48
 msgid "We have received your return request and will be in touch shortly."
 msgstr ""
-"Hemos recibido su solicitud de devolución y nos pondremos en contacto en "
+"Hemos recibido tu solicitud de devolución y nos pondremos en contacto en "
 "breve."
 
 #: src/Service/MyReturns.php:64
