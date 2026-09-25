@@ -320,19 +320,16 @@ final class ReturnRequestForm implements HasHooks
     private function collectItems(\WC_Order $order): array
     {
         // phpcs:disable WordPress.Security.NonceVerification.Missing -- nonce is verified in maybeHandleSubmit() before this runs.
-        // phpcs:disable WordPress.Security.ValidatedSanitizedInput.InputNotSanitized -- keys/values are cast to int below.
-        $rawItems = isset($_POST['returns_items']) && is_array($_POST['returns_items'])
-            ? wp_unslash($_POST['returns_items'])
+        $selected = isset($_POST['returns_items']) && is_array($_POST['returns_items'])
+            ? map_deep(wp_unslash($_POST['returns_items']), 'absint')
             : [];
 
         $rawQty = isset($_POST['returns_qty']) && is_array($_POST['returns_qty'])
-            ? wp_unslash($_POST['returns_qty'])
+            ? map_deep(wp_unslash($_POST['returns_qty']), 'absint')
             : [];
-        // phpcs:enable WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
         // phpcs:enable WordPress.Security.NonceVerification.Missing
 
-        $selected = array_map('absint', (array) $rawItems);
-        $items    = [];
+        $items = [];
 
         foreach ($order->get_items() as $itemId => $item) {
             $itemId = (int) $itemId;
