@@ -48,6 +48,13 @@ final class ProUpsell
     /** Whether to render the promo at all (filterable for white-label builds). */
     public function enabled(): bool
     {
+
+        // Somebody running the paid edition has already bought what this sells.
+        // Only the banner was ever dismissible, so without this the sidebar promo
+        // and the locked cards followed a paying customer around for ever.
+        if (defined('Returns\\Pro\\VERSION')) {
+            return false;
+        }
         /**
          * Filters whether the Returns PRO promo is shown on the settings screen.
          *
@@ -75,17 +82,13 @@ final class ProUpsell
     private function priceLabel(): string
     {
         if (! $this->sellable()) {
-            return $this->isPolish() ? __('Wkrótce', 'plogins-returns') : __('Coming soon', 'plogins-returns');
+            return $this->isPolish() ? __('Wkrótce', 'redono') : __('Coming soon', 'redono');
         }
         $d = $this->data();
-        if ($this->isPolish() && ! empty($d['price_pln'])) {
-            /* translators: %d: yearly price in PLN */
-            return sprintf(__('od %d zł/rok', 'plogins-returns'), (int) $d['price_pln']);
-        }
         if (! empty($d['price_from'])) {
             $cur = ($d['currency'] ?? 'EUR') === 'EUR' ? '€' : (string) $d['currency'] . ' ';
             /* translators: 1: currency symbol, 2: yearly price */
-            return sprintf(__('from %1$s%2$d/yr', 'plogins-returns'), $cur, (int) $d['price_from']);
+            return sprintf(__('from %1$s%2$d/yr', 'redono'), $cur, (int) $d['price_from']);
         }
         return '';
     }
@@ -94,8 +97,8 @@ final class ProUpsell
     private function ctaLabel(): string
     {
         return $this->sellable()
-            ? __('Upgrade to PRO', 'plogins-returns')
-            : ($this->isPolish() ? __('Powiadom mnie', 'plogins-returns') : __('Get notified', 'plogins-returns'));
+            ? __('Upgrade to PRO', 'redono')
+            : ($this->isPolish() ? __('Powiadom mnie', 'redono') : __('Get notified', 'redono'));
     }
 
     /** @return array<int, array{title: string, desc: string}> */
@@ -125,7 +128,7 @@ final class ProUpsell
     public function handleDismiss(): void
     {
         if (! current_user_can('manage_woocommerce')) {
-            wp_die(esc_html__('Permission denied.', 'plogins-returns'));
+            wp_die(esc_html__('Permission denied.', 'redono'));
         }
         check_admin_referer(self::ACTION);
         update_user_meta(get_current_user_id(), self::META, 1);
@@ -143,7 +146,7 @@ final class ProUpsell
         if (! $this->enabled() || $this->bannerDismissed()) {
             return;
         }
-        $name     = (string) ($this->data()['name'] ?? 'Returns Pro');
+        $name     = (string) ($this->data()['name'] ?? 'Redono Pro');
         $price    = $this->priceLabel();
         $subtitle = implode(', ', array_slice(array_map(
             static fn (array $f): string => $f['title'],
@@ -155,31 +158,36 @@ final class ProUpsell
             <p class="returns-pro-banner__text">
                 <strong><?php
                 /* translators: %s: PRO edition name */
-                printf(esc_html__('Do more with %s', 'plogins-returns'), esc_html($name)); ?></strong>
+                printf(esc_html__('Do more with %s', 'redono'), esc_html($name)); ?></strong>
                 <?php if ($subtitle !== '') : ?><span class="returns-pro-banner__sub"><?php echo esc_html($subtitle); ?></span><?php endif; ?>
                 <?php if ($price !== '') : ?><span class="returns-pro-banner__price"><?php echo esc_html($price); ?></span><?php endif; ?>
             </p>
             <a class="button button-primary returns-pro-banner__cta" href="<?php echo esc_url($this->url()); ?>" target="_blank" rel="noopener noreferrer">
                 <?php echo esc_html($this->ctaLabel()); ?>
             </a>
-            <a class="returns-pro-banner__dismiss" href="<?php echo esc_url($this->dismissUrl()); ?>" aria-label="<?php esc_attr_e('Dismiss this notice', 'plogins-returns'); ?>">&times;</a>
+            <a class="returns-pro-banner__dismiss" href="<?php echo esc_url($this->dismissUrl()); ?>" aria-label="<?php esc_attr_e('Dismiss this notice', 'redono'); ?>">&times;</a>
         </div>
         <?php
     }
 
     /** Sidebar promo panel (sits in the settings two-column layout). */
+    /**
+     * The sidebar promo follows the banner's dismissal. Without that, dismissing
+     * the banner left a full-height advert on the screen for good, which is not
+     * what Guideline 11 means by used with moderation.
+     */
     public function aside(): void
     {
-        if (! $this->enabled()) {
+        if (! $this->enabled() || $this->bannerDismissed()) {
             return;
         }
-        $name     = (string) ($this->data()['name'] ?? 'Returns Pro');
+        $name     = (string) ($this->data()['name'] ?? 'Redono Pro');
         $price    = $this->priceLabel();
         $features = $this->features();
         ?>
         <aside class="returns-card returns-pro-aside" aria-labelledby="returns-pro-aside-h">
             <p class="returns-pro-aside__eyebrow"><?php echo esc_html($name); ?></p>
-            <h2 id="returns-pro-aside-h" class="returns-pro-aside__heading"><?php esc_html_e('Unlock every PRO feature', 'plogins-returns'); ?></h2>
+            <h2 id="returns-pro-aside-h" class="returns-pro-aside__heading"><?php esc_html_e('Unlock every PRO feature', 'redono'); ?></h2>
             <ul class="returns-pro-aside__list">
                 <?php foreach ($features as $f) : ?>
                     <li>
@@ -192,7 +200,7 @@ final class ProUpsell
                 <?php echo esc_html($this->ctaLabel()); ?>
             </a>
             <?php if ($price !== '') : ?>
-                <p class="returns-pro-aside__price"><?php echo esc_html($price); ?><?php if ($this->sellable()) : ?> · <?php esc_html_e('one licence, every PRO feature', 'plogins-returns'); ?><?php endif; ?></p>
+                <p class="returns-pro-aside__price"><?php echo esc_html($price); ?><?php if ($this->sellable()) : ?> · <?php esc_html_e('one licence, every PRO feature', 'redono'); ?><?php endif; ?></p>
             <?php endif; ?>
         </aside>
         <?php
@@ -205,13 +213,13 @@ final class ProUpsell
             return;
         }
         $features = $this->features();
-        $name     = (string) ($this->data()['name'] ?? 'Returns Pro');
+        $name     = (string) ($this->data()['name'] ?? 'Redono Pro');
         ?>
         <section class="returns-pro-cards" aria-labelledby="returns-pro-cards-h">
             <h2 id="returns-pro-cards-h" class="returns-pro-cards__title">
                 <?php
                 /* translators: %s: PRO edition name */
-                printf(esc_html__('What %s adds', 'plogins-returns'), esc_html($name)); ?>
+                printf(esc_html__('What %s adds', 'redono'), esc_html($name)); ?>
             </h2>
             <div class="returns-pro-cards__grid">
                 <?php foreach ($features as $f) : ?>

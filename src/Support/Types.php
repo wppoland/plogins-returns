@@ -37,15 +37,15 @@ final class Types
     public static function all(): array
     {
         $types = [
-            self::RETURN    => __('Return', 'plogins-returns'),
-            self::COMPLAINT => __('Complaint', 'plogins-returns'),
-            self::REPAIR    => __('Repair', 'plogins-returns'),
+            self::RETURN    => __('Return', 'redono'),
+            self::COMPLAINT => __('Complaint', 'redono'),
+            self::REPAIR    => __('Repair', 'redono'),
         ];
 
         /**
          * Filters the list of request types shown on the customer form.
          *
-         * Add-ons (e.g. Returns Pro) can extend this to offer more request
+         * Add-ons (e.g. Redono Pro) can extend this to offer more request
          * kinds. Keep RETURN first so it stays the default.
          *
          * @param array<string, string> $types Type key => label.
@@ -79,9 +79,9 @@ final class Types
     public static function description(string $type): string
     {
         $descriptions = [
-            self::RETURN    => __('Send an item back for a refund or exchange.', 'plogins-returns'),
-            self::COMPLAINT => __('Report a fault or a warranty issue with your order.', 'plogins-returns'),
-            self::REPAIR    => __('Ask us to repair a faulty item (your right to repair).', 'plogins-returns'),
+            self::RETURN    => __('Send an item back for a refund or exchange.', 'redono'),
+            self::COMPLAINT => __('Report a fault or a warranty issue with your order.', 'redono'),
+            self::REPAIR    => __('Ask us to repair a faulty item (your right to repair).', 'redono'),
         ];
 
         return $descriptions[$type] ?? '';
@@ -103,9 +103,9 @@ final class Types
     public static function remedies(): array
     {
         return [
-            self::REMEDY_REPAIR      => __('Repair', 'plogins-returns'),
-            self::REMEDY_REPLACEMENT => __('Replacement', 'plogins-returns'),
-            self::REMEDY_REFUND      => __('Refund', 'plogins-returns'),
+            self::REMEDY_REPAIR      => __('Repair', 'redono'),
+            self::REMEDY_REPLACEMENT => __('Replacement', 'redono'),
+            self::REMEDY_REFUND      => __('Refund', 'redono'),
         ];
     }
 

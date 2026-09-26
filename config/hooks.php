@@ -23,10 +23,12 @@ return is_admin()
         ReturnRequest::class,
         ReturnRequestForm::class,
         MyReturns::class,
+        \Returns\Service\ReturnPrivacyService::class,
         Settings::class,
     ]
     : [
         ReturnRequest::class,
         ReturnRequestForm::class,
         MyReturns::class,
+        \Returns\Service\ReturnPrivacyService::class,
     ];

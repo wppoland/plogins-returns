@@ -13,9 +13,9 @@ Permite que tus clientes soliciten devoluciones y reembolsos desde su cuenta y g
 
 == Description ==
 
-Returns añade a WooCommerce un flujo de devolución de autoservicio (RMA) sencillo. Desde <strong>Mi cuenta → Pedidos</strong>, un cliente abre una solicitud de devolución en un pedido válido: elige los artículos, indica una cantidad, selecciona un motivo y añade una nota opcional. La solicitud se guarda como un registro privado, se te envía por correo electrónico y recibe un estado que el cliente puede seguir desde su cuenta.
+Returns añade a WooCommerce un flujo de devolución de autoservicio (RMA) sencillo. Desde <strong>Mi cuenta > Pedidos</strong>, un cliente abre una solicitud de devolución en un pedido válido: elige los artículos, indica una cantidad, selecciona un motivo y añade una nota opcional. La solicitud se guarda como un registro privado, se te envía por correo electrónico y recibe un estado que el cliente puede seguir desde su cuenta.
 
-Revisas y gestionas cada solicitud en wp-admin, en <strong>WooCommerce → Solicitudes de devolución</strong>, moviendo cada una por los estados solicitada, aprobada, rechazada o completada. El estado que asignes es el que el cliente ve en su cuenta.
+Revisas y gestionas cada solicitud en wp-admin, en <strong>WooCommerce > Solicitudes de devolución</strong>, moviendo cada una por los estados solicitada, aprobada, rechazada o completada. El estado que asignes es el que el cliente ve en su cuenta.
 
 Es un plugin de solicitudes y estados: no mueve dinero. Procesa cualquier reembolso en la pantalla de pedido habitual de WooCommerce; el registro de devolución mantiene la solicitud y su estado en un solo lugar.
 
@@ -44,10 +44,10 @@ El código fuente y los informes de errores están en https://github.com/wppolan
 
 == Installation ==
 
-1. Sube el plugin a `/wp-content/plugins/returns` o instálalo desde Plugins → Añadir nuevo.
+1. Sube el plugin a `/wp-content/plugins/returns` o instálalo desde Plugins > Añadir nuevo.
 2. Actívalo. WooCommerce debe estar instalado y activo.
-3. Ve a <strong>WooCommerce → Devoluciones</strong> para elegir los estados de pedido válidos y la ventana de devolución.
-4. Los clientes ya pueden abrir una devolución desde <strong>Mi cuenta → Pedidos</strong> en cualquier pedido válido.
+3. Ve a <strong>WooCommerce > Devoluciones</strong> para elegir los estados de pedido válidos y la ventana de devolución.
+4. Los clientes ya pueden abrir una devolución desde <strong>Mi cuenta > Pedidos</strong> en cualquier pedido válido.
 
 == Frequently Asked Questions ==
 
@@ -57,7 +57,7 @@ Sí. WooCommerce debe estar instalado y activo.
 
 = Which orders can be returned? =
 
-Los pedidos en los estados que elijas en WooCommerce → Devoluciones (por defecto, Completado y Procesando), dentro de la ventana de devolución que definas. Pon la ventana en 0 para quitar el límite de tiempo.
+Los pedidos en los estados que elijas en WooCommerce > Devoluciones (por defecto, Completado y Procesando), dentro de la ventana de devolución que definas. Pon la ventana en 0 para quitar el límite de tiempo.
 
 = Does it issue refunds automatically? =
 
