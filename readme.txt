@@ -5,7 +5,7 @@ Requires at least: 6.5
 Tested up to: 7.1
 Requires PHP: 8.1
 Requires Plugins: woocommerce
-Stable tag: 1.2.4
+Stable tag: 1.2.5
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -118,6 +118,9 @@ Redono connects to no external services. It sends no data off your site and load
 Redono is fully translatable and ships the `redono.pot` template. Translations are delivered by WordPress.org language packs from translate.wordpress.org, which is where Polish, German and Spanish are being contributed; the package itself carries no compiled translation files.
 
 == Changelog ==
+
+= 1.2.5 =
+* The upgrade notice's "Coming soon" and "Get notified" labels are English source strings for every language; Polish sites used to get their own Polish source text, which translators in other languages then saw untranslated.
 
 = 1.2.4 =
 * Hardening: the item and quantity lists posted by the return request form are now sanitised as integers at the moment they are read, instead of being read raw and cast later.
