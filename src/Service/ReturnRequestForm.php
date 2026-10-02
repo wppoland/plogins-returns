@@ -550,12 +550,10 @@ final class ReturnRequestForm implements HasHooks
             $lines[] = $note;
         }
 
-        $editLink = get_edit_post_link($postId, 'raw');
-
-        if (is_string($editLink) && '' !== $editLink) {
-            $lines[] = '';
-            $lines[] = __('Manage in admin:', 'redono') . ' ' . $editLink;
-        }
+        // Not get_edit_post_link(): it checks the current user, and here that is
+        // the customer, who cannot edit the record, so the link was always empty.
+        $lines[] = '';
+        $lines[] = __('Manage in admin:', 'redono') . ' ' . admin_url('post.php?post=' . $postId . '&action=edit');
 
         $subject = sprintf(
             /* translators: 1: request type label, 2: order number */

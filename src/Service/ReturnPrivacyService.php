@@ -110,6 +110,8 @@ final class ReturnPrivacyService implements HasHooks
         foreach ($postIds as $postId) {
             update_post_meta($postId, ReturnRequest::META_CUSTOMER_ID, 0);
             update_post_meta($postId, ReturnRequest::META_NOTE, '');
+            // The customer also submitted the record, so they are its author.
+            wp_update_post(['ID' => $postId, 'post_author' => 0]);
             $anonymized++;
         }
 
@@ -139,7 +141,7 @@ final class ReturnPrivacyService implements HasHooks
                 'return'        => 'ids',
             ]);
             if (is_array($orders)) {
-                $orderIds = array_map('intval', $orders);
+                $orderIds = wp_parse_id_list($orders);
             }
         }
 
