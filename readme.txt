@@ -5,7 +5,7 @@ Requires at least: 6.5
 Tested up to: 7.1
 Requires PHP: 8.1
 Requires Plugins: woocommerce
-Stable tag: 1.2.5
+Stable tag: 1.2.6
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -118,6 +118,11 @@ Redono connects to no external services. It sends no data off your site and load
 Redono is fully translatable and ships the `redono.pot` template. Translations are delivered by WordPress.org language packs from translate.wordpress.org, which is where Polish, German and Spanish are being contributed; the package itself carries no compiled translation files.
 
 == Changelog ==
+
+= 1.2.6 =
+* The new-request email to the store now carries its "Manage in admin" link. It was always missing, because the link was built with the permissions of the customer who submitted the form.
+* A personal-data erasure now also clears the customer as the author of their request records; it used to clear only the stored customer ID and note.
+* The settings screen confirms a save with a "Settings saved" notice.
 
 = 1.2.5 =
 * The upgrade notice's "Coming soon" and "Get notified" labels are English source strings for every language; Polish sites used to get their own Polish source text, which translators in other languages then saw untranslated.
