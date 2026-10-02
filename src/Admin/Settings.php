@@ -100,6 +100,8 @@ final class Settings implements HasHooks
         <div class="wrap returns-admin">
             <h1><?php echo esc_html(get_admin_page_title()); ?></h1>
 
+            <?php settings_errors(); ?>
+
             <?php $this->proUpsell()->banner(); ?>
 
             <div class="returns-intro">
