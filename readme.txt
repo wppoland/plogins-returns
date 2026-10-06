@@ -59,7 +59,7 @@ In WordPress. Each request is a private `returns_rma` custom post type with its 
 
 1. Upload the plugin to `/wp-content/plugins/redono`, or install via Plugins > Add New.
 2. Activate it. WooCommerce must be installed and active.
-3. Go to **WooCommerce > Returns** to choose eligible order statuses and the return window.
+3. Go to **WooCommerce > Redono** to choose eligible order statuses and the return window.
 4. Customers can now open a return from **My Account > Orders** on any eligible order.
 
 == Frequently Asked Questions ==
@@ -70,7 +70,7 @@ Yes. WooCommerce must be installed and active.
 
 = Which orders can be returned? =
 
-Orders in the statuses you choose under WooCommerce > Returns (Completed and
+Orders in the statuses you choose under WooCommerce > Redono (Completed and
 Processing by default), within the return window you set. Set the window to 0 to
 remove the time limit.
 
