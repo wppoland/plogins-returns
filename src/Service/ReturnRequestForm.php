@@ -18,8 +18,10 @@ defined('ABSPATH') || exit;
  * Adds an action to each eligible order, registers a `request-return` account
  * endpoint, renders the item-picker form, and processes the submission. Every
  * step is ownership-checked: only the logged-in owner of an order may open a
- * return for it (no IDOR). All output is escaped; all input is sanitised and
- * nonce-verified.
+ * return for it (no IDOR). A guest order is reached instead through an order
+ * number + billing email lookup on the same endpoint, which binds the visitor
+ * to that one order (see GuestAccess). All output is escaped; all input is
+ * sanitised and nonce-verified.
  */
 final class ReturnRequestForm implements HasHooks
 {
@@ -27,14 +29,21 @@ final class ReturnRequestForm implements HasHooks
 
     private const NONCE = 'returns_submit_request';
 
+    private const LOOKUP_NONCE = 'returns_guest_lookup';
+
+    /** Query/form parameter carrying the signed guest access token. */
+    private const GUEST_PARAM = 'returns_guest';
+
     /** @var array<string, string> Validation errors keyed by field. */
     private array $errors = [];
 
     /** @var array<string, string> Submitted values retained for the error re-render. */
     private array $submitted = [];
 
-    public function __construct(private readonly ReturnRequest $requests)
-    {
+    public function __construct(
+        private readonly ReturnRequest $requests,
+        private readonly GuestAccess $guest,
+    ) {
     }
 
     public function registerHooks(): void
@@ -53,6 +62,11 @@ final class ReturnRequestForm implements HasHooks
         add_action('woocommerce_order_details_after_order_table', [$this, 'orderViewButton'], 10, 1);
 
         add_action('template_redirect', [$this, 'maybeHandleSubmit']);
+        add_action('template_redirect', [$this, 'maybeHandleLookup']);
+
+        // Logged-out visitors get the login form on every account URL, so the
+        // guest lookup lives above it.
+        add_action('woocommerce_before_customer_login_form', [$this, 'renderGuest']);
     }
 
     public function addEndpoint(): void
@@ -123,7 +137,9 @@ final class ReturnRequestForm implements HasHooks
         // WooCommerce 10.9 started feeding this filter into order-details.php,
         // which also renders the order-received screen. A return link belongs on
         // My Account, not on the page a shopper lands on straight after paying.
-        if (function_exists('is_order_received_page') && is_order_received_page()) {
+        // The single order view already has orderViewButton(), so adding the
+        // action there too would print the link twice.
+        if ((function_exists('is_order_received_page') && is_order_received_page()) || is_wc_endpoint_url('view-order')) {
             return $actions;
         }
 
@@ -237,22 +253,31 @@ final class ReturnRequestForm implements HasHooks
             return;
         }
 
-        if (! is_user_logged_in()) {
+        $guestToken = isset($_POST[self::GUEST_PARAM]) ? GuestAccess::clean(sanitize_text_field(wp_unslash($_POST[self::GUEST_PARAM]))) : '';
+
+        if ('' !== $guestToken) {
+            // Guest path: the order comes from the signed token only, the
+            // posted order id is ignored.
+            $order = $this->guestOrder($guestToken);
+        } elseif (! is_user_logged_in()) {
             $this->errors['_form'] = __('Please log in to request a return.', 'redono');
 
             return;
+        } else {
+            $orderId = isset($_POST['returns_order_id']) ? absint(wp_unslash($_POST['returns_order_id'])) : 0;
+            $order   = $orderId > 0 ? wc_get_order($orderId) : null;
+            $order   = $order instanceof \WC_Order && $this->ownsOrder($order) ? $order : null;
         }
 
-        $orderId = isset($_POST['returns_order_id']) ? absint(wp_unslash($_POST['returns_order_id'])) : 0;
-        $order   = $orderId > 0 ? wc_get_order($orderId) : null;
+        $type = isset($_POST['returns_type']) ? sanitize_key(wp_unslash($_POST['returns_type'])) : '';
 
-        if (! $order instanceof \WC_Order || ! $this->ownsOrder($order) || ! $this->isEligible($order)) {
+        if (! $order instanceof \WC_Order || ! $this->isEligible($order)) {
             $this->errors['_form'] = __('That order could not be found, or you do not have permission to return it.', 'redono');
 
             return;
         }
 
-        $type   = isset($_POST['returns_type']) ? sanitize_key(wp_unslash($_POST['returns_type'])) : '';
+        $orderId = (int) $order->get_id();
         $items  = $this->collectItems($order);
         $reason = isset($_POST['returns_reason']) ? sanitize_text_field(wp_unslash($_POST['returns_reason'])) : '';
         $note   = isset($_POST['returns_note']) ? sanitize_textarea_field(wp_unslash($_POST['returns_note'])) : '';
@@ -268,6 +293,8 @@ final class ReturnRequestForm implements HasHooks
 
         if (! Types::isValid($type)) {
             $this->errors['type'] = __('Please choose the kind of request you want to make.', 'redono');
+        } elseif (! $this->isEligible($order, $type)) {
+            $this->errors['type'] = __('The time limit for this kind of request has passed for this order.', 'redono');
         }
 
         if ([] === $items) {
@@ -301,14 +328,173 @@ final class ReturnRequestForm implements HasHooks
             return;
         }
 
-        $postId = $this->requests->create((int) $order->get_id(), get_current_user_id(), $items, $reason, $note, $type, $remedy);
+        $postId = $this->requests->create($orderId, '' === $guestToken ? get_current_user_id() : 0, $items, $reason, $note, $type, $remedy);
 
         if ($postId > 0) {
             $this->notifyMerchant($postId, $order, $items, $reason, $note, $type, $remedy);
+            $this->notifyCustomer($postId, $order, $items, $type);
         }
 
-        wp_safe_redirect(add_query_arg('returns_sent', '1', wc_get_account_endpoint_url('orders')));
+        // A guest has no orders screen, so they land back on the lookup page.
+        $target = '' === $guestToken ? wc_get_account_endpoint_url('orders') : wc_get_account_endpoint_url(self::ENDPOINT);
+
+        wp_safe_redirect(add_query_arg('returns_sent', '1', $target));
         exit;
+    }
+
+    /**
+     * Handle the guest lookup (order number + billing email). On a match the
+     * visitor is redirected to the form with a token bound to that order.
+     */
+    public function maybeHandleLookup(): void
+    {
+        if (! isset($_POST['returns_lookup'])) { // phpcs:ignore WordPress.Security.NonceVerification.Missing -- nonce verified below.
+            return;
+        }
+
+        $nonce = isset($_POST['returns_lookup_nonce'])
+            ? sanitize_text_field(wp_unslash($_POST['returns_lookup_nonce']))
+            : '';
+
+        if (! wp_verify_nonce($nonce, self::LOOKUP_NONCE)) {
+            $this->errors['_lookup'] = __('Your session expired. Please try again.', 'redono');
+
+            return;
+        }
+
+        $number = isset($_POST['returns_lookup_order']) ? sanitize_text_field(wp_unslash($_POST['returns_lookup_order'])) : '';
+        $email  = isset($_POST['returns_lookup_email']) ? sanitize_text_field(wp_unslash($_POST['returns_lookup_email'])) : '';
+
+        $this->submitted['lookup_order'] = $number;
+        $this->submitted['lookup_email'] = $email;
+
+        // Counted before the lookup, so a match and a miss cost the same.
+        if ($this->guest->throttled($this->clientIp())) {
+            $this->errors['_lookup'] = __('Too many attempts. Please wait 15 minutes and try again.', 'redono');
+
+            return;
+        }
+
+        $order = $this->guest->lookup($number, $email);
+
+        // One message for every failure: wrong number, wrong email, an order
+        // that belongs to an account, or an order past its windows.
+        if (! $order instanceof \WC_Order || ! $this->isEligible($order)) {
+            $this->errors['_lookup'] = __('We could not find an eligible order with that order number and email address.', 'redono');
+
+            return;
+        }
+
+        wp_safe_redirect(add_query_arg(self::GUEST_PARAM, $this->guest->issue((int) $order->get_id()), wc_get_account_endpoint_url(self::ENDPOINT)));
+        exit;
+    }
+
+    /**
+     * The guest view, shown above the login form to logged-out visitors: a link
+     * on the plain login page, the lookup or the request form on the endpoint.
+     */
+    public function renderGuest(): void
+    {
+        if (is_user_logged_in()) {
+            return;
+        }
+
+        if (! is_wc_endpoint_url(self::ENDPOINT)) {
+            printf(
+                '<p class="returns-guest-link"><a href="%1$s">%2$s</a></p>',
+                esc_url(wc_get_account_endpoint_url(self::ENDPOINT)),
+                esc_html__('Ordered without an account? Request a return with your order number.', 'redono'),
+            );
+
+            return;
+        }
+
+        echo '<div class="returns-form-wrap">';
+
+        // Read-only flags; the token is verified by resolve().
+        // phpcs:disable WordPress.Security.NonceVerification.Recommended
+        $sent  = isset($_GET['returns_sent']);
+        $token = isset($_GET[self::GUEST_PARAM]) ? GuestAccess::clean(sanitize_text_field(wp_unslash($_GET[self::GUEST_PARAM]))) : '';
+        // phpcs:enable WordPress.Security.NonceVerification.Recommended
+
+        if ($sent) {
+            printf(
+                '<div class="returns-notice returns-notice--success" role="status"><strong>%1$s</strong> %2$s</div>',
+                esc_html__('Return requested.', 'redono'),
+                esc_html__('We have received your return request and will be in touch shortly.', 'redono'),
+            );
+        }
+
+        $order = '' !== $token ? $this->guestOrder($token) : null;
+
+        if ($order instanceof \WC_Order && $this->isEligible($order)) {
+            if ($this->allTypesSubmitted((int) $order->get_id())) {
+                $this->renderNotice(__('A request of every type has already been submitted for this order.', 'redono'), 'info');
+            } else {
+                $this->renderForm($order, $token);
+            }
+
+            echo '</div>';
+
+            return;
+        }
+
+        if ('' !== $token) {
+            $this->renderNotice(__('This link has expired. Please look up your order again.', 'redono'), 'info');
+        }
+
+        $this->renderLookupForm();
+
+        echo '</div>';
+    }
+
+    private function renderLookupForm(): void
+    {
+        if (isset($this->errors['_lookup'])) {
+            $this->renderNotice($this->errors['_lookup'], 'error');
+        }
+        ?>
+        <h2><?php esc_html_e('Request a return for a guest order', 'redono'); ?></h2>
+        <p><?php esc_html_e('Enter the order number and the billing email address used at checkout. If you have an account, log in below instead.', 'redono'); ?></p>
+        <form method="post" class="returns-form returns-lookup">
+            <?php wp_nonce_field(self::LOOKUP_NONCE, 'returns_lookup_nonce'); ?>
+            <p class="returns-form__field">
+                <label for="returns-lookup-order"><?php esc_html_e('Order number', 'redono'); ?> <span class="returns-form__req" aria-hidden="true">*</span></label>
+                <input type="text" id="returns-lookup-order" name="returns_lookup_order" required autocomplete="off"
+                    value="<?php echo esc_attr($this->submitted['lookup_order'] ?? ''); ?>" />
+            </p>
+            <p class="returns-form__field">
+                <label for="returns-lookup-email"><?php esc_html_e('Billing email', 'redono'); ?> <span class="returns-form__req" aria-hidden="true">*</span></label>
+                <input type="email" id="returns-lookup-email" name="returns_lookup_email" required autocomplete="email"
+                    value="<?php echo esc_attr($this->submitted['lookup_email'] ?? ''); ?>" />
+            </p>
+            <p class="returns-form__submit">
+                <button type="submit" name="returns_lookup" value="1" class="button"><?php esc_html_e('Find my order', 'redono'); ?></button>
+            </p>
+        </form>
+        <?php
+    }
+
+    /**
+     * The guest order a token grants, or null. Re-checks that the order is still
+     * a guest order, so a token can never outlive an order being claimed by an
+     * account.
+     */
+    private function guestOrder(string $token): ?\WC_Order
+    {
+        $orderId = $this->guest->resolve($token);
+        $order   = $orderId > 0 ? wc_get_order($orderId) : null;
+
+        return $order instanceof \WC_Order && 0 === (int) $order->get_customer_id() ? $order : null;
+    }
+
+    /**
+     * REMOTE_ADDR only: forwarded headers are client-controlled, honouring them
+     * would hand out a fresh throttle bucket per request.
+     */
+    private function clientIp(): string
+    {
+        return isset($_SERVER['REMOTE_ADDR']) ? sanitize_text_field(wp_unslash($_SERVER['REMOTE_ADDR'])) : '';
     }
 
     /**
@@ -356,8 +542,15 @@ final class ReturnRequestForm implements HasHooks
         return $items;
     }
 
-    private function renderForm(\WC_Order $order): void
+    private function renderForm(\WC_Order $order, string $guestToken = ''): void
     {
+        // Only the types whose time window is still open for this order.
+        $types = array_filter(
+            Types::all(),
+            fn ($typeKey): bool => $this->isEligible($order, (string) $typeKey),
+            ARRAY_FILTER_USE_KEY,
+        );
+
         if (isset($this->errors['_form'])) {
             $this->renderNotice($this->errors['_form'], 'error');
         }
@@ -377,19 +570,22 @@ final class ReturnRequestForm implements HasHooks
             <?php
             wp_nonce_field(self::NONCE, 'returns_nonce');
             $chosenType   = $this->submitted['type'] ?? Types::RETURN;
-            $chosenType   = Types::isValid($chosenType) ? $chosenType : Types::RETURN;
+            $chosenType   = isset($types[$chosenType]) ? $chosenType : (string) array_key_first($types);
             $chosenReason = $this->submitted['reason'] ?? '';
             $chosenRemedy = $this->submitted['remedy'] ?? '';
             $chosenNote   = $this->submitted['note'] ?? '';
             ?>
             <input type="hidden" name="returns_order_id" value="<?php echo esc_attr((string) $order->get_id()); ?>" />
+            <?php if ('' !== $guestToken) : ?>
+                <input type="hidden" name="<?php echo esc_attr(self::GUEST_PARAM); ?>" value="<?php echo esc_attr($guestToken); ?>" />
+            <?php endif; ?>
 
             <fieldset class="returns-form__type">
                 <legend><?php esc_html_e('What would you like to do?', 'redono'); ?> <span class="returns-form__req" aria-hidden="true">*</span></legend>
                 <?php if (isset($this->errors['type'])) : ?>
                     <span class="returns-form__error" role="alert"><?php echo esc_html($this->errors['type']); ?></span>
                 <?php endif; ?>
-                <?php foreach (Types::all() as $typeKey => $typeLabel) :
+                <?php foreach ($types as $typeKey => $typeLabel) :
                     $descId = 'returns-type-desc-' . $typeKey;
                     ?>
                     <label class="returns-type">
@@ -495,7 +691,7 @@ final class ReturnRequestForm implements HasHooks
 
             <p class="returns-form__submit">
                 <button type="submit" name="returns_submit" value="1" class="button alt"><?php esc_html_e('Submit return request', 'redono'); ?></button>
-                <a class="returns-form__cancel" href="<?php echo esc_url(wc_get_account_endpoint_url('orders')); ?>"><?php esc_html_e('Cancel', 'redono'); ?></a>
+                <a class="returns-form__cancel" href="<?php echo esc_url('' === $guestToken ? wc_get_account_endpoint_url('orders') : wc_get_account_endpoint_url(self::ENDPOINT)); ?>"><?php esc_html_e('Cancel', 'redono'); ?></a>
             </p>
         </form>
         <?php
@@ -566,29 +762,83 @@ final class ReturnRequestForm implements HasHooks
     }
 
     /**
-     * Whether an order is within the configured return window and status set.
+     * Email the customer a receipt for the request they just filed.
+     *
+     * @param array<int, array{item_id: int, name: string, qty: int}> $items
      */
-    private function isEligible(\WC_Order $order): bool
+    private function notifyCustomer(int $postId, \WC_Order $order, array $items, string $type): void
+    {
+        $recipient = (string) $order->get_billing_email();
+
+        if (! is_email($recipient)) {
+            return;
+        }
+
+        $site = wp_specialchars_decode((string) get_bloginfo('name'), ENT_QUOTES);
+
+        $lines   = [];
+        $lines[] = sprintf(
+            /* translators: 1: request type label, 2: order number */
+            __('We have received your %1$s request for order #%2$s.', 'redono'),
+            Types::label($type),
+            (string) $order->get_order_number(),
+        );
+        $lines[] = '';
+        $lines[] = __('Request number:', 'redono') . ' #' . $postId;
+        $lines[] = __('Type:', 'redono') . ' ' . Types::label($type);
+        $lines[] = '';
+        $lines[] = __('Requested items:', 'redono');
+
+        foreach ($items as $item) {
+            $lines[] = sprintf('- %1$s x %2$d', $item['name'], $item['qty']);
+        }
+
+        $lines[] = '';
+        $lines[] = __('We will review your request and get back to you.', 'redono');
+
+        if ((int) $order->get_customer_id() > 0) {
+            $lines[] = __('You can follow its status in your account:', 'redono') . ' ' . wc_get_account_endpoint_url('orders');
+        }
+
+        $lines[] = '';
+        $lines[] = $site;
+
+        $subject = sprintf(
+            /* translators: 1: site name, 2: request type label, 3: request number */
+            __('[%1$s] Your %2$s request #%3$d has been received', 'redono'),
+            $site,
+            Types::label($type),
+            $postId,
+        );
+
+        wp_mail($recipient, $subject, implode("\n", $lines));
+    }
+
+    /**
+     * Whether an order is in an eligible status and inside the time window of
+     * $type. With no type: whether any request type is still open for it.
+     */
+    private function isEligible(\WC_Order $order, ?string $type = null): bool
     {
         if (! in_array($order->get_status(), Options::eligibleStatuses(), true)) {
             return false;
         }
 
-        $window = Options::windowDays();
+        $created = $order->get_date_created();
 
-        if ($window > 0) {
-            $created = $order->get_date_created();
+        if (! $created instanceof \WC_DateTime) {
+            return true;
+        }
 
-            if ($created instanceof \WC_DateTime) {
-                $ageDays = (int) floor((time() - $created->getTimestamp()) / DAY_IN_SECONDS);
+        $types = null === $type ? array_keys(Types::all()) : [$type];
 
-                if ($ageDays > $window) {
-                    return false;
-                }
+        foreach ($types as $candidate) {
+            if (Options::windowOpen($created->getTimestamp(), time(), (string) $candidate)) {
+                return true;
             }
         }
 
-        return true;
+        return false;
     }
 
     /**

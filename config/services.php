@@ -13,6 +13,7 @@ use Returns\Admin\Settings;
 use Returns\Container;
 use Returns\Migrator;
 use Returns\PostType\ReturnRequest;
+use Returns\Service\GuestAccess;
 use Returns\Service\MyReturns;
 use Returns\Service\ReturnRequestForm;
 
@@ -27,6 +28,7 @@ return static function (Container $c): void {
     // Storefront: the "Request a return" My Account flow (form + submission).
     $c->singleton(ReturnRequestForm::class, static fn (): ReturnRequestForm => new ReturnRequestForm(
         $c->get(ReturnRequest::class),
+        new GuestAccess(),
     ));
 
     // Storefront: confirmation notice + the customer's own return-status list.
