@@ -24,4 +24,8 @@ return [
 
     // Days after the order date during which a return may be requested. 0 = no limit.
     'window_days' => 30,
+
+    // Months after the order date during which a complaint or repair request may
+    // be filed. 24 matches the EU legal guarantee. 0 = no limit.
+    'complaint_window_months' => 24,
 ];

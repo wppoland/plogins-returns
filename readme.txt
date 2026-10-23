@@ -5,11 +5,11 @@ Requires at least: 6.5
 Tested up to: 7.1
 Requires PHP: 8.1
 Requires Plugins: woocommerce
-Stable tag: 1.2.6
+Stable tag: 1.3.1
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
-Let customers request returns, complaints and repairs from their account and manage RMAs in the admin.
+Returns, complaints and EU Right to Repair requests from My Account, also for guest orders, all answered from one admin list.
 
 == Description ==
 
@@ -19,7 +19,7 @@ Redono gives a WooCommerce shop the after-sale half it usually lacks: a place fo
 * A **Complaint**, reporting a fault or a warranty issue.
 * A **Repair**, asking you to repair a faulty item. This is the EU Right to Repair path, Directive (EU) 2024/1799.
 
-They pick the items and quantities, choose a reason from a list that fits the type they picked, add a note, and for a complaint or a repair state the remedy they would prefer: repair, replacement or refund. The request is stored as a private record, emailed to you, and given a status the customer can follow from their own account.
+They pick the items and quantities, choose a reason from a list that fits the type they picked, add a note, and for a complaint or a repair state the remedy they would prefer: repair, replacement or refund. The request is stored as a private record, emailed to you, confirmed to the customer by email with its request number, and given a status the customer can follow from their own account.
 
 Each order accepts one request of each type, so a customer who has already returned part of an order can still raise a separate complaint or repair on it later.
 
@@ -37,7 +37,7 @@ It is not legal advice. The request types map onto EU consumer law, and the word
 
 = Where the data lives =
 
-In WordPress. Each request is a private `returns_rma` custom post type with its own meta; the settings are two options. No account, no external service, no third-party script, and the notification email goes through your site's own `wp_mail`.
+In WordPress. Each request is a private `returns_rma` custom post type with its own meta; the settings are two options. No account, no external service, no third-party script, and the notification and receipt emails go through your site's own `wp_mail`.
 
 = Features =
 
@@ -46,9 +46,11 @@ In WordPress. Each request is a private `returns_rma` custom post type with its 
 * Type-aware reasons: each request type offers its own reason list, validated on the server.
 * Preferred remedy (repair, replacement or refund) captured for complaint and repair requests.
 * Item picker with per-item quantity, a reason dropdown and an optional note.
-* Ownership-checked: only the logged-in owner of an order can request a return for it.
-* Configurable eligible order statuses and a return window (in days).
+* Ownership-checked: an order placed with an account can be requested only by its logged-in owner.
+* Guest orders: a shopper who checked out without an account finds the order by order number and billing email, is limited to 5 attempts per 15 minutes, and reaches only that one order.
+* Configurable eligible order statuses, a return window in days and a separate complaint and repair window in months (24 by default, the EU legal guarantee).
 * Each request is saved as a private custom post type and emailed to the store admin.
+* The customer receives a receipt email with the request type, the items and the request number.
 * Admin management screen with a status workflow (requested, approved, rejected, completed), a Type column and a filter by request type.
 * Customer-facing status list in My Account so shoppers can track their returns.
 * Accessible markup with a responsive layout; storefront styles inherit your theme's colours, so they sit in light or dark themes without extra work.
@@ -59,7 +61,7 @@ In WordPress. Each request is a private `returns_rma` custom post type with its 
 
 1. Upload the plugin to `/wp-content/plugins/redono`, or install via Plugins > Add New.
 2. Activate it. WooCommerce must be installed and active.
-3. Go to **WooCommerce > Redono** to choose eligible order statuses and the return window.
+3. Go to **WooCommerce > Redono** to choose eligible order statuses and the time windows.
 4. Customers can now open a return from **My Account > Orders** on any eligible order.
 
 == Frequently Asked Questions ==
@@ -71,8 +73,9 @@ Yes. WooCommerce must be installed and active.
 = Which orders can be returned? =
 
 Orders in the statuses you choose under WooCommerce > Redono (Completed and
-Processing by default), within the return window you set. Set the window to 0 to
-remove the time limit.
+Processing by default). A Return must be filed within the return window in days
+(30 by default); a Complaint or Repair within the complaint and repair window in
+months (24 by default). Set either window to 0 to remove that time limit.
 
 = Does it issue refunds automatically? =
 
@@ -92,6 +95,21 @@ one Repair request. Once all three types have been used, the order's detail page
 and the request endpoint both show a notice instead of the form. The link in the
 My Account orders list still appears; opening it leads to that same notice.
 
+= Can a guest customer file a request? =
+
+Yes. On the My Account login page a guest follows the "Ordered without an account?"
+link, enters the order number and the billing email, and gets the request form for
+that order. A wrong number and a wrong email give the same message, attempts are
+limited to 5 per 15 minutes per IP address, and access lasts 30 minutes and covers
+that one order only. Orders placed by a registered customer are reached by logging
+in, never by this lookup.
+
+= Does the customer get a confirmation email? =
+
+Yes. On submission the billing email receives a receipt with the request type, the
+items and the request number. Emails about later status changes are not part of
+this plugin.
+
 = What is the Repair request type for? =
 
 It is the EU Right to Repair path (Directive (EU) 2024/1799). A customer can ask
@@ -108,16 +126,26 @@ Yes. This plugin is compatible with WordPress Multisite. Network activate it or 
 
 1. The request form in My Account: the customer picks return, complaint or repair, then the items and quantities.
 2. The settings screen: who may request, from which order statuses, and for how long after the order.
+3. A repair request: reasons that fit the chosen type, and the remedy the customer prefers.
+4. Guest orders: a shopper who checked out without an account finds the order by order number and billing email.
 
 == External Services ==
 
-Redono connects to no external services. It sends no data off your site and loads no third-party scripts, fonts or APIs. Each return request is stored locally in WordPress as a private `returns_rma` custom post type (with `_returns_*` post meta for the order, customer, items, reason, note and status), and the plugin's configuration lives in the `returns_settings` and `returns_db_version` options. The admin notification email is sent through your site's own WordPress mail (`wp_mail`), so delivery uses whatever mail setup your server or SMTP plugin already provides.
+Redono connects to no external services. It sends no data off your site and loads no third-party scripts, fonts or APIs. Each return request is stored locally in WordPress as a private `returns_rma` custom post type (with `_returns_*` post meta for the order, customer, items, reason, note and status), and the plugin's configuration lives in the `returns_settings` and `returns_db_version` options. The admin notification email and the customer's receipt are sent through your site's own WordPress mail (`wp_mail`), so delivery uses whatever mail setup your server or SMTP plugin already provides.
 
 == Translations ==
 
 Redono is fully translatable and ships the `redono.pot` template. Translations are delivered by WordPress.org language packs from translate.wordpress.org, which is where Polish, German and Spanish are being contributed; the package itself carries no compiled translation files.
 
 == Changelog ==
+
+= 1.3.1 =
+* The "Request a return" link no longer shows twice on the single order view in My Account with WooCommerce 10.9 or later.
+
+= 1.3.0 =
+* Complaint and repair requests have their own time window, in months, 24 by default to match the EU legal guarantee. Returns keep the window in days. The form offers only the request types whose window is still open for that order.
+* Guest orders: a shopper without an account can file a request by entering the order number and billing email. The lookup does not say which of the two was wrong, allows 5 attempts per 15 minutes per IP address, never reaches an order that belongs to a registered customer, and grants 30 minutes of access to that one order only.
+* The customer now gets a receipt email on submission with the request type, the items and the request number.
 
 = 1.2.6 =
 * The new-request email to the store now carries its "Manage in admin" link. It was always missing, because the link was built with the permissions of the customer who submitted the form.

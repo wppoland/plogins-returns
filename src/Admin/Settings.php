@@ -14,7 +14,8 @@ use Returns\Support\Options;
  * Admin settings page registered as a WooCommerce submenu.
  *
  * Stores everything in the `returns_settings` option (array): the master
- * toggle, the eligible order statuses and the return window. All output is
+ * toggle, the eligible order statuses, the return window (days) and the
+ * complaint and repair window (months). All output is
  * escaped; all input is sanitised on save. The page also links to the saved
  * Return Requests list.
  */
@@ -170,13 +171,33 @@ final class Settings implements HasHooks
                                     <input type="number" min="0" step="1" id="returns_window_days" class="small-text"
                                         name="<?php echo esc_attr(Options::OPTION); ?>[window_days]"
                                         value="<?php echo esc_attr((string) ($settings['window_days'] ?? 30)); ?>" />
-                                    <p class="description"><?php esc_html_e('Counted from the order date. After it passes, the return link no longer appears for that order. Set 0 to accept returns with no deadline. Ships at 30.', 'redono'); ?></p>
+                                    <p class="description"><?php esc_html_e('Applies to Return requests. Counted from the order date. After it passes, the customer can no longer choose Return for that order. Set 0 to accept returns with no deadline. Ships at 30.', 'redono'); ?></p>
                                     <p class="returns-example">
                                         <?php
                                         printf(
-                                            /* translators: %s is the number of days in the return window. */
+                                            /* translators: %s is the date the return window closes. */
                                             esc_html__('Example: an order placed today can be returned until %s.', 'redono'),
-                                            '<strong>' . esc_html($this->windowExample((int) ($settings['window_days'] ?? 30))) . '</strong>'
+                                            '<strong>' . esc_html($this->windowExample((int) ($settings['window_days'] ?? 30), 'days')) . '</strong>'
+                                        );
+                                        ?>
+                                    </p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th scope="row">
+                                    <label for="returns_complaint_window_months"><?php esc_html_e('Complaint and repair window (months)', 'redono'); ?></label>
+                                </th>
+                                <td>
+                                    <input type="number" min="0" step="1" id="returns_complaint_window_months" class="small-text"
+                                        name="<?php echo esc_attr(Options::OPTION); ?>[complaint_window_months]"
+                                        value="<?php echo esc_attr((string) Options::complaintWindowMonths()); ?>" />
+                                    <p class="description"><?php esc_html_e('Applies to Complaint and Repair requests, counted from the order date. A fault can surface long after the return window has closed, and in the EU the legal guarantee runs for at least two years, so this window is separate. Set 0 for no deadline. Ships at 24.', 'redono'); ?></p>
+                                    <p class="returns-example">
+                                        <?php
+                                        printf(
+                                            /* translators: %s is the date the complaint and repair window closes. */
+                                            esc_html__('Example: an order placed today can receive a complaint or repair request until %s.', 'redono'),
+                                            '<strong>' . esc_html($this->windowExample(Options::complaintWindowMonths(), 'months')) . '</strong>'
                                         );
                                         ?>
                                     </p>
@@ -200,17 +221,18 @@ final class Settings implements HasHooks
     /**
      * Human-readable deadline for the inline window example.
      *
-     * Presentation only: turns the saved window into "31 July 2026" using the
+     * Presentation only: turns the saved window ($unit is the strtotime unit,
+     * days or months) into "31 July 2026" using the
      * site's date format, or a no-deadline phrase when the window is open.
      */
-    private function windowExample(int $days): string
+    private function windowExample(int $count, string $unit): string
     {
-        if ($days <= 0) {
+        if ($count <= 0) {
             return __('any time later, no deadline', 'redono');
         }
 
         $format = (string) get_option('date_format', 'F j, Y');
-        $when   = strtotime('+' . $days . ' days', current_time('timestamp'));
+        $when   = strtotime('+' . $count . ' ' . $unit, current_time('timestamp'));
 
         return (string) wp_date($format, $when ?: null);
     }
@@ -271,6 +293,7 @@ final class Settings implements HasHooks
             'enabled'           => ! empty($raw['enabled']),
             'eligible_statuses' => array_values(array_unique($eligible)),
             'window_days'       => isset($raw['window_days']) ? max(0, absint($raw['window_days'])) : 30,
+            'complaint_window_months' => isset($raw['complaint_window_months']) ? absint($raw['complaint_window_months']) : 24,
         ];
     }
 }
