@@ -9,7 +9,7 @@ Stable tag: 1.3.1
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
-Let customers request returns, complaints and repairs from their account and manage RMAs in the admin.
+Returns, complaints and EU Right to Repair requests from My Account, also for guest orders, all answered from one admin list.
 
 == Description ==
 
@@ -126,6 +126,8 @@ Yes. This plugin is compatible with WordPress Multisite. Network activate it or 
 
 1. The request form in My Account: the customer picks return, complaint or repair, then the items and quantities.
 2. The settings screen: who may request, from which order statuses, and for how long after the order.
+3. A repair request: reasons that fit the chosen type, and the remedy the customer prefers.
+4. Guest orders: a shopper who checked out without an account finds the order by order number and billing email.
 
 == External Services ==
 
