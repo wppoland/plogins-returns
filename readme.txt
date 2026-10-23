@@ -5,7 +5,7 @@ Requires at least: 6.5
 Tested up to: 7.1
 Requires PHP: 8.1
 Requires Plugins: woocommerce
-Stable tag: 1.3.0
+Stable tag: 1.3.1
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -136,6 +136,9 @@ Redono connects to no external services. It sends no data off your site and load
 Redono is fully translatable and ships the `redono.pot` template. Translations are delivered by WordPress.org language packs from translate.wordpress.org, which is where Polish, German and Spanish are being contributed; the package itself carries no compiled translation files.
 
 == Changelog ==
+
+= 1.3.1 =
+* The "Request a return" link no longer shows twice on the single order view in My Account with WooCommerce 10.9 or later.
 
 = 1.3.0 =
 * Complaint and repair requests have their own time window, in months, 24 by default to match the EU legal guarantee. Returns keep the window in days. The form offers only the request types whose window is still open for that order.

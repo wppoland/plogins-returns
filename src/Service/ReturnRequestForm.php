@@ -137,7 +137,9 @@ final class ReturnRequestForm implements HasHooks
         // WooCommerce 10.9 started feeding this filter into order-details.php,
         // which also renders the order-received screen. A return link belongs on
         // My Account, not on the page a shopper lands on straight after paying.
-        if (function_exists('is_order_received_page') && is_order_received_page()) {
+        // The single order view already has orderViewButton(), so adding the
+        // action there too would print the link twice.
+        if ((function_exists('is_order_received_page') && is_order_received_page()) || is_wc_endpoint_url('view-order')) {
             return $actions;
         }
 
