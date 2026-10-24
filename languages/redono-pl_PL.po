@@ -3,8 +3,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Returns - RMA and Return Requests for WooCommerce 0.1.0\n"
-"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/returns\n"
-"POT-Creation-Date: 2026-09-26T04:48:58+00:00\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/redono\n"
+"POT-Creation-Date: 2026-10-23T11:54:14+00:00\n"
 "PO-Revision-Date: 2026-06-15 00:00+0000\n"
 "Last-Translator: motylanogha <szatkowski.mariusz@gmail.com>\n"
 "Language-Team: Polish <pl@li.org>\n"
@@ -55,10 +55,6 @@ msgstr ""
 "wtyczki WooCommerce."
 
 #: src/Admin/ProUpsell.php:85
-msgid "Wkrótce"
-msgstr "Wkrótce"
-
-#: src/Admin/ProUpsell.php:85
 msgid "Coming soon"
 msgstr "Wkrótce"
 
@@ -71,10 +67,6 @@ msgstr "od %1$s%2$d/rok"
 #: src/Admin/ProUpsell.php:100
 msgid "Upgrade to PRO"
 msgstr "Przejdź na PRO"
-
-#: src/Admin/ProUpsell.php:101
-msgid "Powiadom mnie"
-msgstr "Powiadom mnie"
 
 #: src/Admin/ProUpsell.php:101
 msgid "Get notified"
@@ -108,19 +100,19 @@ msgstr "jedna licencja, wszystkie funkcje PRO"
 msgid "What %s adds"
 msgstr "Co dodaje %s"
 
-#: src/Admin/Settings.php:65
+#: src/Admin/Settings.php:66
 msgid "Redono: returns and RMA"
 msgstr ""
 
-#: src/Admin/Settings.php:66
+#: src/Admin/Settings.php:67
 msgid "Redono"
 msgstr ""
 
-#: src/Admin/Settings.php:106
+#: src/Admin/Settings.php:109
 msgid "Let customers request returns from their account"
 msgstr "Pozwól klientom zgłaszać zwroty z poziomu konta"
 
-#: src/Admin/Settings.php:108
+#: src/Admin/Settings.php:111
 msgid ""
 "Customers open a return from My Account > Orders: they pick items, a "
 "quantity, a reason and an optional note. Each request is emailed to you and "
@@ -132,27 +124,27 @@ msgstr ""
 "wysyłane do Ciebie e-mailem i zapisywane jako prywatny wpis, którym "
 "zarządzasz tutaj, wraz ze statusem, który klient może śledzić."
 
-#: src/Admin/Settings.php:111
+#: src/Admin/Settings.php:114
 msgid "View return requests"
 msgstr "Zobacz zgłoszenia zwrotów"
 
-#: src/Admin/Settings.php:120
+#: src/Admin/Settings.php:123
 msgid "Availability"
 msgstr "Dostępność"
 
-#: src/Admin/Settings.php:121
+#: src/Admin/Settings.php:124
 msgid "The master switch for the whole return flow."
 msgstr "Wyłącznik główny całego przepływu powrotnego."
 
-#: src/Admin/Settings.php:125
+#: src/Admin/Settings.php:128
 msgid "Enable returns"
 msgstr "Włącz zwroty"
 
-#: src/Admin/Settings.php:131
+#: src/Admin/Settings.php:134
 msgid "Let customers request a return from My Account."
 msgstr "Pozwól klientom poprosić o zwrot z poziomu Mojego konta."
 
-#: src/Admin/Settings.php:133
+#: src/Admin/Settings.php:136
 msgid ""
 "On: a \"Request a return\" link appears next to eligible orders, and the "
 "request form is reachable. Off: the link and form disappear from the "
@@ -163,11 +155,11 @@ msgstr ""
 "znikają ze sklepu, istniejące zapytania pozostają w Twoich rejestrach. "
 "Domyślnie włączone."
 
-#: src/Admin/Settings.php:141
+#: src/Admin/Settings.php:144
 msgid "What can be returned"
 msgstr "Co można zwrócić"
 
-#: src/Admin/Settings.php:142
+#: src/Admin/Settings.php:145
 msgid ""
 "Decide which orders qualify and for how long. An order must clear both tests "
 "before its \"Request a return\" link shows."
@@ -175,11 +167,11 @@ msgstr ""
 "Zdecyduj, które zamówienia się kwalifikują i na jak długo. Zamówienie musi "
 "przejść oba testy, zanim pojawi się link „Poproś o zwrot”."
 
-#: src/Admin/Settings.php:146 src/Admin/Settings.php:149
+#: src/Admin/Settings.php:149 src/Admin/Settings.php:152
 msgid "Eligible order statuses"
 msgstr "Statusy zamówień objęte zwrotem"
 
-#: src/Admin/Settings.php:160
+#: src/Admin/Settings.php:163
 msgid ""
 "Orders in any other status never show the return link. Most shops pick the "
 "statuses that mean \"the customer has the goods\", usually Completed (and "
@@ -194,35 +186,52 @@ msgstr ""
 "odznaczysz, opcja Zakończone pozostanie zachowana, więc funkcja nadal będzie "
 "działać."
 
-#: src/Admin/Settings.php:165
+#: src/Admin/Settings.php:168
 msgid "Return window (days)"
 msgstr "Okno zwrotu (dni)"
 
-#: src/Admin/Settings.php:171
+#: src/Admin/Settings.php:174
 msgid ""
-"Counted from the order date. After it passes, the return link no longer "
-"appears for that order. Set 0 to accept returns with no deadline. Ships at "
-"30."
+"Applies to Return requests. Counted from the order date. After it passes, "
+"the customer can no longer choose Return for that order. Set 0 to accept "
+"returns with no deadline. Ships at 30."
 msgstr ""
-"Liczone od daty zamówienia. Po jego upływie link zwrotny nie będzie już "
-"wyświetlany dla tego zamówienia. Ustaw 0, aby akceptować zwroty bez terminu. "
-"Domyślnie 30."
 
-#. translators: %s is the number of days in the return window.
-#: src/Admin/Settings.php:176
+#. translators: %s is the date the return window closes.
+#: src/Admin/Settings.php:179
 #, php-format
 msgid "Example: an order placed today can be returned until %s."
 msgstr "Przykład: zamówienie złożone dzisiaj można zwrócić do %s."
 
-#: src/Admin/Settings.php:207
+#: src/Admin/Settings.php:188
+msgid "Complaint and repair window (months)"
+msgstr ""
+
+#: src/Admin/Settings.php:194
+msgid ""
+"Applies to Complaint and Repair requests, counted from the order date. A "
+"fault can surface long after the return window has closed, and in the EU the "
+"legal guarantee runs for at least two years, so this window is separate. Set "
+"0 for no deadline. Ships at 24."
+msgstr ""
+
+#. translators: %s is the date the complaint and repair window closes.
+#: src/Admin/Settings.php:199
+#, php-format
+msgid ""
+"Example: an order placed today can receive a complaint or repair request "
+"until %s."
+msgstr ""
+
+#: src/Admin/Settings.php:231
 msgid "any time later, no deadline"
 msgstr "w dowolnym momencie, bez terminu"
 
-#: src/Admin/Settings.php:232
+#: src/Admin/Settings.php:256
 msgid "Processing"
 msgstr "W trakcie realizacji"
 
-#: src/Admin/Settings.php:233 src/Support/Statuses.php:32
+#: src/Admin/Settings.php:257 src/Support/Statuses.php:32
 msgid "Completed"
 msgstr "Zakończone"
 
@@ -279,12 +288,12 @@ msgstr "Produkty"
 msgid "Return details"
 msgstr "Szczegóły zwrotu"
 
-#: src/PostType/ReturnRequest.php:395 src/Service/ReturnRequestForm.php:477
+#: src/PostType/ReturnRequest.php:395 src/Service/ReturnRequestForm.php:671
 msgid "Preferred remedy"
 msgstr "Preferowane rozwiązanie"
 
 #: src/PostType/ReturnRequest.php:400 src/Service/ReturnPrivacyService.php:87
-#: src/Service/ReturnRequestForm.php:456
+#: src/Service/ReturnRequestForm.php:650
 msgid "Reason"
 msgstr "Powód"
 
@@ -300,13 +309,13 @@ msgstr "Zgłoszone produkty"
 msgid "No items recorded."
 msgstr "Nie zapisano żadnych produktów."
 
-#: src/PostType/ReturnRequest.php:417 src/Service/ReturnRequestForm.php:417
-#: src/Service/ReturnRequestForm.php:434
+#: src/PostType/ReturnRequest.php:417 src/Service/ReturnRequestForm.php:611
+#: src/Service/ReturnRequestForm.php:628
 msgid "Product"
 msgstr "Produkt"
 
-#: src/PostType/ReturnRequest.php:418 src/Service/ReturnRequestForm.php:418
-#: src/Service/ReturnRequestForm.php:439
+#: src/PostType/ReturnRequest.php:418 src/Service/ReturnRequestForm.php:612
+#: src/Service/ReturnRequestForm.php:633
 msgid "Quantity"
 msgstr "Ilość"
 
@@ -330,11 +339,11 @@ msgstr "Filtruj według rodzaju"
 msgid "All types"
 msgstr "Wszystkie rodzaje"
 
-#: src/Service/MyReturns.php:47
+#: src/Service/MyReturns.php:47 src/Service/ReturnRequestForm.php:421
 msgid "Return requested."
 msgstr "Zwrot został zgłoszony."
 
-#: src/Service/MyReturns.php:48
+#: src/Service/MyReturns.php:48 src/Service/ReturnRequestForm.php:422
 msgid "We have received your return request and will be in touch shortly."
 msgstr ""
 "Otrzymaliśmy Twoje zgłoszenie zwrotu i wkrótce się z Tobą skontaktujemy."
@@ -376,7 +385,7 @@ msgstr "Identyfikator zamówienia"
 msgid "Customer Note"
 msgstr "Notatka klienta"
 
-#: src/Service/ReturnPrivacyService.php:120
+#: src/Service/ReturnPrivacyService.php:122
 msgid ""
 "Customer personal notes and IDs removed from RMA requests; return records "
 "retained for statutory bookkeeping."
@@ -384,90 +393,133 @@ msgstr ""
 "Osobiste notatki klienta i identyfikatory usunięte ze zgłoszeń RMA; rekordy "
 "zwrotów zachowane na potrzeby ustawowej księgowości."
 
-#: src/Service/ReturnRequestForm.php:136 src/Service/ReturnRequestForm.php:163
-#: src/Service/ReturnRequestForm.php:365
+#: src/Service/ReturnRequestForm.php:150 src/Service/ReturnRequestForm.php:177
+#: src/Service/ReturnRequestForm.php:556
 msgid "Request a return"
 msgstr "Zgłoś zwrot"
 
-#: src/Service/ReturnRequestForm.php:154 src/Service/ReturnRequestForm.php:203
+#: src/Service/ReturnRequestForm.php:168 src/Service/ReturnRequestForm.php:217
+#: src/Service/ReturnRequestForm.php:430
 msgid "A request of every type has already been submitted for this order."
 msgstr "Dla tego zamówienia wysłano już zgłoszenia wszystkich rodzajów."
 
-#: src/Service/ReturnRequestForm.php:196 src/Service/ReturnRequestForm.php:250
+#: src/Service/ReturnRequestForm.php:210 src/Service/ReturnRequestForm.php:273
 msgid ""
 "That order could not be found, or you do not have permission to return it."
 msgstr "Nie znaleziono tego zamówienia lub nie masz uprawnień do jego zwrotu."
 
-#: src/Service/ReturnRequestForm.php:210
+#: src/Service/ReturnRequestForm.php:224
 msgid "This order is not eligible for a return."
 msgstr "To zamówienie nie kwalifikuje się do zwrotu."
 
-#: src/Service/ReturnRequestForm.php:235
+#: src/Service/ReturnRequestForm.php:249 src/Service/ReturnRequestForm.php:358
 msgid "Your session expired. Please try again."
 msgstr "Twoja sesja wygasła. Spróbuj ponownie."
 
-#: src/Service/ReturnRequestForm.php:241
+#: src/Service/ReturnRequestForm.php:261
 msgid "Please log in to request a return."
 msgstr "Zaloguj się, aby zgłosić zwrot."
 
-#: src/Service/ReturnRequestForm.php:270
+#: src/Service/ReturnRequestForm.php:293
 msgid "Please choose the kind of request you want to make."
 msgstr "Wybierz rodzaj zgłoszenia."
 
-#: src/Service/ReturnRequestForm.php:274
+#: src/Service/ReturnRequestForm.php:295
+msgid "The time limit for this kind of request has passed for this order."
+msgstr ""
+
+#: src/Service/ReturnRequestForm.php:299
 msgid "Please select at least one item."
 msgstr "Wybierz co najmniej jedną pozycję."
 
-#: src/Service/ReturnRequestForm.php:278
+#: src/Service/ReturnRequestForm.php:303
 msgid "Please choose a reason."
 msgstr "Wybierz powód."
 
-#: src/Service/ReturnRequestForm.php:280
+#: src/Service/ReturnRequestForm.php:305
 msgid "That reason does not match the chosen request type."
 msgstr "Ten powód nie pasuje do wybranego rodzaju zgłoszenia."
 
-#: src/Service/ReturnRequestForm.php:286
+#: src/Service/ReturnRequestForm.php:311
 msgid "Please choose a preferred remedy."
 msgstr "Wybierz preferowane rozwiązanie."
 
-#. translators: %s: request type label, e.g. "Return", "Complaint" or
-#. "Repair".
-#: src/Service/ReturnRequestForm.php:295
+#. translators: %s: request type label, e.g. "Return", "Complaint" or "Repair".
+#: src/Service/ReturnRequestForm.php:320
 #, php-format
 msgid "A %s request has already been submitted for this order."
 msgstr "Dla tego zamówienia wysłano już zgłoszenie tego rodzaju (%s)."
 
+#: src/Service/ReturnRequestForm.php:371
+msgid "Too many attempts. Please wait 15 minutes and try again."
+msgstr ""
+
+#: src/Service/ReturnRequestForm.php:381
+msgid ""
+"We could not find an eligible order with that order number and email address."
+msgstr ""
+
+#: src/Service/ReturnRequestForm.php:404
+msgid "Ordered without an account? Request a return with your order number."
+msgstr ""
+
+#: src/Service/ReturnRequestForm.php:441
+msgid "This link has expired. Please look up your order again."
+msgstr ""
+
+#: src/Service/ReturnRequestForm.php:455
+msgid "Request a return for a guest order"
+msgstr ""
+
+#: src/Service/ReturnRequestForm.php:456
+msgid ""
+"Enter the order number and the billing email address used at checkout. If "
+"you have an account, log in below instead."
+msgstr ""
+
+#: src/Service/ReturnRequestForm.php:460
+msgid "Order number"
+msgstr ""
+
+#: src/Service/ReturnRequestForm.php:465
+msgid "Billing email"
+msgstr ""
+
+#: src/Service/ReturnRequestForm.php:470
+msgid "Find my order"
+msgstr ""
+
 #. translators: %s: order number
-#: src/Service/ReturnRequestForm.php:370
+#: src/Service/ReturnRequestForm.php:561
 #, php-format
 msgid "Order #%s"
 msgstr "Zamówienie #%s"
 
-#: src/Service/ReturnRequestForm.php:388
+#: src/Service/ReturnRequestForm.php:582
 msgid "What would you like to do?"
 msgstr "Czego oczekujesz?"
 
-#: src/Service/ReturnRequestForm.php:408
+#: src/Service/ReturnRequestForm.php:602
 msgid "Which items would you like to return?"
 msgstr "Które produkty chcesz zwrócić?"
 
-#: src/Service/ReturnRequestForm.php:416 src/Service/ReturnRequestForm.php:430
+#: src/Service/ReturnRequestForm.php:610 src/Service/ReturnRequestForm.php:624
 msgid "Select"
 msgstr "Wybierz"
 
-#: src/Service/ReturnRequestForm.php:441
+#: src/Service/ReturnRequestForm.php:635
 msgid "Quantity to return"
 msgstr "Ilość do zwrotu"
 
-#: src/Service/ReturnRequestForm.php:459
+#: src/Service/ReturnRequestForm.php:653
 msgid "Select a reason…"
 msgstr "Wybierz powód…"
 
-#: src/Service/ReturnRequestForm.php:480
+#: src/Service/ReturnRequestForm.php:674
 msgid "Select a remedy…"
 msgstr "Wybierz rozwiązanie…"
 
-#: src/Service/ReturnRequestForm.php:485
+#: src/Service/ReturnRequestForm.php:679
 msgid ""
 "Applies to complaint and repair requests. Under EU rules you can ask for a "
 "repair of a faulty item."
@@ -475,57 +527,81 @@ msgstr ""
 "Dotyczy reklamacji i zgłoszeń naprawy. Zgodnie z przepisami UE możesz "
 "zażądać naprawy wadliwego produktu."
 
-#: src/Service/ReturnRequestForm.php:492
+#: src/Service/ReturnRequestForm.php:686
 msgid "Additional details"
 msgstr "Dodatkowe informacje"
 
-#: src/Service/ReturnRequestForm.php:497
+#: src/Service/ReturnRequestForm.php:691
 msgid "Submit return request"
 msgstr "Wyślij zgłoszenie zwrotu"
 
-#: src/Service/ReturnRequestForm.php:498
+#: src/Service/ReturnRequestForm.php:692
 msgid "Cancel"
 msgstr "Anuluj"
 
 #. translators: 1: request type label, 2: order number, 3: site name
-#: src/Service/ReturnRequestForm.php:526
+#: src/Service/ReturnRequestForm.php:720
 #, php-format
 msgid "A new %1$s request was submitted for order #%2$s on %3$s."
 msgstr "Nowe zgłoszenie (%1$s) do zamówienia #%2$s w sklepie %3$s."
 
-#: src/Service/ReturnRequestForm.php:532
+#: src/Service/ReturnRequestForm.php:726
 msgid "Customer:"
 msgstr "Klient:"
 
-#: src/Service/ReturnRequestForm.php:533
+#: src/Service/ReturnRequestForm.php:727 src/Service/ReturnRequestForm.php:786
 msgid "Type:"
 msgstr "Rodzaj:"
 
-#: src/Service/ReturnRequestForm.php:534
+#: src/Service/ReturnRequestForm.php:728
 msgid "Reason:"
 msgstr "Powód:"
 
-#: src/Service/ReturnRequestForm.php:537
+#: src/Service/ReturnRequestForm.php:731
 msgid "Preferred remedy:"
 msgstr "Preferowane rozwiązanie:"
 
-#: src/Service/ReturnRequestForm.php:541
+#: src/Service/ReturnRequestForm.php:735 src/Service/ReturnRequestForm.php:788
 msgid "Requested items:"
 msgstr "Zgłoszone produkty:"
 
-#: src/Service/ReturnRequestForm.php:549
+#: src/Service/ReturnRequestForm.php:743
 msgid "Customer note:"
 msgstr "Notatka klienta:"
 
-#: src/Service/ReturnRequestForm.php:557
+#: src/Service/ReturnRequestForm.php:750
 msgid "Manage in admin:"
 msgstr "Zarządzaj w panelu administracyjnym:"
 
 #. translators: 1: request type label, 2: order number
-#: src/Service/ReturnRequestForm.php:562
+#: src/Service/ReturnRequestForm.php:754
 #, php-format
 msgid "New %1$s request for order #%2$s"
 msgstr "Nowe zgłoszenie (%1$s) do zamówienia #%2$s"
+
+#. translators: 1: request type label, 2: order number
+#: src/Service/ReturnRequestForm.php:780
+#, php-format
+msgid "We have received your %1$s request for order #%2$s."
+msgstr ""
+
+#: src/Service/ReturnRequestForm.php:785
+msgid "Request number:"
+msgstr ""
+
+#: src/Service/ReturnRequestForm.php:795
+msgid "We will review your request and get back to you."
+msgstr ""
+
+#: src/Service/ReturnRequestForm.php:798
+msgid "You can follow its status in your account:"
+msgstr ""
+
+#. translators: 1: site name, 2: request type label, 3: request number
+#: src/Service/ReturnRequestForm.php:806
+#, php-format
+msgid "[%1$s] Your %2$s request #%3$d has been received"
+msgstr ""
 
 #: src/Support/Reasons.php:27
 msgid "Arrived damaged or faulty"
@@ -655,6 +731,21 @@ msgstr "Wymiana"
 #: src/Support/Types.php:108
 msgid "Refund"
 msgstr "Zwrot pieniędzy"
+
+#~ msgid "Wkrótce"
+#~ msgstr "Wkrótce"
+
+#~ msgid "Powiadom mnie"
+#~ msgstr "Powiadom mnie"
+
+#~ msgid ""
+#~ "Counted from the order date. After it passes, the return link no longer "
+#~ "appears for that order. Set 0 to accept returns with no deadline. Ships "
+#~ "at 30."
+#~ msgstr ""
+#~ "Liczone od daty zamówienia. Po jego upływie link zwrotny nie będzie już "
+#~ "wyświetlany dla tego zamówienia. Ustaw 0, aby akceptować zwroty bez "
+#~ "terminu. Domyślnie 30."
 
 #~ msgid "Returns: RMA settings"
 #~ msgstr "Returns: ustawienia RMA"
