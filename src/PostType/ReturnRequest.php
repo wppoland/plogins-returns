@@ -145,7 +145,7 @@ final class ReturnRequest implements HasHooks
 
         /**
          * Fires after a new request is stored. Add-ons (e.g. Redono Pro) listen
-         * here to run type-specific automation, such as Right to Repair intake.
+         * here to run type-specific automation, such as repair intake.
          *
          * @param int    $postId The new request post ID.
          * @param string $type   The request type (a valid Types constant).
