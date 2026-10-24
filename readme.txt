@@ -1,15 +1,15 @@
 === Redono - Returns and RMA for WooCommerce ===
 Contributors: motylanogha
-Tags: woocommerce, returns, rma, complaint, right to repair
+Tags: woocommerce, returns, rma, complaint, repair
 Requires at least: 6.5
 Tested up to: 7.1
 Requires PHP: 8.1
 Requires Plugins: woocommerce
-Stable tag: 1.3.1
+Stable tag: 1.3.2
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
-Returns, complaints and EU Right to Repair requests from My Account, also for guest orders, all answered from one admin list.
+Returns, complaints and repair requests from My Account, also for guest orders, all answered from one admin list.
 
 == Description ==
 
@@ -17,7 +17,7 @@ Redono gives a WooCommerce shop the after-sale half it usually lacks: a place fo
 
 * A **Return**, sending an item back for a refund or an exchange.
 * A **Complaint**, reporting a fault or a warranty issue.
-* A **Repair**, asking you to repair a faulty item. This is the EU Right to Repair path, Directive (EU) 2024/1799.
+* A **Repair**, asking you to repair a faulty item. Repair is one of the remedies the EU legal guarantee gives a consumer against the seller (Directive (EU) 2019/771, art. 13).
 
 They pick the items and quantities, choose a reason from a list that fits the type they picked, add a note, and for a complaint or a repair state the remedy they would prefer: repair, replacement or refund. The request is stored as a private record, emailed to you, confirmed to the customer by email with its request number, and given a status the customer can follow from their own account.
 
@@ -41,7 +41,7 @@ In WordPress. Each request is a private `returns_rma` custom post type with its 
 
 = Features =
 
-* Three request types per order: Return, Complaint and Repair (EU Right to Repair ready).
+* Three request types per order: Return, Complaint and Repair.
 * "Request a return" action on eligible orders in My Account (orders list and single order view).
 * Type-aware reasons: each request type offers its own reason list, validated on the server.
 * Preferred remedy (repair, replacement or refund) captured for complaint and repair requests.
@@ -112,10 +112,13 @@ this plugin.
 
 = What is the Repair request type for? =
 
-It is the EU Right to Repair path (Directive (EU) 2024/1799). A customer can ask
-you to repair a faulty item and state their preferred remedy (repair, replacement
-or refund). The request is recorded like any other and tracked through the same
-status workflow.
+It is for the legal guarantee remedy. When an item is faulty, EU law lets a
+consumer ask the seller to repair or replace it (Directive (EU) 2019/771, art. 13).
+A customer can ask you to repair a faulty item and state their preferred remedy
+(repair, replacement or refund). The request is recorded like any other and
+tracked through the same status workflow. The separate EU right to repair rules
+(Directive (EU) 2024/1799) put their obligations on manufacturers, not on the
+shop, and this plugin does not implement them.
 
 
 = Does this plugin work on WordPress Multisite? =
@@ -138,6 +141,9 @@ Redono connects to no external services. It sends no data off your site and load
 Redono is fully translatable and ships the `redono.pot` template. Translations are delivered by WordPress.org language packs from translate.wordpress.org, which is where Polish, German and Spanish are being contributed; the package itself carries no compiled translation files.
 
 == Changelog ==
+
+= 1.3.2 =
+* Corrected the legal basis of the Repair request. A customer asking the shop to repair a faulty item uses the legal guarantee remedy (Directive (EU) 2019/771, art. 13); the right to repair rules of Directive (EU) 2024/1799 bind manufacturers, so the "EU Right to Repair" wording is gone from the readme, the plugin description and the request form.
 
 = 1.3.1 =
 * The "Request a return" link no longer shows twice on the single order view in My Account with WooCommerce 10.9 or later.

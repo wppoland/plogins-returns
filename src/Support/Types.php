@@ -11,7 +11,7 @@ defined('ABSPATH') || exit;
  *
  * A request is one of three kinds: a plain return (send an item back for a
  * refund or exchange), a complaint (report a fault or warranty issue), or a
- * repair request (the EU Right to Repair path). The type is stored as a post
+ * repair request (the legal guarantee remedy). The type is stored as a post
  * meta value on the return CPT. Records created before typing existed have no
  * type meta and read back as RETURN, so old data keeps working unchanged.
  *
@@ -81,7 +81,7 @@ final class Types
         $descriptions = [
             self::RETURN    => __('Send an item back for a refund or exchange.', 'redono'),
             self::COMPLAINT => __('Report a fault or a warranty issue with your order.', 'redono'),
-            self::REPAIR    => __('Ask us to repair a faulty item (your right to repair).', 'redono'),
+            self::REPAIR    => __('Ask us to repair a faulty item under the legal guarantee.', 'redono'),
         ];
 
         return $descriptions[$type] ?? '';
