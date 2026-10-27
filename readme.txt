@@ -5,7 +5,7 @@ Requires at least: 6.5
 Tested up to: 7.1
 Requires PHP: 8.1
 Requires Plugins: woocommerce
-Stable tag: 1.3.3
+Stable tag: 1.3.4
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -59,22 +59,25 @@ In WordPress. Each request is a private `returns_rma` custom post type with its 
 
 == Redono Pro ==
 
-Redono Pro is a separate paid plugin that extends Redono:
+Redono Pro is a separate paid plugin that extends Redono.
 
-| Feature | Free | Pro |
-|:--- |:---:|:---:|
-| Request a return | Yes | Yes |
-| Item picker | Yes | Yes |
-| Ownership checks | Yes | Yes |
-| Configurable eligibility | Yes | Yes |
-| Private record + email | Yes | Yes |
-| Status-change emails | - | Yes |
-| Refund amount line | - | Yes |
-| Store credit line | - | Yes |
-| Return shipping labels | - | Yes |
-| Automatic store credit | - | Yes |
-| Return-reason analytics | - | Yes |
-| Refund actions | - | Yes |
+Included in Redono:
+
+* Request a return
+* Item picker
+* Ownership checks
+* Configurable eligibility
+* Private record + email
+
+Redono Pro adds:
+
+* Status-change emails
+* Refund amount line
+* Store credit line
+* Return shipping labels
+* Automatic store credit
+* Return-reason analytics
+* Refund actions
 
 The free edition is not a trial and its features stay available without a time limit.
 
@@ -166,6 +169,10 @@ Redono connects to no external services. It sends no data off your site and load
 Redono is fully translatable and ships the `redono.pot` template. Translations are delivered by WordPress.org language packs from translate.wordpress.org, which is where Polish, German and Spanish are being contributed; the package itself carries no compiled translation files.
 
 == Changelog ==
+
+= 1.3.4 =
+* The Upgrade to PRO links open the pricing page in the admin's language where plogins.com has one, and tell plogins.com which plugin the visit came from (utm_source, utm_medium and utm_campaign in the link). Nothing is sent from your site.
+* Readme: the PRO section lists what the free plugin includes and what the paid edition adds as two lists, which WordPress.org can display (it does not display tables).
 
 = 1.3.3 =
 * Readme only: a PRO section with links to the paid edition.
