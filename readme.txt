@@ -59,15 +59,22 @@ In WordPress. Each request is a private `returns_rma` custom post type with its 
 
 == Redono Pro ==
 
-Redono Pro is a separate paid plugin that works on top of Redono. It adds:
+Redono Pro is a separate paid plugin that extends Redono:
 
-* Status-change emails
-* Refund amount line
-* Store credit line
-* Return shipping labels
-* Automatic store credit
-* Return-reason analytics
-* Refund actions
+| Feature | Free | Pro |
+|:--- |:---:|:---:|
+| Request a return | Yes | Yes |
+| Item picker | Yes | Yes |
+| Ownership checks | Yes | Yes |
+| Configurable eligibility | Yes | Yes |
+| Private record + email | Yes | Yes |
+| Status-change emails | - | Yes |
+| Refund amount line | - | Yes |
+| Store credit line | - | Yes |
+| Return shipping labels | - | Yes |
+| Automatic store credit | - | Yes |
+| Return-reason analytics | - | Yes |
+| Refund actions | - | Yes |
 
 The free edition is not a trial and its features stay available without a time limit.
 
