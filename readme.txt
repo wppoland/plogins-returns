@@ -5,7 +5,7 @@ Requires at least: 6.5
 Tested up to: 7.1
 Requires PHP: 8.1
 Requires Plugins: woocommerce
-Stable tag: 1.3.2
+Stable tag: 1.3.3
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -56,6 +56,24 @@ In WordPress. Each request is a private `returns_rma` custom post type with its 
 * Accessible markup with a responsive layout; storefront styles inherit your theme's colours, so they sit in light or dark themes without extra work.
 * Translation ready (POT included) and clean uninstall.
 * HPOS and cart/checkout blocks compatible.
+
+== Redono Pro ==
+
+Redono Pro is a separate paid plugin that works on top of Redono. It adds:
+
+* Status-change emails
+* Refund amount line
+* Store credit line
+* Return shipping labels
+* Automatic store credit
+* Return-reason analytics
+* Refund actions
+
+The free edition is not a trial and its features stay available without a time limit.
+
+* **Redono Pro** - [plogins.com/plogins-returns-pro/](https://plogins.com/plogins-returns-pro/)
+* **Compare editions and pricing** - [plogins.com/plogins-returns-pro/pricing/](https://plogins.com/plogins-returns-pro/pricing/)
+* **PRO documentation** - [plogins.com/plogins-returns-pro/docs/](https://plogins.com/plogins-returns-pro/docs/)
 
 == Installation ==
 
@@ -141,6 +159,9 @@ Redono connects to no external services. It sends no data off your site and load
 Redono is fully translatable and ships the `redono.pot` template. Translations are delivered by WordPress.org language packs from translate.wordpress.org, which is where Polish, German and Spanish are being contributed; the package itself carries no compiled translation files.
 
 == Changelog ==
+
+= 1.3.3 =
+* Readme only: a PRO section with links to the paid edition.
 
 = 1.3.2 =
 * Corrected the legal basis of the Repair request. A customer asking the shop to repair a faulty item uses the legal guarantee remedy (Directive (EU) 2019/771, art. 13); the right to repair rules of Directive (EU) 2024/1799 bind manufacturers, so the "EU Right to Repair" wording is gone from the readme, the plugin description and the request form.
