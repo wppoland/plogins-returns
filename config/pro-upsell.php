@@ -12,6 +12,8 @@ defined('ABSPATH') || exit;
 return [
     'name'       => 'Redono Pro',
     'url'        => 'https://plogins.com/plogins-returns-pro/pricing/',
+    'campaign'   => 'plogins-returns',
+    'locales'    => ['pl', 'de', 'es'],
     'sellable'   => true,
     'price_from' => 29,
     'currency'   => 'EUR',
