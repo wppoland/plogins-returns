@@ -4,15 +4,15 @@
  * scripts/gen-pro-upsell.mjs. The admin upsell renders this; curate the
  * feature list to fit this plugin's settings screen (do not invent features).
  *
- * @package plogins-returns-pro
+ * @package redono-pro
  */
 
 defined('ABSPATH') || exit;
 
 return [
     'name'       => 'Redono Pro',
-    'url'        => 'https://plogins.com/plogins-returns-pro/pricing/',
-    'campaign'   => 'plogins-returns',
+    'url'        => 'https://plogins.com/redono-pro/pricing/',
+    'campaign'   => 'redono',
     'locales'    => ['pl', 'de', 'es'],
     'sellable'   => true,
     'price_from' => 29,
