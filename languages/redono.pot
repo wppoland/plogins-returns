@@ -21,7 +21,7 @@ msgstr ""
 
 #. Plugin URI of the plugin
 #: redono.php
-msgid "https://plogins.com/plogins-returns/"
+msgid "https://plogins.com/redono/"
 msgstr ""
 
 #. Description of the plugin

@@ -5,7 +5,7 @@ Requires at least: 6.5
 Tested up to: 7.1
 Requires PHP: 8.1
 Requires Plugins: woocommerce
-Stable tag: 1.3.4
+Stable tag: 1.3.5
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -81,9 +81,9 @@ Redono Pro adds:
 
 The free edition is not a trial and its features stay available without a time limit.
 
-* **Redono Pro** - [plogins.com/plogins-returns-pro/](https://plogins.com/plogins-returns-pro/)
-* **Compare editions and pricing** - [plogins.com/plogins-returns-pro/pricing/](https://plogins.com/plogins-returns-pro/pricing/)
-* **PRO documentation** - [plogins.com/plogins-returns-pro/docs/](https://plogins.com/plogins-returns-pro/docs/)
+* **Redono Pro** - [plogins.com/redono-pro/](https://plogins.com/redono-pro/)
+* **Compare editions and pricing** - [plogins.com/redono-pro/pricing/](https://plogins.com/redono-pro/pricing/)
+* **PRO documentation** - [plogins.com/redono-pro/docs/](https://plogins.com/redono-pro/docs/)
 
 == Installation ==
 
@@ -169,6 +169,9 @@ Redono connects to no external services. It sends no data off your site and load
 Redono is fully translatable and ships the `redono.pot` template. Translations are delivered by WordPress.org language packs from translate.wordpress.org, which is where Polish, German and Spanish are being contributed; the package itself carries no compiled translation files.
 
 == Changelog ==
+
+= 1.3.5 =
+* Links point at the new plogins.com address.
 
 = 1.3.4 =
 * The Upgrade to PRO links open the pricing page in the admin's language where plogins.com has one, and tell plogins.com which plugin the visit came from (utm_source, utm_medium and utm_campaign in the link). Nothing is sent from your site.
