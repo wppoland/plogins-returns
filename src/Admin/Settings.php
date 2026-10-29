@@ -207,6 +207,28 @@ final class Settings implements HasHooks
                     </table>
                 </div>
 
+                <div class="returns-card">
+                    <h2 class="returns-card__title"><?php esc_html_e('Ecosystem integrations', 'redono'); ?></h2>
+                    <table class="form-table" role="presentation">
+                        <tbody>
+                            <tr>
+                                <th scope="row"><?php esc_html_e('Plogins Withdraw', 'redono'); ?></th>
+                                <td>
+                                    <?php if (class_exists('\Withdraw\Plugin')) : ?>
+                                        <p class="description" style="color:#007017;font-weight:600;">
+                                            <?php esc_html_e('Plogins Withdraw is active. It handles right-of-withdrawal requests with its own form and list, separate from the return requests here.', 'redono'); ?>
+                                        </p>
+                                    <?php else : ?>
+                                        <p class="description">
+                                            <?php esc_html_e('Install Plogins Withdraw to add a right-of-withdrawal button and form next to your returns flow.', 'redono'); ?>
+                                        </p>
+                                    <?php endif; ?>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
                 <?php submit_button(); ?>
             </form>
 
