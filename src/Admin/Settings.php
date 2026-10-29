@@ -220,7 +220,13 @@ final class Settings implements HasHooks
                                         </p>
                                     <?php else : ?>
                                         <p class="description">
-                                            <?php esc_html_e('Install Plogins Withdraw to add a right-of-withdrawal button and form next to your returns flow.', 'redono'); ?>
+                                            <?php
+                                            printf(
+                                                /* translators: %s: partner plugin name, linked to its search on the Add Plugins screen. */
+                                                esc_html__('Install %s to add a right-of-withdrawal button and form next to your returns flow.', 'redono'),
+                                                '<a href="' . esc_url(admin_url('plugin-install.php?s=' . rawurlencode('Plogins Withdraw - Right of Withdrawal Button for WooCommerce') . '&tab=search&type=term')) . '">' . esc_html('Plogins Withdraw - Right of Withdrawal Button for WooCommerce') . '</a>'
+                                            );
+                                            ?>
                                         </p>
                                     <?php endif; ?>
                                 </td>
