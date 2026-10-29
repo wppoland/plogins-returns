@@ -216,11 +216,11 @@ final class Settings implements HasHooks
                                 <td>
                                     <?php if (class_exists('\Withdraw\Plugin')) : ?>
                                         <p class="description" style="color:#007017;font-weight:600;">
-                                            <?php esc_html_e('Plogins Withdraw is active. Statutory EU 14-day right-of-withdrawal forms and logs are connected to your returns workflow.', 'redono'); ?>
+                                            <?php esc_html_e('Plogins Withdraw is active. It handles right-of-withdrawal requests with its own form and list, separate from the return requests here.', 'redono'); ?>
                                         </p>
                                     <?php else : ?>
                                         <p class="description">
-                                            <?php esc_html_e('Install Plogins Withdraw to provide statutory EU 14-day right-of-withdrawal compliance (Directive 2011/83/EU) alongside your standard returns flow.', 'redono'); ?>
+                                            <?php esc_html_e('Install Plogins Withdraw to add a right-of-withdrawal button and form next to your returns flow.', 'redono'); ?>
                                         </p>
                                     <?php endif; ?>
                                 </td>
