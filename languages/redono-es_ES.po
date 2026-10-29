@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Returns - RMA and Return Requests for WooCommerce 0.1.0\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/redono\n"
-"POT-Creation-Date: 2026-10-24T12:29:23+00:00\n"
+"POT-Creation-Date: 2026-10-29T13:42:47+00:00\n"
 "PO-Revision-Date: 2026-06-16T20:24:38+00:00\n"
 "Last-Translator: motylanogha <szatkowski.mariusz@gmail.com>\n"
 "Language-Team: Spanish <es@li.org>\n"
@@ -51,48 +51,48 @@ msgstr ""
 "Plogins Returns - Returns and RMA for WooCommerce requiere que WooCommerce "
 "esté activo."
 
-#: src/Admin/ProUpsell.php:85
+#: src/Admin/ProUpsell.php:110
 msgid "Coming soon"
 msgstr "Próximamente"
 
 #. translators: 1: currency symbol, 2: yearly price
-#: src/Admin/ProUpsell.php:91
+#: src/Admin/ProUpsell.php:116
 #, php-format
 msgid "from %1$s%2$d/yr"
 msgstr "desde %1$s%2$d/año"
 
-#: src/Admin/ProUpsell.php:100
+#: src/Admin/ProUpsell.php:125
 msgid "Upgrade to PRO"
 msgstr "Mejora a PRO"
 
-#: src/Admin/ProUpsell.php:101
+#: src/Admin/ProUpsell.php:126
 msgid "Get notified"
 msgstr "Avísame"
 
-#: src/Admin/ProUpsell.php:131
+#: src/Admin/ProUpsell.php:156
 msgid "Permission denied."
 msgstr "Permiso denegado."
 
 #. translators: %s: PRO edition name
-#: src/Admin/ProUpsell.php:161
+#: src/Admin/ProUpsell.php:186
 #, php-format
 msgid "Do more with %s"
 msgstr "Haz más con %s"
 
-#: src/Admin/ProUpsell.php:168
+#: src/Admin/ProUpsell.php:193
 msgid "Dismiss this notice"
 msgstr "Descartar este aviso"
 
-#: src/Admin/ProUpsell.php:190
+#: src/Admin/ProUpsell.php:215
 msgid "Unlock every PRO feature"
 msgstr "Desbloquea todas las funciones PRO"
 
-#: src/Admin/ProUpsell.php:203
+#: src/Admin/ProUpsell.php:228
 msgid "one licence, every PRO feature"
 msgstr "una licencia, todas las funciones PRO"
 
 #. translators: %s: PRO edition name
-#: src/Admin/ProUpsell.php:222
+#: src/Admin/ProUpsell.php:247
 #, php-format
 msgid "What %s adds"
 msgstr "Lo que añade %s"
@@ -220,15 +220,37 @@ msgid ""
 "until %s."
 msgstr ""
 
-#: src/Admin/Settings.php:231
+#: src/Admin/Settings.php:211
+msgid "Ecosystem integrations"
+msgstr ""
+
+#: src/Admin/Settings.php:215
+msgid "Plogins Withdraw"
+msgstr ""
+
+#: src/Admin/Settings.php:219
+msgid ""
+"Plogins Withdraw is active. It handles right-of-withdrawal requests with its "
+"own form and list, separate from the return requests here."
+msgstr ""
+
+#. translators: %s: partner plugin name, linked to its search on the Add Plugins screen.
+#: src/Admin/Settings.php:226
+#, php-format
+msgid ""
+"Install %s to add a right-of-withdrawal button and form next to your returns "
+"flow."
+msgstr ""
+
+#: src/Admin/Settings.php:259
 msgid "any time later, no deadline"
 msgstr "en cualquier momento después, sin fecha límite"
 
-#: src/Admin/Settings.php:256
+#: src/Admin/Settings.php:284
 msgid "Processing"
 msgstr "Procesando"
 
-#: src/Admin/Settings.php:257 src/Support/Statuses.php:32
+#: src/Admin/Settings.php:285 src/Support/Statuses.php:32
 msgid "Completed"
 msgstr "Terminado"
 
@@ -255,72 +277,72 @@ msgid "No return requests in Trash."
 msgstr "No hay solicitudes de devolución en la Papelera."
 
 #. translators: 1: request type label, 2: order number, 3: human-readable date
-#: src/PostType/ReturnRequest.php:118
+#: src/PostType/ReturnRequest.php:134
 #, php-format
 msgid "%1$s for order #%2$s, %3$s"
 msgstr "%1$s para el pedido #%2$s, %3$s"
 
-#: src/PostType/ReturnRequest.php:291 src/PostType/ReturnRequest.php:376
+#: src/PostType/ReturnRequest.php:307 src/PostType/ReturnRequest.php:392
 #: src/Service/MyReturns.php:70 src/Service/MyReturns.php:91
 msgid "Order"
 msgstr "Orden"
 
-#: src/PostType/ReturnRequest.php:292 src/PostType/ReturnRequest.php:386
+#: src/PostType/ReturnRequest.php:308 src/PostType/ReturnRequest.php:402
 #: src/Service/MyReturns.php:69 src/Service/MyReturns.php:85
 #: src/Service/ReturnPrivacyService.php:86
 msgid "Type"
 msgstr "Tipo"
 
-#: src/PostType/ReturnRequest.php:293 src/PostType/ReturnRequest.php:354
+#: src/PostType/ReturnRequest.php:309 src/PostType/ReturnRequest.php:370
 #: src/Service/MyReturns.php:72 src/Service/MyReturns.php:93
 #: src/Service/ReturnPrivacyService.php:89
 msgid "Status"
 msgstr "Estado"
 
-#: src/PostType/ReturnRequest.php:294
+#: src/PostType/ReturnRequest.php:310
 msgid "Items"
 msgstr "Elementos"
 
-#: src/PostType/ReturnRequest.php:345
+#: src/PostType/ReturnRequest.php:361
 msgid "Return details"
 msgstr "Detalles de devolución"
 
-#: src/PostType/ReturnRequest.php:395 src/Service/ReturnRequestForm.php:673
+#: src/PostType/ReturnRequest.php:411 src/Service/ReturnRequestForm.php:673
 msgid "Preferred remedy"
 msgstr "Solución preferida"
 
-#: src/PostType/ReturnRequest.php:400 src/Service/ReturnPrivacyService.php:87
+#: src/PostType/ReturnRequest.php:416 src/Service/ReturnPrivacyService.php:87
 #: src/Service/ReturnRequestForm.php:652
 msgid "Reason"
 msgstr "Razón"
 
-#: src/PostType/ReturnRequest.php:404
+#: src/PostType/ReturnRequest.php:420
 msgid "Customer note"
 msgstr "Nota al cliente"
 
-#: src/PostType/ReturnRequest.php:410
+#: src/PostType/ReturnRequest.php:426
 msgid "Requested items"
 msgstr "Artículos solicitados"
 
-#: src/PostType/ReturnRequest.php:412
+#: src/PostType/ReturnRequest.php:428
 msgid "No items recorded."
 msgstr "No hay artículos registrados."
 
-#: src/PostType/ReturnRequest.php:417 src/Service/ReturnRequestForm.php:613
+#: src/PostType/ReturnRequest.php:433 src/Service/ReturnRequestForm.php:613
 #: src/Service/ReturnRequestForm.php:630
 msgid "Product"
 msgstr "Producto"
 
-#: src/PostType/ReturnRequest.php:418 src/Service/ReturnRequestForm.php:614
+#: src/PostType/ReturnRequest.php:434 src/Service/ReturnRequestForm.php:614
 #: src/Service/ReturnRequestForm.php:635
 msgid "Quantity"
 msgstr "Cantidad"
 
-#: src/PostType/ReturnRequest.php:443
+#: src/PostType/ReturnRequest.php:459
 msgid "Return status"
 msgstr "Estado de devolución"
 
-#: src/PostType/ReturnRequest.php:453
+#: src/PostType/ReturnRequest.php:469
 msgid ""
 "The customer sees this status in their account. Updating it here does not "
 "refund the order, process any refund in the order screen."
@@ -328,11 +350,11 @@ msgstr ""
 "El cliente ve este estado en su cuenta. Actualizarlo aquí no reembolsa el "
 "pedido, procesa cualquier reembolso en la pantalla del pedido."
 
-#: src/PostType/ReturnRequest.php:522
+#: src/PostType/ReturnRequest.php:538
 msgid "Filter by type"
 msgstr "Filtrar por tipo"
 
-#: src/PostType/ReturnRequest.php:524
+#: src/PostType/ReturnRequest.php:540
 msgid "All types"
 msgstr "Todos los tipos"
 
