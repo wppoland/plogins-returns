@@ -171,6 +171,7 @@ Redono is fully translatable and ships the `redono.pot` template. Translations a
 == Changelog ==
 
 = 1.3.6 =
+* Security (low): return requests are open to shop managers and administrators only. They used the standard post permissions, so an Editor could open, edit and delete customers' return requests, with their names, emails and order details, by direct link.
 * Settings: added an Ecosystem integrations card that says whether Plogins Withdraw is active.
 
 = 1.3.5 =
@@ -273,3 +274,8 @@ Redono is fully translatable and ships the `redono.pot` template. Translations a
 
 = 0.1.0 =
 * Initial release: self-service return requests from My Account, item picker with reason and note, ownership checks, configurable eligibility and window, merchant email, a private return-request record and an admin status workflow.
+
+== Upgrade Notice ==
+
+= 1.3.6 =
+Security release. Editors could read and delete customers' return requests. Update, nothing else to do.
